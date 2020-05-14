@@ -10,9 +10,9 @@ export default function Home() {
       <View style={{ height: 100 }}>
         <Bold>SamuSociale</Bold>
       </View>
-      {/* <View style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <Calendar />
-      </View> */}
+      </View>
     </View>
   );
 }
