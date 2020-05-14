@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Text, View } from 'react-native';
 
 import Calendar from '../../component/Calendar';
-import Center from '../../component/Center';
 
 export default function Home() {
   return (

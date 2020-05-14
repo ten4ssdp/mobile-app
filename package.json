@@ -6,8 +6,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "eslint '*.{js,jsx}'",
-    "lint:fix": "eslint '*.{js,jsx}' --fix"
+    "lint": "eslint './**/*.{js,jsx}'",
+    "lint:fix": "eslint './**/*.{js,jsx}' --fix"
   },
   "husky": {
     "hooks": {
