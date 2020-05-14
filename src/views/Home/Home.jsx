@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Text } from 'react-native';
+
 import Center from '../../component/Center';
+import Bold from '../../component/Font/Bold';
+import Light from '../../component/Font/Light';
 
 export default function Home() {
   const [data, setData] = useState({});
@@ -16,8 +18,8 @@ export default function Home() {
 
   return (
     <Center>
-      <Text>{data.message}</Text>
-      <Text>{data.description}</Text>
+      <Bold>{data.message}</Bold>
+      <Light>{data.description}</Light>
     </Center>
   );
 }
