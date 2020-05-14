@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import React from 'react';
+import { TextInput, StyleSheet } from 'react-native';
 
 export default function Input() {
-  const [state, setstate] = useState('');
   return <TextInput style={styles.input} />;
 }
 
