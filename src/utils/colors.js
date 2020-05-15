@@ -8,6 +8,7 @@ export default {
   'orange-planning': '#FFA600',
   'active-white': '#FFFFFF',
   'urgence-color-planning': '#FF7777',
+  'grey-logo': '#D0C9D6',
   red: '#FE4949',
   'red-opacity': 'rgba(244, 38, 38, 0.51)'
 };

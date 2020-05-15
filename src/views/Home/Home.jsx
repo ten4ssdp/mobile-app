@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 
 import Calendar from '../../component/Calendar';
 import Bold from '../../component/Font/Bold';

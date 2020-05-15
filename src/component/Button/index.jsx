@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 
 import colors from '../../utils/colors';
 import Bold from '../Font/Bold';
 
+const { width } = Dimensions.get('window');
+
 export default function Button({ children, func }) {
   return (
-    <TouchableOpacity onPress={func}>
+    <TouchableOpacity onPress={() => func()}>
       <View style={styles.button}>
         <Bold style={styles.text}>{children}</Bold>
       </View>
@@ -19,9 +21,8 @@ const styles = StyleSheet.create({
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '90%',
+    width: width - 50,
     backgroundColor: colors['stroke-default-planning'],
-    alignSelf: 'center',
     borderRadius: 6
   },
   text: {
