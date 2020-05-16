@@ -1,4 +1,4 @@
-import { SIGNIN_USER, SIGNOUT_USER } from '../constant/user';
+import { SIGNIN_USER, SIGNOUT_USER, ISUSERLOGIN } from '../constant/user';
 
 function userReducer(state, action) {
   switch (action.type) {
@@ -6,6 +6,8 @@ function userReducer(state, action) {
       return state;
     case SIGNOUT_USER:
       return state;
+    case ISUSERLOGIN:
+      return { ...state, isLogin: action.payload };
     default:
       return state;
   }

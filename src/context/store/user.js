@@ -3,10 +3,10 @@ import React, { createContext } from 'react';
 import userReducer from '../reducer/user';
 
 const userInitialState = {
-  token: null
+  isLogin: false
 };
 
-export const UserStore = createContext(userInitialState);
+export const UserStore = createContext();
 
 export default function AuthProvider({ children }) {
   const [userState, dispatch] = React.useReducer(userReducer, userInitialState);

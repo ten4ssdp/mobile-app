@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Image,
@@ -13,12 +13,15 @@ import Bold from '../../component/Font/Bold';
 import Light from '../../component/Font/Light';
 import PasswordInput from '../../component/Input/PasswordInput';
 import Input from '../../component/Input/index';
+import { setIsUserLogin } from '../../context/action/user';
+import { UserStore } from '../../context/store/user';
 import colors from '../../utils/colors';
 
 const { width } = Dimensions.get('window');
 
 export default function Login({ navigation }) {
   const [values, setValues] = useState({ email: '', password: '' });
+  const { dispatch } = useContext(UserStore);
 
   const loginUser = async () => {
     const res = await fetch('http://15.188.3.249:5000/api/login', {
@@ -30,7 +33,7 @@ export default function Login({ navigation }) {
     });
     const token = await res.json();
     await AsyncStorage.setItem('token', token.token);
-    await navigation.navigate('Home');
+    await setIsUserLogin(dispatch, true);
     return token;
   };
 
