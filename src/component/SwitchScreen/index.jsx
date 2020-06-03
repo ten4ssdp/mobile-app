@@ -16,7 +16,7 @@ function SwitchItem(props) {
       style={{ ...styles.switchItem, ...props.style }}
     >
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Bold style={styles.text}>{props.label}</Bold>
+        <Bold style={{ ...styles.text, ...props.textStyle }}>{props.label}</Bold>
       </View>
     </TouchableOpacity>
   );
@@ -25,16 +25,33 @@ function SwitchItem(props) {
 export default function SwitchScreen() {
   const { state, dispatch } = useContext(MainStore);
 
+  console.log(state.hasToRenderCalendar);
+
   return (
     <View style={styles.switchContainer}>
       <SwitchItem
         label="Visites"
-        style={{ backgroundColor: colors['stroke-default-planning'] }}
-        onClick={() => onSwitchScreen(dispatch, !state.hasToRenderCalender)}
+        style={{
+          backgroundColor: state.hasToRenderCalendar
+            ? 'transparent'
+            : colors['stroke-default-planning']
+        }}
+        textStyle={{
+          color: state.hasToRenderCalendar ? colors['inactive-grey-text'] : colors['active-white']
+        }}
+        onClick={() => onSwitchScreen(dispatch, false)}
       />
       <SwitchItem
         label="Calendrier"
-        onClick={() => onSwitchScreen(dispatch, !state.hasToRenderCalender)}
+        style={{
+          backgroundColor: state.hasToRenderCalendar
+            ? colors['stroke-default-planning']
+            : 'transparent'
+        }}
+        textStyle={{
+          color: state.hasToRenderCalendar ? colors['active-white'] : colors['inactive-grey-text']
+        }}
+        onClick={() => onSwitchScreen(dispatch, true)}
       />
     </View>
   );
@@ -56,7 +73,6 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   text: {
-    color: colors['inactive-grey-text'],
     fontSize: 16
   }
 });
@@ -64,5 +80,6 @@ const styles = StyleSheet.create({
 SwitchItem.propTypes = {
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  style: PropTypes.object
+  style: PropTypes.object,
+  textStyle: PropTypes.object
 };

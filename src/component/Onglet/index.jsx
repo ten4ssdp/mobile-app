@@ -1,28 +1,32 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 import Bold from '../Font/Bold';
 import SwitchScreen from '../SwitchScreen';
 
 const { width } = Dimensions.get('window');
 
-export default function Onglet({ title }) {
+export default function Onglet({ title, y }) {
+  const ongletHeight = y.interpolate({
+    inputRange: [0, 180 - 80],
+    outputRange: [180, 100],
+    extrapolate: 'clamp'
+  });
   return (
-    <View style={styles.ongletContainer}>
-      <Bold style={styles.title}>{title}</Bold>
+    <Animated.View style={{ ...styles.ongletContainer, height: ongletHeight }}>
+      <Animated.Text style={{ ...styles.title }}>{title}</Animated.Text>
       <View style={styles.switchContainer}>
         <SwitchScreen />
       </View>
-    </View>
+    </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
   ongletContainer: {
     height: 180,
-    width,
-    borderBottomWidth: 1,
-    borderBottomColor: 'black'
+    width
   },
   switchContainer: {
     flex: 1,

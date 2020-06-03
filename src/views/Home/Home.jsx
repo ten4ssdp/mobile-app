@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { View } from 'react-native';
+import { Value } from 'react-native-reanimated';
 
 import Calendar from '../../component/Calendar';
 import Onglet from '../../component/Onglet';
@@ -8,11 +9,13 @@ import { MainStore } from '../../context/store/main';
 
 export default function Home() {
   const { state } = useContext(MainStore);
-  console.log(state);
+  const y = new Value(0);
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <Onglet title="Mes visites" />
-      <View style={{ flex: 1 }}>{state.hasToRenderCalendar ? <Calendar /> : <VisitList />}</View>
+      <Onglet y={y} title={state.hasToRenderCalendar ? 'Mon calendrier' : 'Mes visites'} />
+      <View style={{ flex: 1 }}>
+        {state.hasToRenderCalendar ? <Calendar /> : <VisitList y={y} />}
+      </View>
     </View>
   );
 }

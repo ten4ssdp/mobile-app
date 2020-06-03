@@ -12,5 +12,8 @@ export default {
   red: '#FE4949',
   'red-opacity': 'rgba(244, 38, 38, 0.51)',
   'light-grey': '#F8F8F8',
-  'inactive-grey-text': '#E0E0E0'
+  'inactive-grey-text': '#E0E0E0',
+  'midnight-blue': '#0D2C55',
+  'opacity-midnigth-blue': 'rgba(13, 44, 85, 0.7)',
+  'midnight-light-blue': '#728D9F'
 };

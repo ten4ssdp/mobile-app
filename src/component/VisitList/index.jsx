@@ -1,10 +1,21 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import Animated from 'react-native-reanimated';
 
-export default function VisitList() {
+import VisitCard from '../VisitCard';
+
+export default function VisitList({ y }) {
   return (
-    <View>
-      <Text>Liste de visite</Text>
-    </View>
+    <Animated.ScrollView
+      scrollEventThrottle={16}
+      style={{ flex: 1, backgroundColor: '#E5E5E5', paddingTop: 10 }}
+      onScroll={Animated.event([{ nativeEvent: { contentOffset: { y } } }])}
+    >
+      <VisitCard />
+      <VisitCard />
+      <VisitCard />
+      <VisitCard />
+      <VisitCard />
+      <VisitCard />
+    </Animated.ScrollView>
   );
 }
