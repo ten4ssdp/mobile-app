@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-import Bold from '../Font/Bold';
 import SwitchScreen from '../SwitchScreen';
 
 const { width } = Dimensions.get('window');
