@@ -10,5 +10,7 @@ export default {
   'urgence-color-planning': '#FF7777',
   'grey-logo': '#D0C9D6',
   red: '#FE4949',
-  'red-opacity': 'rgba(244, 38, 38, 0.51)'
+  'red-opacity': 'rgba(244, 38, 38, 0.51)',
+  'light-grey': '#F8F8F8',
+  'inactive-grey-text': '#E0E0E0'
 };

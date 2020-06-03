@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import ErrorBoundary from 'react-native-error-boundary';
@@ -9,3 +10,7 @@ export default function Center({ children }) {
     </View>
   );
 }
+
+Center.propTypes = {
+  children: PropTypes.node.isRequired
+};

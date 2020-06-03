@@ -8,6 +8,7 @@ import ErrorBoundary from 'react-native-error-boundary';
 import 'react-native-gesture-handler';
 import Routes from './src/Routes';
 import AuthProvider from './src/context/store/user';
+import MainProvider from './src/context/store/main';
 
 function useFonts(fontMap) {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -34,9 +35,11 @@ export default function App() {
   } else {
     return (
       <AuthProvider>
-        <ErrorBoundary>
-          <Routes />
-        </ErrorBoundary>
+        <MainProvider>
+          <ErrorBoundary>
+            <Routes />
+          </ErrorBoundary>
+        </MainProvider>
       </AuthProvider>
     );
   }
