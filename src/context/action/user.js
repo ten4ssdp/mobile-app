@@ -1,4 +1,4 @@
-import { ISUSERLOGIN } from '../constant/user';
+import { ISUSERLOGIN, SET_USER } from '../constant/user';
 
 /**
  *
@@ -9,6 +9,19 @@ import { ISUSERLOGIN } from '../constant/user';
 export const setIsUserLogin = (dispatch, payload) => {
   return dispatch({
     type: ISUSERLOGIN,
+    payload
+  });
+};
+
+/**
+ *
+ * @param {Object} dispatch
+ * @param {Object} payload
+ */
+
+export const setUser = (dispatch, payload) => {
+  return dispatch({
+    type: SET_USER,
     payload
   });
 };

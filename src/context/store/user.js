@@ -3,7 +3,8 @@ import React, { createContext } from 'react';
 import userReducer from '../reducer/user';
 
 const userInitialState = {
-  isLogin: false
+  isLogin: false,
+  user: {}
 };
 
 export const UserStore = createContext();
