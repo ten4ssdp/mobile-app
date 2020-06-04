@@ -24,5 +24,9 @@ const styles = StyleSheet.create({
 
 // TODO: valid proptypes
 VisitCardAddress.propTypes = {
-  location: PropTypes.objectOf(PropTypes.string)
+  location: PropTypes.shape({
+    address: PropTypes.string,
+    zipCode: PropTypes.number,
+    city: PropTypes.string
+  })
 };
