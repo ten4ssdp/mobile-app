@@ -1,13 +1,24 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import OpenMap from 'react-native-open-map';
 
 import colors from '../../utils/colors';
 import Bold from '../Font/Bold';
 
-export default function VisitCardBtnGoTo() {
+export default function VisitCardBtnGoTo({ latLong, name }) {
   return (
     <View style={styles.goToButtonContainer}>
-      <TouchableOpacity onPress={() => console.log("j'y vais")}>
+      <TouchableOpacity
+        onPress={() => {
+          OpenMap.show({
+            latitude: latLong.lat,
+            longitude: latLong.long,
+            title: name,
+            cancelText: 'Fermer',
+            actionSheetTitle: 'Choisir une application'
+          });
+        }}
+      >
         <Bold style={{ color: colors['active-white'] }}>S'y rendre</Bold>
       </TouchableOpacity>
     </View>
