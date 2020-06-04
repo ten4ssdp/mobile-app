@@ -12,9 +12,13 @@ export default function Home() {
   const y = new Value(0);
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <Onglet y={y} title={state.hasToRenderCalendar ? 'Mon calendrier' : 'Mes visites'} />
-      <View style={{ flex: 1 }}>
-        {state.hasToRenderCalendar ? <Calendar /> : <VisitList y={y} />}
+      <Onglet
+        y={y}
+        isVisitPage={!state.hasToRenderCalendar}
+        title={state.hasToRenderCalendar ? 'Mon calendrier' : 'Mes visites'}
+      />
+      <View style={{ flex: 1, backgroundColor: '#E5E5E5' }}>
+        {state.hasToRenderCalendar ? <Calendar y={y} /> : <VisitList y={y} />}
       </View>
     </View>
   );

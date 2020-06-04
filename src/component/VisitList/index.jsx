@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, ActivityIndicator, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
+import colors from '../../utils/colors';
 import VisitCard from '../VisitCard';
 
 export default function VisitList({ y }) {
@@ -20,10 +21,14 @@ export default function VisitList({ y }) {
     getHotels();
   }, []);
 
-  return (
+  return hotels.length <= 0 ? (
+    <View style={{ flex: 1, paddingTop: 200 }}>
+      <ActivityIndicator size="large" color={colors['midnight-blue']} />
+    </View>
+  ) : (
     <Animated.ScrollView
       scrollEventThrottle={16}
-      style={{ flex: 1, backgroundColor: '#E5E5E5', paddingTop: 10 }}
+      style={{ flex: 1, paddingTop: 10 }}
       onScroll={Animated.event([{ nativeEvent: { contentOffset: { y } } }])}
       contentContainerStyle={{
         alignItems: 'center'
