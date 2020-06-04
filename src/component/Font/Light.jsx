@@ -3,11 +3,11 @@ import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 
 export default function Light({ children, style }) {
-  return <Text style={{ ...styles.bold, ...style }}>{children}</Text>;
+  return <Text style={{ ...styles.light, ...style }}>{children}</Text>;
 }
 
 const styles = StyleSheet.create({
-  bold: {
+  light: {
     fontFamily: 'nexaLight'
   }
 });
