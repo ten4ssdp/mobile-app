@@ -1,0 +1,1 @@
+export const SWICTH_SCREEN = 'SWICTH_SCREEN';

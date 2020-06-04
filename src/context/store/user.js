@@ -2,6 +2,12 @@ import React, { createContext } from 'react';
 
 import userReducer from '../reducer/user';
 
+/**
+ * @type {Object}
+ * @property {Boolean} isLogin
+ * @property {Object} user
+ *
+ */
 const userInitialState = {
   isLogin: false,
   user: {}

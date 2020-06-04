@@ -3,15 +3,15 @@ import { View, Text } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 
 const items = {
-  '2020-05-14': [
+  '2020-06-03': [
     { name: 'Hotel salako', horaire: '12h-14h' },
     { name: 'Hotel salako', horaire: '12h-14h' },
     { name: 'Hotel salako', horaire: '12h-14h' },
     { name: 'Hotel salako', horaire: '12h-14h' }
   ],
-  '2020-05-15': [{ name: 'item 2 - any js object', height: 80 }],
-  '2020-05-16': [],
-  '2020-05-17': [{ name: 'item 3 - any js object' }, { name: 'any js object' }]
+  '2020-06-04': [{ name: 'item 2 - any js object', height: 80 }],
+  '2020-06-05': [],
+  '2020-06-08': [{ name: 'item 3 - any js object' }, { name: 'any js object' }]
 };
 
 export default function Calendar() {
