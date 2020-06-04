@@ -1,13 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import Bold from '../Font/Bold';
 
-export default function VisitCardAddress() {
+export default function VisitCardAddress({ location }) {
   return (
     <View style={styles.addressContainer}>
-      <Bold style={{ marginBottom: 3 }}>27 bis rue du progres</Bold>
-      <Bold>12345 Montreuil</Bold>
+      <Bold style={{ marginBottom: 3 }}>{location.address}</Bold>
+      <Bold>
+        {location.zipCode} {location.city}
+      </Bold>
     </View>
   );
 }
@@ -18,3 +21,8 @@ const styles = StyleSheet.create({
     marginVertical: 15
   }
 });
+
+// TODO: valid proptypes
+VisitCardAddress.propTypes = {
+  location: PropTypes.objectOf(PropTypes.string)
+};

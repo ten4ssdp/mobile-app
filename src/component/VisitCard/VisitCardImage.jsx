@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View, StyleSheet, ImageBackground } from 'react-native';
 
 import colors from '../../utils/colors';
 import Bold from '../Font/Bold';
 
-export default function VisitCardImage({ isEmergency }) {
+export default function VisitCardImage({ isEmergency, name }) {
   return (
     <ImageBackground
       style={styles.imageContainer}
@@ -17,7 +18,7 @@ export default function VisitCardImage({ isEmergency }) {
         </View>
       )}
       <View style={styles.hotelNameContainer}>
-        <Bold style={styles.hotelName}>Hello</Bold>
+        <Bold style={styles.hotelName}>{name}</Bold>
       </View>
     </ImageBackground>
   );
@@ -58,3 +59,8 @@ const styles = StyleSheet.create({
     marginLeft: 25
   }
 });
+
+VisitCardImage.propTypes = {
+  isEmergency: PropTypes.bool,
+  name: PropTypes.string.isRequired
+};

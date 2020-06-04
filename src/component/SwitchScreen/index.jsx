@@ -25,8 +25,6 @@ function SwitchItem(props) {
 export default function SwitchScreen() {
   const { state, dispatch } = useContext(MainStore);
 
-  console.log(state.hasToRenderCalendar);
-
   return (
     <View style={styles.switchContainer}>
       <SwitchItem
