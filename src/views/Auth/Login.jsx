@@ -108,7 +108,6 @@ const styles = StyleSheet.create({
     height: height / 4
   },
   submit: {
-    display: 'flex',
     justifyContent: 'space-around',
     height: height / 4
   }
