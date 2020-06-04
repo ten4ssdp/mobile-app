@@ -5,12 +5,12 @@ import { View, StyleSheet, ImageBackground } from 'react-native';
 import colors from '../../utils/colors';
 import Bold from '../Font/Bold';
 
-export default function VisitCardImage({ isEmergency, name }) {
+export default function BackgroundImage({ isEmergency, name, style, resizeMode }) {
   return (
     <ImageBackground
-      style={styles.imageContainer}
+      style={{ ...styles.imageContainer, ...style }}
       source={require('../../../assets/images/default-visit-hotel.png')}
-      resizeMode="contain"
+      resizeMode={resizeMode ? resizeMode : 'contain'}
     >
       {isEmergency && (
         <View style={styles.redOverlay}>
@@ -60,7 +60,9 @@ const styles = StyleSheet.create({
   }
 });
 
-VisitCardImage.propTypes = {
+BackgroundImage.propTypes = {
   isEmergency: PropTypes.bool,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  style: PropTypes.object,
+  resizeMode: PropTypes.string
 };

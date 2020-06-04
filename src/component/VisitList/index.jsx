@@ -5,7 +5,7 @@ import Animated from 'react-native-reanimated';
 import colors from '../../utils/colors';
 import VisitCard from '../VisitCard';
 
-export default function VisitList({ y }) {
+export default function VisitList({ y, navigation }) {
   const [hotels, setHotels] = useState([]);
   useEffect(() => {
     const getHotels = async () => {
@@ -35,7 +35,7 @@ export default function VisitList({ y }) {
       }}
     >
       {hotels.map((hotel) => {
-        return <VisitCard hotel={hotel} key={hotel.id} />;
+        return <VisitCard hotel={hotel} key={hotel.id} navigation={navigation} />;
       })}
     </Animated.ScrollView>
   );
