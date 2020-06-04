@@ -20,8 +20,6 @@ import colors from '../../utils/colors';
 
 const { width, height } = Dimensions.get('window');
 
-console.log({ width, height });
-
 export default function Login({ navigation }) {
   const [values, setValues] = useState({ email: '', password: '' });
   const { dispatch } = useContext(UserStore);
