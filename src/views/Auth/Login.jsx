@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
     height: 'auto'
   },
   inputs: {
-    display: 'flex',
     justifyContent: 'space-around',
     height: height / 4
   },
