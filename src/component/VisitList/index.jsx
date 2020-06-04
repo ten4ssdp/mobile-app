@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { AsyncStorage } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 
 import VisitCard from '../VisitCard';
