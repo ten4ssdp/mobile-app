@@ -3,10 +3,15 @@ import { View, StyleSheet, Button } from 'react-native';
 
 import colors from '../../utils/colors';
 
-export default function VisitCardButtonGroup({ navigation, hotel }) {
+export default function VisitCardButtonGroup({ navigation, hotel, latLong }) {
   return (
     <View style={styles.buttonContainer}>
-      <View style={{ ...styles.button, backgroundColor: colors['stroke-default-planning'] }}>
+      <View
+        style={{
+          ...styles.button,
+          backgroundColor: colors['stroke-default-planning']
+        }}
+      >
         <Button title="Visite Finalisée" color={colors['active-white']} />
       </View>
       <View style={{ ...styles.button, backgroundColor: colors['midnight-light-blue'] }}>
@@ -14,7 +19,7 @@ export default function VisitCardButtonGroup({ navigation, hotel }) {
           title="Détails"
           color={colors['active-white']}
           onPress={() => {
-            navigation.navigate('Details', { hotel });
+            navigation.navigate('Details', { hotel, latLong });
           }}
         />
       </View>

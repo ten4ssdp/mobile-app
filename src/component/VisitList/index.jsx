@@ -9,14 +9,18 @@ export default function VisitList({ y, navigation }) {
   const [hotels, setHotels] = useState([]);
   useEffect(() => {
     const getHotels = async () => {
-      const res = await fetch('http://15.188.3.249:5000/api/hotels', {
-        headers: {
-          'content-type': 'application/json',
-          authorization: `bearer ${await AsyncStorage.getItem('token')}`
-        }
-      });
-      const data = await res.json();
-      setHotels(data.slice(0, 5));
+      try {
+        const res = await fetch('http://localhost:4000/api/hotels', {
+          headers: {
+            'content-type': 'application/json',
+            authorization: `bearer ${await AsyncStorage.getItem('token')}`
+          }
+        });
+        const data = await res.json();
+        setHotels(data.slice(0, 5));
+      } catch (error) {
+        console.log(error.message);
+      }
     };
     getHotels();
   }, []);

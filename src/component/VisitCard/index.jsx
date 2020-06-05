@@ -5,7 +5,7 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 
 import colors from '../../utils/colors';
 import BackgroundImage from '../BackgroundImage';
-import VisitCardAddress from './VisitCardAddress';
+import HotelAddress from '../HotelAddress';
 import VisitCardBtnGoTo from './VisitCardBtnGoTo';
 import VisitCardButtonGroup from './VisitCardButtonGroup';
 
@@ -37,9 +37,9 @@ export default function VisitCard({ hotel, navigation }) {
   return (
     <View style={styles.card}>
       <BackgroundImage name={hotel.name} />
-      <VisitCardAddress location={location} />
+      <HotelAddress location={location} />
       <VisitCardBtnGoTo latLong={latLong} name={hotel.name} />
-      <VisitCardButtonGroup hotel={hotel} navigation={navigation} />
+      <VisitCardButtonGroup latLong={latLong} hotel={hotel} navigation={navigation} />
     </View>
   );
 }
