@@ -6,7 +6,8 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from 'react-native';
 
 import Button from '../../component/Button';
@@ -25,17 +26,22 @@ export default function Login({ navigation }) {
   const { dispatch } = useContext(UserStore);
 
   const loginUser = async () => {
-    const res = await fetch('http://15.188.3.249:5000/api/login', {
-      method: 'POST',
-      body: JSON.stringify({ email: values.email, password: values.password }),
-      headers: {
-        'content-type': 'application/json'
-      }
-    });
-    const token = await res.json();
-    await AsyncStorage.setItem('token', token.token);
-    await setIsUserLogin(dispatch, true);
-    return token;
+    try {
+      const res = await fetch('http://15.188.3.249:5000/api/login', {
+        method: 'POST',
+        body: JSON.stringify({ email: values.email, password: values.password }),
+        headers: {
+          'content-type': 'application/json'
+        }
+      });
+
+      const token = await res.json();
+
+      await AsyncStorage.setItem('token', token.token);
+      await setIsUserLogin(dispatch, true);
+    } catch (error) {
+      Alert.alert('Error', error);
+    }
   };
 
   return (

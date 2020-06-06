@@ -12,7 +12,7 @@ import {
 
 import Bold from './component/Font/Bold';
 import LogoTitle from './component/LogoTitle';
-import { setUser } from './context/action/user';
+import { setUser, signoutUser } from './context/action/user';
 import { UserStore } from './context/store/user';
 import colors from './utils/colors';
 import Login from './views/Auth/Login';
@@ -25,21 +25,31 @@ const IoniconsHeaderButton = (props) => (
 const Stack = createStackNavigator();
 
 export default function AppStack() {
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState(null);
 
   const { userState, dispatch } = useContext(UserStore);
 
-  useEffect(() => {
-    async function getToken() {
-      try {
-        const tokenFound = await AsyncStorage.getItem('token');
-        setToken(tokenFound);
-        const decoded = jwtDecode(tokenFound);
-        setUser(dispatch, decoded);
-      } catch (error) {
-        Alert.alert('Error', error.message);
-      }
+  async function getToken() {
+    try {
+      const tokenFound = await AsyncStorage.getItem('token');
+      setToken(tokenFound);
+      const decoded = jwtDecode(tokenFound);
+      setUser(dispatch, decoded);
+    } catch (error) {
+      Alert.alert('Error', error.message);
     }
+  }
+
+  async function removeToken() {
+    try {
+      await AsyncStorage.removeItem('token');
+      setToken(null);
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    }
+  }
+
+  useEffect(() => {
     getToken();
   }, [userState.isLogin]);
 
@@ -67,7 +77,7 @@ export default function AppStack() {
                   <OverflowMenu
                     OverflowIcon={<Ionicons name="md-contact" size={23} color="white" />}
                   >
-                    <HiddenItem title="Deconnexion" onPress={() => Alert.alert('Deconnection')} />
+                    <HiddenItem title="Deconnexion" onPress={() => Alert.alert('Deconnexion')} />
                   </OverflowMenu>
                 </HeaderButtons>
               </View>
