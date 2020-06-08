@@ -7,7 +7,7 @@ import Bold from '../Font/Bold';
 
 const { width } = Dimensions.get('window');
 
-export default function Button({ children, func, variant }) {
+export default function Button({ children, func, variant, style }) {
   const isDefault = variant === 'default';
 
   return (
@@ -15,7 +15,10 @@ export default function Button({ children, func, variant }) {
       <View
         style={{
           ...styles.button,
-          backgroundColor: isDefault ? colors['stroke-default-planning'] : 'none'
+          backgroundColor: isDefault ? colors['stroke-default-planning'] : colors['active-white'],
+          borderColor: !isDefault ? colors['stroke-default-planning'] : colors['active-white'],
+          borderWidth: !isDefault ? 1 : 0,
+          ...style
         }}
       >
         <Bold
@@ -47,5 +50,6 @@ const styles = StyleSheet.create({
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   func: PropTypes.func.isRequired,
-  variant: PropTypes.oneOf(['default', null])
+  variant: PropTypes.oneOf(['default', null]),
+  style: PropTypes.object
 };
