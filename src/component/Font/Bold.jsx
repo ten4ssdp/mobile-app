@@ -19,5 +19,5 @@ const styles = StyleSheet.create({
 Bold.propTypes = {
   children: PropTypes.node,
   style: PropTypes.object,
-  func: PropTypes.func
+  func: PropTypes.any
 };
