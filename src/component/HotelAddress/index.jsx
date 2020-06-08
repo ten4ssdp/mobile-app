@@ -4,11 +4,11 @@ import { View, StyleSheet } from 'react-native';
 
 import Bold from '../Font/Bold';
 
-export default function VisitCardAddress({ location }) {
+export default function HotelAddress({ location, style }) {
   return (
     <View style={styles.addressContainer}>
-      <Bold style={{ marginBottom: 3 }}>{location.address}</Bold>
-      <Bold>
+      <Bold style={{ marginBottom: 3, ...style }}>{location.address}</Bold>
+      <Bold style={{ ...style }}>
         {location.zipCode} {location.city}
       </Bold>
     </View>
@@ -22,11 +22,11 @@ const styles = StyleSheet.create({
   }
 });
 
-// TODO: valid proptypes
-VisitCardAddress.propTypes = {
+HotelAddress.propTypes = {
   location: PropTypes.shape({
     address: PropTypes.string,
     zipCode: PropTypes.number,
     city: PropTypes.string
-  })
+  }),
+  style: PropTypes.object
 };
