@@ -2,12 +2,12 @@ import React from 'react';
 import { View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 
-import formatDate from '../../utils/formatDate';
+import { formatDateForkeyObj } from '../../utils/formatDate';
 import CalendarCard from '../CalendarCard';
 
 const items = {};
 
-items[formatDate()] = [
+items[formatDateForkeyObj()] = [
   { name: 'Hotel salako', horaire: '12h-14h', type: 'urgence' },
   { name: 'Hotel salako', horaire: '12h-14h' },
   { name: 'Hotel salako', horaire: '12h-14h', type: 'cancelled' },

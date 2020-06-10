@@ -21,6 +21,8 @@ export default function Details({ navigation, route, isEmergency }) {
     zipCode: hotel.zipCode
   };
 
+  const phoneCall = (phoneNumber) => Linking.openURL(`tel:${phoneNumber}`);
+
   return (
     <View style={{ flex: 1 }}>
       <BackgroundImage
@@ -38,7 +40,7 @@ export default function Details({ navigation, route, isEmergency }) {
         <Bold style={styles.text}>
           Numéro de téléphone :{' '}
           <Bold
-            func={() => Linking.openURL(`tel:${+33122334455}`)}
+            func={() => phoneCall(+33122334455)}
             style={{ color: colors['stroke-default-planning'] }}
           >
             01 22 33 44 55
@@ -120,7 +122,7 @@ export default function Details({ navigation, route, isEmergency }) {
           S'y rendre
         </Button>
         {isEmergency && (
-          <Button variant={null} func={() => Linking.openURL(`tel:${+33122334455}`)}>
+          <Button variant={null} func={() => phoneCall(+33122334455)}>
             Appeler l'opérateur
           </Button>
         )}
