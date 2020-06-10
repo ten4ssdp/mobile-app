@@ -1,18 +1,18 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 
-const items = {
-  '2020-06-03': [
-    { name: 'Hotel salako', horaire: '12h-14h' },
-    { name: 'Hotel salako', horaire: '12h-14h' },
-    { name: 'Hotel salako', horaire: '12h-14h' },
-    { name: 'Hotel salako', horaire: '12h-14h' }
-  ],
-  '2020-06-04': [{ name: 'item 2 - any js object', height: 80 }],
-  '2020-06-05': [],
-  '2020-06-08': [{ name: 'item 3 - any js object' }, { name: 'any js object' }]
-};
+import formatDate from '../../utils/formatDate';
+import CalendarCard from '../CalendarCard';
+
+const items = {};
+
+items[formatDate()] = [
+  { name: 'Hotel salako', horaire: '12h-14h', type: 'urgence' },
+  { name: 'Hotel salako', horaire: '12h-14h' },
+  { name: 'Hotel salako', horaire: '12h-14h', type: 'cancelled' },
+  { name: 'Hotel salako', horaire: '12h-14h', type: 'done' }
+];
 
 export default function Calendar() {
   return (
@@ -37,22 +37,7 @@ export default function Calendar() {
       pastScrollRange={100}
       futureScrollRange={100}
       renderItem={(item, firstItemInDay) => {
-        return (
-          <View
-            style={{
-              backgroundColor: 'white',
-              flex: 1,
-              borderRadius: 5,
-              padding: 5,
-              marginRight: 10,
-              marginTop: 17,
-              height: 150
-            }}
-          >
-            <Text>{item.name}</Text>
-            <Text>{item.horaire}</Text>
-          </View>
-        );
+        return <CalendarCard hotelName={item.name} hour={item.horaire} type={item.type} />;
       }}
       style={{ flex: 1 }}
       theme={{
