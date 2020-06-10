@@ -1,4 +1,4 @@
-function formatDateForkeyObj() {
+export function formatDateForkeyObj() {
   return new Date()
     .toLocaleDateString('fr-FR', {
       year: 'numeric',
