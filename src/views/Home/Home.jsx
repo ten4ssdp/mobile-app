@@ -7,7 +7,7 @@ import Onglet from '../../component/Onglet';
 import VisitList from '../../component/VisitList';
 import { MainStore } from '../../context/store/main';
 
-export default function Home() {
+export default function Home({ navigation }) {
   const { state } = useContext(MainStore);
   const y = new Value(0);
   return (
@@ -18,7 +18,11 @@ export default function Home() {
         title={state.hasToRenderCalendar ? 'Mon calendrier' : 'Mes visites'}
       />
       <View style={{ flex: 1, backgroundColor: '#E5E5E5' }}>
-        {state.hasToRenderCalendar ? <Calendar y={y} /> : <VisitList y={y} />}
+        {state.hasToRenderCalendar ? (
+          <Calendar y={y} />
+        ) : (
+          <VisitList navigation={navigation} y={y} />
+        )}
       </View>
     </View>
   );

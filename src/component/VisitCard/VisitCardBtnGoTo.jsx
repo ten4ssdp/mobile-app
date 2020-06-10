@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import OpenMap from 'react-native-open-map';
 
 import colors from '../../utils/colors';
+import goToFunction from '../../utils/goToFunction';
 import Bold from '../Font/Bold';
 
 export default function VisitCardBtnGoTo({ latLong, name }) {
@@ -10,13 +10,7 @@ export default function VisitCardBtnGoTo({ latLong, name }) {
     <View style={styles.goToButtonContainer}>
       <TouchableOpacity
         onPress={() => {
-          OpenMap.show({
-            latitude: latLong.lat,
-            longitude: latLong.long,
-            title: name,
-            cancelText: 'Fermer',
-            actionSheetTitle: 'Choisir une application'
-          });
+          goToFunction(latLong.lat, latLong.long, name);
         }}
       >
         <Bold style={{ color: colors['active-white'] }}>S'y rendre</Bold>

@@ -2,8 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 
-export default function Bold({ children, style }) {
-  return <Text style={{ ...styles.bold, ...style }}>{children}</Text>;
+export default function Bold({ children, style, func }) {
+  return (
+    <Text style={{ ...styles.bold, ...style }} onPress={() => func()}>
+      {children}
+    </Text>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -14,5 +18,6 @@ const styles = StyleSheet.create({
 
 Bold.propTypes = {
   children: PropTypes.node,
-  style: PropTypes.object
+  style: PropTypes.object,
+  func: PropTypes.any
 };

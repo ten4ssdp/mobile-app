@@ -4,14 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 
 import colors from '../../utils/colors';
-import VisitCardAddress from './VisitCardAddress';
+import BackgroundImage from '../BackgroundImage';
+import HotelAddress from '../HotelAddress';
 import VisitCardBtnGoTo from './VisitCardBtnGoTo';
 import VisitCardButtonGroup from './VisitCardButtonGroup';
-import VisitCardImage from './VisitCardImage';
 
 const { width } = Dimensions.get('window');
 
-export default function VisitCard({ hotel }) {
+export default function VisitCard({ hotel, navigation }) {
   const [latLong, setLatLong] = useState({ lat: null, long: null });
   const location = {
     address: hotel.address,
@@ -36,10 +36,10 @@ export default function VisitCard({ hotel }) {
 
   return (
     <View style={styles.card}>
-      <VisitCardImage name={hotel.name} />
-      <VisitCardAddress location={location} />
+      <BackgroundImage name={hotel.name} />
+      <HotelAddress location={location} />
       <VisitCardBtnGoTo latLong={latLong} name={hotel.name} />
-      <VisitCardButtonGroup />
+      <VisitCardButtonGroup latLong={latLong} hotel={hotel} navigation={navigation} />
     </View>
   );
 }
@@ -57,5 +57,6 @@ const styles = StyleSheet.create({
 
 VisitCard.propTypes = {
   hotel: PropTypes.object.isRequired,
-  isEmergency: PropTypes.bool
+  isEmergency: PropTypes.bool,
+  navigation: PropTypes.object
 };
