@@ -1,4 +1,4 @@
-import { ISUSERLOGIN, SET_USER, SIGNOUT_USER } from '../constant/user';
+import { ISUSERLOGIN, SET_USER, SIGNOUT_USER, SET_LOADING } from '../constant/user';
 
 /**
  *
@@ -33,9 +33,13 @@ export const setUser = (dispatch, payload) => {
 export const signoutUser = (dispatch) => {
   return dispatch({
     type: SIGNOUT_USER,
-    payload: {
-      isLogin: false,
-      user: {}
-    }
   });
 };
+
+
+export const setLoading = (dispatch, bool) => {
+  return dispatch({
+    type: SET_LOADING,
+    payload: bool
+  })
+}

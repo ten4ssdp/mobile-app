@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
-import jwtDecode from 'jwt-decode';
+
 import React, { useState, useEffect, useContext } from 'react';
 import { AsyncStorage, Alert, View } from 'react-native';
 import {
@@ -25,38 +25,16 @@ const IoniconsHeaderButton = (props) => (
 const Stack = createStackNavigator();
 
 export default function AppStack() {
-  const [token, setToken] = useState(null);
 
-  const { userState, dispatch } = useContext(UserStore);
+  const { userState, disconnect } = useContext(UserStore);
 
-  async function getToken() {
-    try {
-      const tokenFound = await AsyncStorage.getItem('token');
-      setToken(tokenFound);
-      const decoded = jwtDecode(tokenFound);
-      setUser(dispatch, decoded);
-    } catch (error) {
-      Alert.alert('Error', error.message);
-    }
+  if(userState.loading === true){
+    return <View><Bold>Loading</Bold></View>;
   }
 
-  async function removeToken() {
-    try {
-      await AsyncStorage.removeItem('token');
-      setToken(null);
-    } catch (error) {
-      Alert.alert('Error', error.message);
-    }
-  }
-
-  useEffect(() => {
-    getToken();
-  }, [userState.isLogin]);
-
-  // TODO: center le tout dans le header
   return (
     <Stack.Navigator>
-      {token ? (
+      {userState.isLogin ? (
         <Stack.Screen
           name="Home"
           component={Home}
@@ -77,7 +55,7 @@ export default function AppStack() {
                   <OverflowMenu
                     OverflowIcon={<Ionicons name="md-contact" size={23} color="white" />}
                   >
-                    <HiddenItem title="Deconnexion" onPress={() => Alert.alert('Deconnexion')} />
+                    <HiddenItem title="Deconnexion" onPress={() => disconnect()} />
                   </OverflowMenu>
                 </HeaderButtons>
               </View>
