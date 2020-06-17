@@ -35,7 +35,7 @@ export default function AuthProvider({ children }) {
   const getToken = async () => {
     try{
       let tokenFound = await AsyncStorage.getItem('token');
-      console.log(tokenFound)
+  
       if(tokenFound) {
         const userInfo = jwtDecode(tokenFound);
         await setUser(dispatch, userInfo);
