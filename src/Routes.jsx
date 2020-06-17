@@ -16,7 +16,6 @@ function Routes() {
     async function getToken() {
       try {
         const tokenFound = await AsyncStorage.getItem('token');
-
         if(tokenFound){
           setToken(tokenFound);
           const decoded = jwtDecode(tokenFound);
