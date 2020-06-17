@@ -1,14 +1,14 @@
 import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useContext } from 'react';
-import { Alert, View } from 'react-native';
+import { Alert, View, AsyncStorage } from 'react-native';
 import {
   HeaderButtons,
   HeaderButton,
   HiddenItem,
   OverflowMenu
 } from 'react-navigation-header-buttons';
-
+import {setIsUserLogin} from './context/action/user';
 import Bold from './component/Font/Bold';
 import LogoTitle from './component/LogoTitle';
 import { UserStore } from './context/store/user';
@@ -23,7 +23,16 @@ const IoniconsHeaderButton = (props) => (
 const Stack = createStackNavigator();
 
 export default function AppStack() {
-  const { userState } = useContext(UserStore);
+  const { userState, dispatch } = useContext(UserStore);
+
+  const disconnect = async () => {
+    try{
+      await AsyncStorage.removeItem('token');
+      setIsUserLogin(dispatch, false);
+    }catch(err){
+      console.log(err)
+    }
+  }
 
   // TODO: center le tout dans le header
 
@@ -53,7 +62,7 @@ export default function AppStack() {
             </Bold>
             <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
               <OverflowMenu OverflowIcon={<Ionicons name="md-contact" size={23} color="white" />}>
-                <HiddenItem title="Deconnexion" onPress={() => Alert.alert('Deconnection')} />
+                <HiddenItem title="Deconnexion" onPress={() => disconnect()} />
               </OverflowMenu>
             </HeaderButtons>
           </View>
