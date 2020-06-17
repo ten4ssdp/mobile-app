@@ -6,7 +6,8 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from 'react-native';
 
 import Button from '../../component/Button';
@@ -24,18 +25,32 @@ export default function Login({ navigation }) {
   const [values, setValues] = useState({ email: '', password: '' });
   const { dispatch } = useContext(UserStore);
 
+  const showMessage = (message) => Alert.alert("Erreur", message);
+
   const loginUser = async () => {
-    const res = await fetch('http://15.188.3.249:5000/api/login', {
-      method: 'POST',
-      body: JSON.stringify({ email: values.email, password: values.password }),
-      headers: {
-        'content-type': 'application/json'
+
+    try{
+
+      if(values.email === "" || values.password == ""){
+        throw new Error('Veuillez entrer une adresse email et un mot de passe valide.');
       }
-    });
-    const token = await res.json();
-    await AsyncStorage.setItem('token', token.token);
-    await setIsUserLogin(dispatch, true);
-    return token;
+
+      const res = await fetch('http://15.188.3.249:5000/api/login', {
+        method: 'POST',
+        body: JSON.stringify({ email: values.email, password: values.password }),
+        headers: {
+          'content-type': 'application/json'
+        }
+      });  
+
+      const data = await res.json();
+
+      await AsyncStorage.setItem('token', data.token);
+      await setIsUserLogin(dispatch, true);
+
+    }catch(err){
+      showMessage(err.message)
+    }
   };
 
   return (
