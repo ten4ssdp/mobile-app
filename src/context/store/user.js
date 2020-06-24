@@ -10,6 +10,7 @@ import userReducer from '../reducer/user';
  */
 const userInitialState = {
   isLogin: false,
+  token: '',
   user: {}
 };
 
