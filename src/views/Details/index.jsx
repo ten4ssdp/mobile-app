@@ -60,7 +60,7 @@ export default function Details({ navigation, route, isEmergency }) {
       ) : (
         <>
           <View style={{ paddingHorizontal: 16, marginBottom: 50 }}>
-            {hotel.visits.length > 0 && (
+            {hotel?.visits?.length > 0 && (
               <>
                 <Bold style={styles.text}>
                   Dernière visite réalisée le :{' '}
@@ -82,7 +82,9 @@ export default function Details({ navigation, route, isEmergency }) {
             </Bold>
             <Bold style={styles.text}>
               Secteur:{' '}
-              <Bold style={{ color: colors['stroke-default-planning'] }}>{hotel.sector.name}</Bold>
+              <Bold style={{ color: colors['stroke-default-planning'] }}>
+                {hotel?.sector?.name}
+              </Bold>
             </Bold>
           </View>
           <CancelVisitButton

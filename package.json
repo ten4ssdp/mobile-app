@@ -29,6 +29,7 @@
     "extends": "universe/native"
   },
   "dependencies": {
+    "@loriick/use-http-client": "^0.2.5",
     "@react-native-community/masked-view": "0.1.6",
     "@react-navigation/native": "^5.3.0",
     "@react-navigation/stack": "^5.3.3",

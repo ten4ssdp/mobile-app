@@ -2139,6 +2139,11 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@loriick/use-http-client@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@loriick/use-http-client/-/use-http-client-0.2.5.tgz#166977e55e7bb390112c03449a075ce145919814"
+  integrity sha512-RIgIfpX9Unf/hVO++5bUd2PwSK/EbNUjsTQrRyh6rLy/0Gl+4lqaJzuvqH1hwbAmHBex5U9Qeuqa/aRz/NKsRQ==
+
 "@react-native-community/cli-debugger-ui@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-3.0.0.tgz#d01d08d1e5ddc1633d82c7d84d48fff07bd39416"

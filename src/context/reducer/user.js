@@ -5,7 +5,7 @@ function userReducer(state, action) {
     case SIGNOUT_USER:
       return state;
     case ISUSERLOGIN:
-      return { ...state, isLogin: action.payload };
+      return { ...state, isLogin: action.payload.isLogin, token: action.payload.token };
     case SET_USER:
       return { ...state, user: action.payload };
     default:

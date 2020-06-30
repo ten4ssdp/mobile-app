@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import useHttpClient from '@loriick/use-http-client';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   View,
   Image,
@@ -25,33 +26,36 @@ export default function Login({ navigation }) {
   const [values, setValues] = useState({ email: '', password: '' });
   const { dispatch } = useContext(UserStore);
 
-  const showMessage = (message) => Alert.alert("Erreur", message);
-
-  const loginUser = async () => {
-
-    try{
-
-      if(values.email === "" || values.password == ""){
-        throw new Error('Veuillez entrer une adresse email et un mot de passe valide.');
-      }
-
-      const res = await fetch('http://15.188.3.249:5000/api/login', {
-        method: 'POST',
-        body: JSON.stringify({ email: values.email, password: values.password }),
+  const { data, status, error, executeRequest } = useHttpClient(
+    'http://15.188.3.249:5000/api/login',
+    {
+      method: 'POST',
+      onRender: false,
+      body: { email: values.email, password: values.password },
+      options: {
         headers: {
           'content-type': 'application/json'
         }
-      });  
-
-      const data = await res.json();
-
-      await AsyncStorage.setItem('token', data.token);
-      await setIsUserLogin(dispatch, true);
-
-    }catch(err){
-      showMessage(err.message)
+      }
     }
+  );
+
+  const showMessage = (message) => Alert.alert('Erreur', message);
+
+  const loginUser = async () => {
+    await executeRequest();
   };
+
+  useEffect(() => {
+    if (status === 'resolved') {
+      AsyncStorage.setItem('token', data.token);
+      setIsUserLogin(dispatch, { isLogin: true, token: data.token });
+    }
+  }, [status]);
+
+  if (status === 'rejected' || error) {
+    showMessage(error.message);
+  }
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => Keyboard.dismiss()}>
