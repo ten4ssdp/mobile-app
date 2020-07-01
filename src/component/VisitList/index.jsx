@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { AsyncStorage, ActivityIndicator } from 'react-native';
+import { AsyncStorage, ActivityIndicator, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import { getVisitsAction, getCurrentDayVisits } from '../../context/action/main';
@@ -11,10 +11,9 @@ import http from '../../utils/http';
 import VisitCard from '../VisitCard';
 
 export default function VisitList({ y, navigation }) {
-  const [visits, setVisits] = useState([]);
+  const [visits, setVisits] = useState(null);
   const [token, setToken] = useState('');
-  const [loading, setLoading] = useState(true);
-  const { userState, dispatch } = useContext(UserStore);
+  const { userState } = useContext(UserStore);
   const { state, dispatch: mainDispatch } = useContext(MainStore);
 
   useEffect(() => {
@@ -28,17 +27,14 @@ export default function VisitList({ y, navigation }) {
   useEffect(() => {
     const getVisits = async () => {
       try {
-        console.log({ e: userState.user, token });
         const res = await http.get(
           `visits/user/${userState.user.id}/${formatDateForMickey(getFirstDay(new Date()))}`,
           {
             authorization: `bearer ${token}`
           }
         );
-
         await getVisitsAction(mainDispatch, res.visits);
       } catch (error) {
-        setLoading(false);
         console.error(error.message);
       }
     };
@@ -50,25 +46,21 @@ export default function VisitList({ y, navigation }) {
   useEffect(() => {
     function currentDayVisits() {
       const today = new Date();
-      const filteredVisits = state.visits.filter((visit) => {
-        console.log('today', today);
-        console.log('visite', new Date(visit.start).getTime());
-
-        console.log(new Date(visit.start).getDate() === today.getDate());
+      const filteredVisits = state.visits?.filter((visit) => {
         return visit.status === 0 && new Date(visit.start).getDate() === today.getDate();
       });
-
       setVisits(filteredVisits);
-      getCurrentDayVisits(dispatch, filteredVisits);
-      setLoading(false);
+      getCurrentDayVisits(mainDispatch, filteredVisits);
     }
-    if (state.visits !== null && visits.length === 0) {
-      currentDayVisits();
-    }
-  }, [state.visit]);
+    currentDayVisits();
+  }, [state.visits]);
 
-  if (loading) {
-    return <ActivityIndicator size="large" color={colors['midBlack']} />;
+  if (visits === null) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color={colors['midnight-blue']} />
+      </View>
+    );
   }
 
   return (
@@ -80,7 +72,7 @@ export default function VisitList({ y, navigation }) {
         alignItems: 'center'
       }}
     >
-      {visits.map((visit) => {
+      {visits?.map((visit) => {
         return <VisitCard hotel={visit.hotel} key={visit.id} navigation={navigation} />;
       })}
     </Animated.ScrollView>
