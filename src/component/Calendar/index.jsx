@@ -1,20 +1,43 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 
-import { formatDateForkeyObj } from '../../utils/formatDate';
+import { MainStore } from '../../context/store/main';
+import { formatDateForkeyObj, returnHours } from '../../utils/formatDate';
 import CalendarCard from '../CalendarCard';
 
-const items = {};
+// const items = {};
 
-items[formatDateForkeyObj()] = [
-  { name: 'Hotel salako', horaire: '12h-14h', type: 'urgence' },
-  { name: 'Hotel salako', horaire: '12h-14h' },
-  { name: 'Hotel salako', horaire: '12h-14h', type: 'cancelled' },
-  { name: 'Hotel salako', horaire: '12h-14h', type: 'done' }
-];
+// items[formatDateForkeyObj(new Date())] = [
+//   { name: 'Hotel salako', horaire: '12h-14h', type: 'urgence' },
+//   { name: 'Hotel salako', horaire: '12h-14h' },
+//   { name: 'Hotel salako', horaire: '12h-14h', type: 'cancelled' },
+//   { name: 'Hotel salako', horaire: '12h-14h', type: 'done' }
+// ];
 
 export default function Calendar() {
+  const [items, setItems] = useState({});
+  const { state } = useContext(MainStore);
+
+  useEffect(() => {
+    const getVisitsCalendar = () => {
+      const dates = [
+        ...new Map(state.visits.map((item) => [new Date(item.start).getDate(), item])).values()
+      ].map((visit) => visit.start);
+
+      const items = dates.reduce((prev, curr) => {
+        prev[formatDateForkeyObj(curr)] = state?.visits?.filter(
+          (visit) => new Date(curr).getDate() === new Date(visit.start).getDate()
+        );
+        return prev;
+      }, {});
+
+      console.log(items);
+      setItems(items);
+    };
+    getVisitsCalendar();
+  }, [state.visits]);
+
   return (
     <Agenda
       items={items} // Callback that gets called when items for a certain month should be loaded (month became visible)
@@ -32,12 +55,18 @@ export default function Calendar() {
         return <View />;
       }}
       selected={Date.now()}
-      minDate={Date.now()}
       maxDate={Date.now()}
       pastScrollRange={100}
       futureScrollRange={100}
       renderItem={(item, firstItemInDay) => {
-        return <CalendarCard hotelName={item.name} hour={item.horaire} type={item.type} />;
+        console.log(item);
+        return (
+          <CalendarCard
+            hotelName={item.hotel.name}
+            hour={returnHours({ start: item.start, end: item.end })}
+            type={item.status}
+          />
+        );
       }}
       style={{ flex: 1 }}
       theme={{

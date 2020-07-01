@@ -12,14 +12,16 @@ const { width } = Dimensions.get('screen');
 // TODO: center button content
 export default function CancelVisitButton({ func }) {
   return (
-    <TouchableOpacity style={styles.container} onPress={() => func()}>
-      <View style={styles.btn}>
-        <Light style={styles.text}>Annuler la visite</Light>
-        <View style={styles.exclamationMark}>
-          <Bold style={styles.exclamationMarkText}>!</Bold>
+    <View style={styles.container}>
+      <TouchableOpacity style={{ flex: 1 }} onPress={() => func()}>
+        <View style={styles.btn}>
+          <Light style={styles.text}>Annuler la visite</Light>
+          <View style={styles.exclamationMark}>
+            <Bold style={styles.exclamationMarkText}>!</Bold>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 }
 
@@ -38,7 +40,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    lineHeight: 1
   },
   exclamationMark: {
     backgroundColor: '#FF7777',
@@ -46,7 +49,8 @@ const styles = StyleSheet.create({
     width: 30,
     borderRadius: 100,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    lineHeight: 1
   },
   text: {
     fontSize: 14,
@@ -55,8 +59,7 @@ const styles = StyleSheet.create({
   },
   exclamationMarkText: {
     color: colors['active-white'],
-    fontSize: 18,
-    lineHeight: 18
+    fontSize: 18
   }
 });
 

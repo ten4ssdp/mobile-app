@@ -1,5 +1,4 @@
-import useHttpClient from '@loriick/use-http-client';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Image,
@@ -19,6 +18,7 @@ import Input from '../../component/Input/index';
 import { setIsUserLogin } from '../../context/action/user';
 import { UserStore } from '../../context/store/user';
 import colors from '../../utils/colors';
+import http from '../../utils/http';
 
 const { width, height } = Dimensions.get('window');
 
@@ -26,36 +26,18 @@ export default function Login({ navigation }) {
   const [values, setValues] = useState({ email: '', password: '' });
   const { dispatch } = useContext(UserStore);
 
-  const { data, status, error, executeRequest } = useHttpClient(
-    'http://15.188.3.249:5000/api/login',
-    {
-      method: 'POST',
-      onRender: false,
-      body: { email: values.email, password: values.password },
-      options: {
-        headers: {
-          'content-type': 'application/json'
-        }
-      }
-    }
-  );
-
   const showMessage = (message) => Alert.alert('Erreur', message);
 
   const loginUser = async () => {
-    await executeRequest();
-  };
-
-  useEffect(() => {
-    if (status === 'resolved') {
-      AsyncStorage.setItem('token', data.token);
-      setIsUserLogin(dispatch, { isLogin: true, token: data.token });
+    try {
+      const res = await http.post('login', { email: values.email, password: values.password });
+      await AsyncStorage.setItem('token', res.token);
+      await setIsUserLogin(dispatch, true);
+      return res.token;
+    } catch (error) {
+      showMessage(error.message);
     }
-  }, [status]);
-
-  if (status === 'rejected' || error) {
-    showMessage(error.message);
-  }
+  };
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => Keyboard.dismiss()}>
