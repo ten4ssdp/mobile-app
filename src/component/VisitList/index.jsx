@@ -73,7 +73,7 @@ export default function VisitList({ y, navigation }) {
       }}
     >
       {visits?.map((visit) => {
-        return <VisitCard hotel={visit.hotel} key={visit.id} navigation={navigation} />;
+        return <VisitCard visit={visit} key={visit.id} navigation={navigation} />;
       })}
     </Animated.ScrollView>
   );
