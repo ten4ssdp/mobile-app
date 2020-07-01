@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import jwtDecode from 'jwt-decode';
 import React, { useState, useEffect, useContext } from 'react';
-import { AsyncStorage, Alert } from 'react-native';
+import { AsyncStorage } from 'react-native';
 
 import AppStack from './AppStack';
 import LoginStack from './LoginStack';

@@ -1,4 +1,4 @@
-import { ISUSERLOGIN, SET_USER, GET } from '../constant/user';
+import { ISUSERLOGIN, SET_USER } from '../constant/user';
 
 /**
  *

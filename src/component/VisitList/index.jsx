@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { AsyncStorage, ActivityIndicator, View } from 'react-native';
+import { AsyncStorage, ActivityIndicator } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import { getVisitsAction, getCurrentDayVisits } from '../../context/action/main';
@@ -59,7 +59,7 @@ export default function VisitList({ y, navigation }) {
       });
 
       setVisits(filteredVisits);
-      // getCurrentDayVisits(filteredVisits)
+      getCurrentDayVisits(dispatch, filteredVisits);
       setLoading(false);
     }
     if (state.visits !== null && visits.length === 0) {
