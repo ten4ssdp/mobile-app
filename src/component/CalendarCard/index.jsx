@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View, ImageBackground, StyleSheet, Dimensions } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import colors from '../../utils/colors';
 import Bold from '../Font/Bold';
@@ -8,7 +9,7 @@ import Light from '../Font/Light';
 
 const { height } = Dimensions.get('screen');
 
-export default function CalendarCard({ type, hotelName, hour, isUrgence }) {
+export default function CalendarCard({ type, hotelName, hour, isUrgence, navigation, hotel }) {
   function setBgColor(type) {
     switch (type) {
       case 1:
@@ -22,19 +23,28 @@ export default function CalendarCard({ type, hotelName, hour, isUrgence }) {
     }
   }
   return (
-    <View
+    <TouchableWithoutFeedback
       style={{
         ...styles.card,
         backgroundColor: setBgColor(type)
       }}
+      onPress={() => {
+        navigation.navigate('Details', { hotel: hotel.hotel, status: type, start: hotel.start });
+      }}
     >
-      <ImageBackground style={styles.bgImg} source={require('../../../assets/images/grid.png')}>
-        <View style={styles.textContainer}>
-          <Light style={{ ...styles.text, marginBottom: 5 }}>{hour}</Light>
-          <Bold style={styles.text}>{hotelName}</Bold>
-        </View>
-      </ImageBackground>
-    </View>
+      <View
+        style={{
+          flex: 1
+        }}
+      >
+        <ImageBackground style={styles.bgImg} source={require('../../../assets/images/grid.png')}>
+          <View style={styles.textContainer}>
+            <Light style={{ ...styles.text, marginBottom: 5 }}>{hour}</Light>
+            <Bold style={styles.text}>{hotelName}</Bold>
+          </View>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 

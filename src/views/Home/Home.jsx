@@ -19,7 +19,7 @@ export default function Home({ navigation }) {
       />
       <View style={{ flex: 1, backgroundColor: '#E5E5E5' }}>
         {state.hasToRenderCalendar ? (
-          <Calendar y={y} />
+          <Calendar y={y} navigation={navigation} />
         ) : (
           <VisitList navigation={navigation} y={y} />
         )}

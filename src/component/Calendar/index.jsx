@@ -6,16 +6,7 @@ import { MainStore } from '../../context/store/main';
 import { formatDateForkeyObj, returnHours } from '../../utils/formatDate';
 import CalendarCard from '../CalendarCard';
 
-// const items = {};
-
-// items[formatDateForkeyObj(new Date())] = [
-//   { name: 'Hotel salako', horaire: '12h-14h', type: 'urgence' },
-//   { name: 'Hotel salako', horaire: '12h-14h' },
-//   { name: 'Hotel salako', horaire: '12h-14h', type: 'cancelled' },
-//   { name: 'Hotel salako', horaire: '12h-14h', type: 'done' }
-// ];
-
-export default function Calendar() {
+export default function Calendar({ navigation }) {
   const [items, setItems] = useState({});
   const { state } = useContext(MainStore);
 
@@ -32,7 +23,6 @@ export default function Calendar() {
         return prev;
       }, {});
 
-      console.log(items);
       setItems(items);
     };
     getVisitsCalendar();
@@ -59,12 +49,13 @@ export default function Calendar() {
       pastScrollRange={100}
       futureScrollRange={100}
       renderItem={(item, firstItemInDay) => {
-        console.log(item);
         return (
           <CalendarCard
             hotelName={item.hotel.name}
             hour={returnHours({ start: item.start, end: item.end })}
             type={item.status}
+            navigation={navigation}
+            hotel={item}
           />
         );
       }}

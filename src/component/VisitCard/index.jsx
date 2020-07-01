@@ -1,9 +1,10 @@
-import deburr from 'lodash.deburr';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 
 import colors from '../../utils/colors';
+import createAddress from '../../utils/createAddressFromObj';
+import useLatLong from '../../utils/latLong';
 import BackgroundImage from '../BackgroundImage';
 import HotelAddress from '../HotelAddress';
 import VisitCardBtnGoTo from './VisitCardBtnGoTo';
@@ -13,27 +14,14 @@ const { width } = Dimensions.get('window');
 
 export default function VisitCard({ visit, navigation }) {
   const { hotel } = visit;
-  const [latLong, setLatLong] = useState({ lat: null, long: null });
   const location = {
     address: hotel.address,
     city: hotel.city,
     zipCode: hotel.zipCode
   };
-  const address = Object.values(location).reduce((acc, cur) => {
-    return `${acc} ${cur}`;
-  }, '');
+  const address = createAddress(location);
 
-  useEffect(() => {
-    const getLatLong = async () => {
-      const res = await fetch(
-        `https://api-adresse.data.gouv.fr/search/?q=${deburr(address)}&type=street`
-      );
-      const decoded = await res.json();
-      const [long, lat] = await decoded.features[0].geometry.coordinates;
-      setLatLong({ lat, long });
-    };
-    getLatLong();
-  }, []);
+  const { latLong } = useLatLong(address);
 
   return (
     <View style={styles.card}>
