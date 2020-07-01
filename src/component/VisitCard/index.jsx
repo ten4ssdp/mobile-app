@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, Alert } from 'react-native';
 
 import colors from '../../utils/colors';
 import createAddress from '../../utils/createAddressFromObj';
 import useLatLong from '../../utils/latLong';
 import BackgroundImage from '../BackgroundImage';
+import CancelVisitButton from '../CancelVisitButton';
 import HotelAddress from '../HotelAddress';
 import VisitCardBtnGoTo from './VisitCardBtnGoTo';
 import VisitCardButtonGroup from './VisitCardButtonGroup';
@@ -28,6 +29,23 @@ export default function VisitCard({ visit, navigation }) {
       <BackgroundImage name={hotel.name} />
       <HotelAddress location={location} />
       <VisitCardBtnGoTo latLong={latLong} name={hotel.name} />
+      <CancelVisitButton
+        func={() =>
+          Alert.alert(
+            'Annuler la visite',
+            'Voulez-vous vraiment annuler la visite ?',
+            [
+              { text: 'Oui', onPress: () => console.log('Visite annulée') },
+              {
+                text: 'Non',
+                onPress: () => console.log('Retour'),
+                style: 'cancel'
+              }
+            ],
+            { cancelable: false }
+          )
+        }
+      />
       <VisitCardButtonGroup
         latLong={latLong}
         hotel={hotel}
@@ -41,7 +59,7 @@ export default function VisitCard({ visit, navigation }) {
 
 const styles = StyleSheet.create({
   card: {
-    height: 300,
+    height: 330,
     width: width / 1.1,
     backgroundColor: colors['active-white'],
     borderRadius: 20,

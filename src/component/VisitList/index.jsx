@@ -38,6 +38,7 @@ export default function VisitList({ y, navigation }) {
         console.error(error.message);
       }
     };
+
     if (state.visits === null) {
       getVisits();
     }
