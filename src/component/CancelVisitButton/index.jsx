@@ -1,65 +1,47 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, Dimensions } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import colors from '../../utils/colors';
 import Bold from '../Font/Bold';
-import Light from '../Font/Light';
 
 const { width } = Dimensions.get('screen');
 
 // TODO: center button content
-export default function CancelVisitButton({ func }) {
+export default function CancelVisitButton({ func, style }) {
   return (
-    <TouchableOpacity style={styles.container} onPress={() => func()}>
-      <View style={styles.btn}>
-        <Light style={styles.text}>Annuler la visite</Light>
-        <View style={styles.exclamationMark}>
-          <Bold style={styles.exclamationMarkText}>!</Bold>
-        </View>
-      </View>
-    </TouchableOpacity>
+    <TouchableWithoutFeedback style={{ ...styles.container, ...style }} onPress={() => func()}>
+      <Bold style={styles.text}>Annuler la visite</Bold>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: 160,
+    width: 140,
     height: 30,
     borderColor: '#FF7777',
-    borderWidth: 1,
-    borderRadius: 35,
+    borderWidth: 2,
     overflow: 'hidden',
     alignSelf: 'flex-end',
-    marginRight: width / 15
+    marginRight: width / 15,
+    borderRadius: 35,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   btn: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  exclamationMark: {
-    backgroundColor: '#FF7777',
-    height: '100%',
-    width: 30,
-    borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center'
   },
   text: {
     fontSize: 14,
-    color: '#FF7777',
-    marginLeft: 10
-  },
-  exclamationMarkText: {
-    color: colors['active-white'],
-    fontSize: 18,
-    lineHeight: 18
+    color: '#FF7777'
   }
 });
 
 CancelVisitButton.propTypes = {
-  func: PropTypes.func.isRequired
+  func: PropTypes.func.isRequired,
+  style: PropTypes.object
 };

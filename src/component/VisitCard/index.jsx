@@ -1,52 +1,65 @@
-import deburr from 'lodash.deburr';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Dimensions, Alert } from 'react-native';
 
 import colors from '../../utils/colors';
+import createAddress from '../../utils/createAddressFromObj';
+import useLatLong from '../../utils/latLong';
 import BackgroundImage from '../BackgroundImage';
+import CancelVisitButton from '../CancelVisitButton';
 import HotelAddress from '../HotelAddress';
 import VisitCardBtnGoTo from './VisitCardBtnGoTo';
 import VisitCardButtonGroup from './VisitCardButtonGroup';
 
 const { width } = Dimensions.get('window');
 
-export default function VisitCard({ hotel, navigation }) {
-  const [latLong, setLatLong] = useState({ lat: null, long: null });
+export default function VisitCard({ visit, navigation }) {
+  const { hotel } = visit;
   const location = {
     address: hotel.address,
     city: hotel.city,
     zipCode: hotel.zipCode
   };
-  const address = Object.values(location).reduce((acc, cur) => {
-    return `${acc} ${cur}`;
-  }, '');
+  const address = createAddress(location);
 
-  useEffect(() => {
-    const getLatLong = async () => {
-      const res = await fetch(
-        `https://api-adresse.data.gouv.fr/search/?q=${deburr(address)}&type=street`
-      );
-      const decoded = await res.json();
-      const [long, lat] = await decoded.features[0].geometry.coordinates;
-      setLatLong({ lat, long });
-    };
-    getLatLong();
-  }, []);
+  const { latLong } = useLatLong(address);
 
   return (
     <View style={styles.card}>
       <BackgroundImage name={hotel.name} />
       <HotelAddress location={location} />
       <VisitCardBtnGoTo latLong={latLong} name={hotel.name} />
-      <VisitCardButtonGroup latLong={latLong} hotel={hotel} navigation={navigation} />
+      <CancelVisitButton
+        func={() =>
+          Alert.alert(
+            'Annuler la visite',
+            'Voulez-vous vraiment annuler la visite ?',
+            [
+              { text: 'Oui', onPress: () => console.log('Visite annulée') },
+              {
+                text: 'Non',
+                onPress: () => console.log('Retour'),
+                style: 'cancel'
+              }
+            ],
+            { cancelable: false }
+          )
+        }
+      />
+      <VisitCardButtonGroup
+        latLong={latLong}
+        hotel={hotel}
+        status={visit.status}
+        start={visit.start}
+        navigation={navigation}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    height: 300,
+    height: 330,
     width: width / 1.1,
     backgroundColor: colors['active-white'],
     borderRadius: 20,
@@ -56,7 +69,7 @@ const styles = StyleSheet.create({
 });
 
 VisitCard.propTypes = {
-  hotel: PropTypes.object.isRequired,
+  visit: PropTypes.object.isRequired,
   isEmergency: PropTypes.bool,
   navigation: PropTypes.object
 };

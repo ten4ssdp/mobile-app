@@ -3,12 +3,16 @@ import React, { createContext } from 'react';
 import mainReducer from '../reducer/main';
 
 /**
- * @type {Object}
+ * @type {Object} initialState
  * @property {Boolean} hasToRenderCalendar
- *
+ * @property {Array} visits
+ * @property {Object} team
  */
 const initialState = {
-  hasToRenderCalendar: false
+  hasToRenderCalendar: false,
+  visits: null,
+  team: null,
+  currentDayVisits: null
 };
 
 export const MainStore = createContext();

@@ -1,50 +1,67 @@
-import useHttpClient from '@loriick/use-http-client';
 import React, { useEffect, useState, useContext } from 'react';
 import { AsyncStorage, ActivityIndicator, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
+import { getVisitsAction, getCurrentDayVisits } from '../../context/action/main';
+import { MainStore } from '../../context/store/main';
 import { UserStore } from '../../context/store/user';
 import colors from '../../utils/colors';
-import Bold from '../Font/Bold';
+import { formatDateForMickey, getFirstDay } from '../../utils/formatDate';
+import http from '../../utils/http';
 import VisitCard from '../VisitCard';
 
 export default function VisitList({ y, navigation }) {
-  const [visits, setVisits] = useState([]);
+  const [visits, setVisits] = useState(null);
   const [token, setToken] = useState('');
-  const { userState, dispatch } = useContext(UserStore);
+  const { userState } = useContext(UserStore);
+  const { state, dispatch: mainDispatch } = useContext(MainStore);
 
   useEffect(() => {
     async function getToken() {
       const token = await AsyncStorage.getItem('token');
       setToken(token);
-      await executeRequest();
     }
     getToken();
   }, []);
 
-  const { data, status, error, executeRequest } = useHttpClient(
-    'http://15.188.3.249:5000/api/visits/user/25/06-08-2020',
-    {
-      method: 'GET',
-      onRender: false,
-      options: {
-        headers: {
-          authorization: `bearer ${token}`
-        }
+  useEffect(() => {
+    const getVisits = async () => {
+      try {
+        const res = await http.get(
+          `visits/user/${userState.user.id}/${formatDateForMickey(getFirstDay(new Date()))}`,
+          {
+            authorization: `bearer ${token}`
+          }
+        );
+        await getVisitsAction(mainDispatch, res.visits);
+      } catch (error) {
+        console.error(error.message);
       }
-    }
-  );
+    };
 
-  if (status === 'pending') {
+    if (state.visits === null) {
+      getVisits();
+    }
+  }, [token]);
+
+  useEffect(() => {
+    function currentDayVisits() {
+      const today = new Date();
+      const filteredVisits = state.visits?.filter((visit) => {
+        return visit.status === 0 && new Date(visit.start).getDate() === today.getDate();
+      });
+      setVisits(filteredVisits);
+      getCurrentDayVisits(mainDispatch, filteredVisits);
+    }
+    currentDayVisits();
+  }, [state.visits]);
+
+  if (visits === null) {
     return (
-      <View style={{ flex: 1, paddingTop: 200 }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" color={colors['midnight-blue']} />
       </View>
     );
-  }
-
-  if (status === 'rejected') {
-    return <Bold>Error...</Bold>;
   }
 
   return (
@@ -56,8 +73,8 @@ export default function VisitList({ y, navigation }) {
         alignItems: 'center'
       }}
     >
-      {data.visits.map((visit) => {
-        return <VisitCard hotel={visit.hotel} key={visit.id} navigation={navigation} />;
+      {visits?.map((visit) => {
+        return <VisitCard visit={visit} key={visit.id} navigation={navigation} />;
       })}
     </Animated.ScrollView>
   );

@@ -1,16 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useContext } from 'react';
-import { Alert, View, AsyncStorage } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import {
   HeaderButtons,
   HeaderButton,
   HiddenItem,
   OverflowMenu
 } from 'react-navigation-header-buttons';
-import {setIsUserLogin} from './context/action/user';
+
 import Bold from './component/Font/Bold';
 import LogoTitle from './component/LogoTitle';
+import { setIsUserLogin } from './context/action/user';
 import { UserStore } from './context/store/user';
 import colors from './utils/colors';
 import Details from './views/Details';
@@ -26,13 +27,13 @@ export default function AppStack() {
   const { userState, dispatch } = useContext(UserStore);
 
   const disconnect = async () => {
-    try{
+    try {
       await AsyncStorage.removeItem('token');
       setIsUserLogin(dispatch, false);
-    }catch(err){
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
 
   // TODO: center le tout dans le header
 

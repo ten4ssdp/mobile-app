@@ -9,17 +9,38 @@ import Bold from '../../component/Font/Bold';
 import Light from '../../component/Font/Light';
 import HotelAddress from '../../component/HotelAddress';
 import colors from '../../utils/colors';
+import createAddressFromObj from '../../utils/createAddressFromObj';
 import formatDate from '../../utils/formatDate';
 import goToFunction from '../../utils/goToFunction';
+import useLatLong from '../../utils/latLong';
 const { height } = Dimensions.get('screen');
 
 export default function Details({ navigation, route, isEmergency }) {
-  const { hotel, latLong } = route.params;
+  const { hotel, status, start } = route.params;
+
   const location = {
     address: hotel.address,
     city: hotel.city,
     zipCode: hotel.zipCode
   };
+
+  const address = createAddressFromObj(location);
+  const { latLong } = useLatLong(address);
+
+  function returnStatus(status) {
+    let newStatus;
+    switch (status) {
+      case -1:
+        newStatus = 'Annulée';
+        break;
+      case 1:
+        newStatus = 'Effectuée';
+        break;
+      default:
+        newStatus = 'Non effectuée';
+    }
+    return newStatus;
+  }
 
   const phoneCall = (phoneNumber) => Linking.openURL(`tel:${phoneNumber}`);
 
@@ -76,16 +97,28 @@ export default function Details({ navigation, route, isEmergency }) {
                 </Bold>
               </>
             )}
+
             <Bold style={styles.text}>
               Nombre de chambre à visiter :{' '}
               <Bold style={{ color: colors['stroke-default-planning'] }}>{hotel.roomCount}</Bold>
             </Bold>
-            <Bold style={styles.text}>
-              Secteur:{' '}
-              <Bold style={{ color: colors['stroke-default-planning'] }}>
-                {hotel?.sector?.name}
+
+            {start && (
+              <Bold style={styles.text}>
+                Date de Visite :{' '}
+                <Bold style={{ color: colors['stroke-default-planning'] }}>
+                  {formatDate(start)}
+                </Bold>
               </Bold>
-            </Bold>
+            )}
+            {status.toString() && (
+              <Bold style={styles.text}>
+                Status de la visite :{' '}
+                <Bold style={{ color: colors['stroke-default-planning'] }}>
+                  {returnStatus(status)}
+                </Bold>
+              </Bold>
+            )}
           </View>
           <CancelVisitButton
             func={() =>
