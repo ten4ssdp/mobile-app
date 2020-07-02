@@ -24,6 +24,8 @@
     "ios": {
       "supportsTablet": true
     },
-    "sdkVersion": "37.0.0"
+    "sdkVersion": "37.0.0",
+    "description": "",
+    "githubUrl": "https://github.com/ten4ssdp/mobile-app"
   }
 }
