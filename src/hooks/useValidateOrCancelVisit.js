@@ -1,13 +1,10 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { AsyncStorage } from 'react-native';
 
-import { onRefresh } from '../context/action/main';
-import { MainStore } from '../context/store/main';
 import http from '../utils/http';
 
 function useValidateOrCancelVisit({ isValidation }) {
   const [token, setToken] = useState('');
-  const { dispatch } = useContext(MainStore);
   useEffect(() => {
     async function getToken() {
       const token = await AsyncStorage.getItem('token');
@@ -27,8 +24,7 @@ function useValidateOrCancelVisit({ isValidation }) {
       { status, description },
       { headers, isUpdate: true }
     );
-    onRefresh(dispatch, true);
-    console.log(res);
+    return res;
   };
 
   return { handleSubmit };

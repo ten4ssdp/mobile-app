@@ -1,6 +1,6 @@
 import * as Linking from 'expo-linking';
 import React from 'react';
-import { View, Dimensions, StyleSheet, Alert } from 'react-native';
+import { View, Dimensions, StyleSheet } from 'react-native';
 
 import BackgroundImage from '../../component/BackgroundImage';
 import Button from '../../component/Button';

@@ -31,7 +31,7 @@ export default function AppStack() {
       await AsyncStorage.removeItem('token');
       setIsUserLogin(dispatch, false);
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
   };
 

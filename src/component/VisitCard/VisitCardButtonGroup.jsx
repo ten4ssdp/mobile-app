@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 
+import useValidateOrCancelVisit from '../../hooks/useValidateOrCancelVisit';
 import colors from '../../utils/colors';
 
 export default function VisitCardButtonGroup({
@@ -11,6 +12,7 @@ export default function VisitCardButtonGroup({
   start,
   visitId
 }) {
+  const { handleSubmit } = useValidateOrCancelVisit({ isValidation: true });
   return (
     <View style={styles.buttonContainer}>
       <View
@@ -19,7 +21,11 @@ export default function VisitCardButtonGroup({
           backgroundColor: colors['stroke-default-planning']
         }}
       >
-        <Button title="Visite Finalisée" color={colors['active-white']} />
+        <Button
+          title="Visite Finalisée"
+          onPress={() => handleSubmit({ id: visitId })}
+          color={colors['active-white']}
+        />
       </View>
       <View style={{ ...styles.button, backgroundColor: colors['midnight-light-blue'] }}>
         <Button

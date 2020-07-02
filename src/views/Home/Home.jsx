@@ -13,6 +13,7 @@ import colors from '../../utils/colors';
 export default function Home({ navigation }) {
   const { state } = useContext(MainStore);
   const y = new Value(0);
+
   const { visits, loading } = useFetchDataApp();
 
   if (loading) {

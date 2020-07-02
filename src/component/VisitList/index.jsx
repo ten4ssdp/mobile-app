@@ -6,7 +6,7 @@ import Bold from '../Font/Bold';
 import VisitCard from '../VisitCard';
 
 export default function VisitList({ y, navigation, visits }) {
-  if (visits?.length <= 0) {
+  if (visits?.length <= 0 || !visits) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Bold>Pas de visite aujourd'hui</Bold>

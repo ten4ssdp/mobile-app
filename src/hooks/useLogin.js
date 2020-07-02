@@ -13,7 +13,7 @@ function useLogin(errorFn) {
       if (!email || !password) {
         throw new Error("L'adresse mail et le mot de passe est obligatoire.");
       }
-      const res = await http.post('login', { email, password });
+      const res = await http.post('login', { email, password }, { isUpdate: false });
       await AsyncStorage.setItem('token', res.token);
       await setIsUserLogin(dispatch, true);
       return res.token;
