@@ -3,7 +3,14 @@ import { View, StyleSheet, Button } from 'react-native';
 
 import colors from '../../utils/colors';
 
-export default function VisitCardButtonGroup({ navigation, hotel, latLong, status, start }) {
+export default function VisitCardButtonGroup({
+  navigation,
+  hotel,
+  latLong,
+  status,
+  start,
+  visitId
+}) {
   return (
     <View style={styles.buttonContainer}>
       <View
@@ -19,7 +26,7 @@ export default function VisitCardButtonGroup({ navigation, hotel, latLong, statu
           title="Détails"
           color={colors['active-white']}
           onPress={() => {
-            navigation.navigate('Details', { hotel, latLong, status, start });
+            navigation.navigate('Details', { hotel, latLong, status, start, visitId });
           }}
         />
       </View>

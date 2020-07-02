@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Modal, View, StyleSheet, Dimensions } from 'react-native';
 
 import { onOpenModal } from '../../context/action/main';
 import { MainStore } from '../../context/store/main';
+import useValidateOrCancelVisit from '../../hooks/useValidateOrCancelVisit';
 import colors from '../../utils/colors';
 import Button from '../Button';
 import Bold from '../Font/Bold';
@@ -11,12 +12,16 @@ import Input from '../Input';
 const { width } = Dimensions.get('screen');
 
 export default function MyModal() {
+  const [value, setValue] = useState();
   const { state, dispatch } = useContext(MainStore);
+
+  const { handleSubmit } = useValidateOrCancelVisit({ isValidation: false });
+
   return (
     <Modal animationType="slide" visible={state.isModalOpen} presentationStyle="formSheet">
       <View style={styles.container}>
         <Bold style={styles.title}>
-          Pour quelle raison voulez-vous annuler la visite pour {state.hotelName} ?
+          Pour quelle raison voulez-vous annuler la visite pour {state.hotelInfo.hotelName} ?
         </Bold>
         <View style={styles.textAreaContainer}>
           <Input
@@ -24,6 +29,7 @@ export default function MyModal() {
             placeholder="Ex: Accident de la route"
             multiline
             numberOfLines={10}
+            onChangeText={(text) => setValue(text)}
           />
         </View>
 
@@ -31,7 +37,10 @@ export default function MyModal() {
           <Button
             variant="default"
             style={{ ...styles.btn, borderRadius: 0 }}
-            func={() => console.log('annulée')}
+            func={() => {
+              onOpenModal(dispatch, false);
+              handleSubmit({ id: state.hotelInfo.visitId, body: { description: value } });
+            }}
           >
             Envoyer
           </Button>
@@ -42,7 +51,9 @@ export default function MyModal() {
               backgroundColor: colors['midnight-light-blue'],
               borderRadius: 0
             }}
-            func={() => onOpenModal(dispatch, false)}
+            func={async () => {
+              onOpenModal(dispatch, false);
+            }}
           >
             Annuler
           </Button>

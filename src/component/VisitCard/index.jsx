@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View, StyleSheet, Dimensions, Alert } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 
 import useLatLong from '../../hooks/useLatLong';
 import colors from '../../utils/colors';
@@ -29,13 +29,14 @@ export default function VisitCard({ visit, navigation }) {
       <BackgroundImage name={hotel.name} />
       <HotelAddress location={location} />
       <VisitCardBtnGoTo latLong={latLong} name={hotel.name} />
-      <CancelVisitButton hotelName={hotel.name} />
+      <CancelVisitButton hotelInfo={{ hotelName: hotel.name, visitId: visit.id }} />
       <VisitCardButtonGroup
         latLong={latLong}
         hotel={hotel}
         status={visit.status}
         start={visit.start}
         navigation={navigation}
+        visitId={visit.id}
       />
     </View>
   );

@@ -15,7 +15,7 @@ const initialState = {
   team: null,
   currentDayVisits: null,
   isModalOpen: false,
-  hotelName: ''
+  hotelInfo: { hotelName: '', visitId: null }
 };
 
 export const MainStore = createContext();

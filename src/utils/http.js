@@ -14,10 +14,13 @@ class Http {
     }
   }
 
-  async post(path, body, headers) {
+  async post(path, body, { headers, isUpdate }) {
     try {
+      const method = isUpdate ? 'PUT' : 'POST';
+
+      console.log({ method, headers, body, path, isUpdate });
       const res = await fetch(`${this.BASE_URL}/${path}`, {
-        method: 'POST',
+        method,
         body: JSON.stringify(body),
         headers: {
           'Content-type': 'application/json',

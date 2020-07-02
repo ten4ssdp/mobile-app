@@ -4,7 +4,7 @@ import {
   GET_TEAM,
   GET_CURRENT_DAY_VISITS,
   IS_MODAL_OPEN,
-  SET_HOTEL_NAME
+  SET_HOTEL_INFO
 } from '../constant/main';
 
 function mainReducer(state, action) {
@@ -31,10 +31,10 @@ function mainReducer(state, action) {
         isModalOpen: action.payload
       };
     }
-    case SET_HOTEL_NAME: {
+    case SET_HOTEL_INFO: {
       return {
         ...state,
-        hotelName: action.payload
+        hotelInfo: action.payload
       };
     }
     case GET_TEAM:

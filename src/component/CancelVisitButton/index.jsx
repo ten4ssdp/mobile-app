@@ -9,14 +9,15 @@ import Bold from '../Font/Bold';
 
 const { width } = Dimensions.get('screen');
 
-export default function CancelVisitButton({ hotelName, style }) {
+export default function CancelVisitButton({ hotelInfo, style }) {
   const { dispatch } = useContext(MainStore);
+
   return (
     <TouchableWithoutFeedback
       style={{ ...styles.container, ...style }}
       onPress={() => {
         onOpenModal(dispatch, true);
-        setHotelName(dispatch, hotelName);
+        setHotelName(dispatch, { hotelName: hotelInfo.hotelName, visitId: hotelInfo.visitId });
       }}
     >
       <Bold style={styles.text}>Annuler la visite</Bold>

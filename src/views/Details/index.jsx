@@ -16,7 +16,7 @@ import goToFunction from '../../utils/goToFunction';
 const { height } = Dimensions.get('screen');
 
 export default function Details({ navigation, route, isEmergency }) {
-  const { hotel, status, start } = route.params;
+  const { hotel, status, start, visitId } = route.params;
 
   const location = {
     address: hotel.address,
@@ -120,7 +120,7 @@ export default function Details({ navigation, route, isEmergency }) {
               </Bold>
             )}
           </View>
-          <CancelVisitButton hotelName={hotel.name} />
+          <CancelVisitButton hotelInfo={{ hotelName: hotel.name, visitId }} />
         </>
       )}
 
