@@ -33,6 +33,7 @@ function useFetchDataApp() {
             authorization: `bearer ${token}`
           }
         );
+
         await getVisitsAction(mainDispatch, res.visits);
 
         // setTeamId(await res.visits[0].teamId);
@@ -63,6 +64,7 @@ function useFetchDataApp() {
       getCurrentDayVisits(mainDispatch, filteredVisits);
       setLoading(false);
     }
+
     currentDayVisits();
   }, [state.visits]);
 
