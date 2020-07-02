@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Image,
@@ -6,7 +6,6 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
-  AsyncStorage,
   Alert
 } from 'react-native';
 
@@ -15,29 +14,16 @@ import Bold from '../../component/Font/Bold';
 import Light from '../../component/Font/Light';
 import PasswordInput from '../../component/Input/PasswordInput';
 import Input from '../../component/Input/index';
-import { setIsUserLogin } from '../../context/action/user';
-import { UserStore } from '../../context/store/user';
+import useLogin from '../../hooks/useLogin';
 import colors from '../../utils/colors';
-import http from '../../utils/http';
 
 const { width, height } = Dimensions.get('window');
 
-export default function Login({ navigation }) {
+export default function Login() {
   const [values, setValues] = useState({ email: '', password: '' });
-  const { dispatch } = useContext(UserStore);
 
   const showMessage = (message) => Alert.alert('Erreur', message);
-
-  const loginUser = async () => {
-    try {
-      const res = await http.post('login', { email: values.email, password: values.password });
-      await AsyncStorage.setItem('token', res.token);
-      await setIsUserLogin(dispatch, true);
-      return res.token;
-    } catch (error) {
-      showMessage(error.message);
-    }
-  };
+  const handleLoginSubmit = useLogin(showMessage);
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => Keyboard.dismiss()}>
@@ -85,7 +71,10 @@ export default function Login({ navigation }) {
           </View>
 
           <View style={styles.submit}>
-            <Button func={() => loginUser()} variant="default">
+            <Button
+              func={() => handleLoginSubmit({ email: values.email, password: values.password })}
+              variant="default"
+            >
               Se connecter
             </Button>
           </View>
