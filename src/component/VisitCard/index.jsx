@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { View, StyleSheet, Dimensions, Alert } from 'react-native';
 
+import useLatLong from '../../hooks/useLatLong';
 import colors from '../../utils/colors';
 import createAddress from '../../utils/createAddressFromObj';
-import useLatLong from '../../utils/latLong';
 import BackgroundImage from '../BackgroundImage';
 import CancelVisitButton from '../CancelVisitButton';
 import HotelAddress from '../HotelAddress';

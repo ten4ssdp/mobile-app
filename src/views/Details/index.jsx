@@ -8,11 +8,11 @@ import CancelVisitButton from '../../component/CancelVisitButton';
 import Bold from '../../component/Font/Bold';
 import Light from '../../component/Font/Light';
 import HotelAddress from '../../component/HotelAddress';
+import useLatLong from '../../hooks/useLatLong';
 import colors from '../../utils/colors';
 import createAddressFromObj from '../../utils/createAddressFromObj';
 import formatDate from '../../utils/formatDate';
 import goToFunction from '../../utils/goToFunction';
-import useLatLong from '../../utils/latLong';
 const { height } = Dimensions.get('screen');
 
 export default function Details({ navigation, route, isEmergency }) {
