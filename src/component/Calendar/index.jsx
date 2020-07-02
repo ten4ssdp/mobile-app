@@ -12,6 +12,10 @@ export default function Calendar({ navigation }) {
 
   useEffect(() => {
     const getVisitsCalendar = () => {
+      if (!state.visits) {
+        setItems([]);
+        return undefined;
+      }
       const dates = [
         ...new Map(state.visits.map((item) => [new Date(item.start).getDate(), item])).values()
       ].map((visit) => visit.start);

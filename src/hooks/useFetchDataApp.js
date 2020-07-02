@@ -34,6 +34,10 @@ function useFetchDataApp() {
           }
         );
 
+        if (res === undefined || res === null) {
+          throw new Error('Visits return undefined or null');
+        }
+
         await getVisitsAction(mainDispatch, res.visits);
 
         // setTeamId(await res.visits[0].teamId);
