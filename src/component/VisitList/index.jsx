@@ -1,9 +1,19 @@
 import React from 'react';
+import { View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
+import Bold from '../Font/Bold';
 import VisitCard from '../VisitCard';
 
 export default function VisitList({ y, navigation, visits }) {
+  if (!visits) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Bold>Pas de visite aujourd'hui</Bold>
+      </View>
+    );
+  }
+
   return (
     <Animated.ScrollView
       scrollEventThrottle={16}
