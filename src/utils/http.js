@@ -18,7 +18,6 @@ class Http {
     try {
       const method = isUpdate ? 'PUT' : 'POST';
 
-      console.log({ method, headers, body, path, isUpdate });
       const res = await fetch(`${this.BASE_URL}/${path}`, {
         method,
         body: JSON.stringify(body),

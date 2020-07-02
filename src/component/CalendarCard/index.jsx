@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 });
 
 CalendarCard.defaultProps = {
-  type: 1
+  type: 0
 };
 
 CalendarCard.propTypes = {

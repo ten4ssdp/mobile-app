@@ -4,7 +4,8 @@ import {
   GET_TEAM,
   GET_CURRENT_DAY_VISITS,
   IS_MODAL_OPEN,
-  SET_HOTEL_INFO
+  SET_HOTEL_INFO,
+  REFRESH
 } from '../constant/main';
 
 function mainReducer(state, action) {
@@ -35,6 +36,12 @@ function mainReducer(state, action) {
       return {
         ...state,
         hotelInfo: action.payload
+      };
+    }
+    case REFRESH: {
+      return {
+        ...state,
+        refresh: action.payload
       };
     }
     case GET_TEAM:

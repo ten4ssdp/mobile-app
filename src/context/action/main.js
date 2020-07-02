@@ -4,7 +4,8 @@ import {
   GET_TEAM,
   GET_CURRENT_DAY_VISITS,
   IS_MODAL_OPEN,
-  SET_HOTEL_INFO
+  SET_HOTEL_INFO,
+  REFRESH
 } from '../constant/main';
 
 /**
@@ -51,6 +52,13 @@ export const onOpenModal = (dispatch, payload) => {
 export const setHotelName = (dispatch, payload) => {
   return dispatch({
     type: SET_HOTEL_INFO,
+    payload
+  });
+};
+
+export const onRefresh = (dispatch, payload) => {
+  return dispatch({
+    type: REFRESH,
     payload
   });
 };

@@ -1,14 +1,14 @@
 import { useEffect, useState, useContext } from 'react';
 import { AsyncStorage } from 'react-native';
 
-import { getVisitsAction, getCurrentDayVisits } from '../context/action/main';
+import { getVisitsAction, getCurrentDayVisits, onRefresh } from '../context/action/main';
 import { MainStore } from '../context/store/main';
 import { UserStore } from '../context/store/user';
 import { formatDateForMickey, getFirstDay } from '../utils/formatDate';
 import http from '../utils/http';
 
 function useFetchDataApp() {
-  const [visits, setVisits] = useState(null);
+  const [visits, setVisits] = useState([]);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState('');
   const [teamId, setTeamId] = useState(null);
@@ -47,10 +47,10 @@ function useFetchDataApp() {
       }
     };
 
-    if (state.visits === null) {
+    if (state.visits === null || state.refresh) {
       getVisits();
     }
-  }, [token]);
+  }, [token, state.refresh]);
 
   //   useEffect(() => {
   //     async function fetchTeam() {
@@ -67,10 +67,11 @@ function useFetchDataApp() {
       setVisits(filteredVisits);
       getCurrentDayVisits(mainDispatch, filteredVisits);
       setLoading(false);
+      onRefresh(mainDispatch, false);
     }
 
     currentDayVisits();
-  }, [state.visits]);
+  }, [state.visits, state.refresh]);
 
   return {
     visits,

@@ -1,5 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Modal, View, StyleSheet, Dimensions } from 'react-native';
+import {
+  Modal,
+  View,
+  StyleSheet,
+  Dimensions,
+  Keyboard,
+  TouchableWithoutFeedback
+} from 'react-native';
 
 import { onOpenModal } from '../../context/action/main';
 import { MainStore } from '../../context/store/main';
@@ -19,46 +26,48 @@ export default function MyModal() {
 
   return (
     <Modal animationType="slide" visible={state.isModalOpen} presentationStyle="formSheet">
-      <View style={styles.container}>
-        <Bold style={styles.title}>
-          Pour quelle raison voulez-vous annuler la visite pour {state.hotelInfo.hotelName} ?
-        </Bold>
-        <View style={styles.textAreaContainer}>
-          <Input
-            style={styles.textArea}
-            placeholder="Ex: Accident de la route"
-            multiline
-            numberOfLines={10}
-            onChangeText={(text) => setValue(text)}
-          />
-        </View>
+      <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <Bold style={styles.title}>
+            Pour quelle raison voulez-vous annuler la visite pour {state.hotelInfo.hotelName} ?
+          </Bold>
+          <View style={styles.textAreaContainer}>
+            <Input
+              style={styles.textArea}
+              placeholder="Ex: Accident de la route"
+              multiline
+              numberOfLines={10}
+              onChangeText={(text) => setValue(text)}
+            />
+          </View>
 
-        <View style={styles.btnContainer}>
-          <Button
-            variant="default"
-            style={{ ...styles.btn, borderRadius: 0 }}
-            func={() => {
-              onOpenModal(dispatch, false);
-              handleSubmit({ id: state.hotelInfo.visitId, body: { description: value } });
-            }}
-          >
-            Envoyer
-          </Button>
-          <Button
-            variant="default"
-            style={{
-              ...styles.btn,
-              backgroundColor: colors['midnight-light-blue'],
-              borderRadius: 0
-            }}
-            func={async () => {
-              onOpenModal(dispatch, false);
-            }}
-          >
-            Annuler
-          </Button>
+          <View style={styles.btnContainer}>
+            <Button
+              variant="default"
+              style={{ ...styles.btn, borderRadius: 0 }}
+              func={() => {
+                onOpenModal(dispatch, false);
+                handleSubmit({ id: state.hotelInfo.visitId, body: { description: value } });
+              }}
+            >
+              Envoyer
+            </Button>
+            <Button
+              variant="default"
+              style={{
+                ...styles.btn,
+                backgroundColor: colors['midnight-light-blue'],
+                borderRadius: 0
+              }}
+              func={async () => {
+                onOpenModal(dispatch, false);
+              }}
+            >
+              Annuler
+            </Button>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 }
