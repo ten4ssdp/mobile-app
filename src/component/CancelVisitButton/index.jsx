@@ -3,7 +3,6 @@ import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-import colors from '../../utils/colors';
 import Bold from '../Font/Bold';
 
 const { width } = Dimensions.get('screen');
