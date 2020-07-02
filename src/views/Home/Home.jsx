@@ -3,6 +3,7 @@ import { View, ActivityIndicator } from 'react-native';
 import { Value } from 'react-native-reanimated';
 
 import Calendar from '../../component/Calendar';
+import MyModal from '../../component/Modal';
 import Onglet from '../../component/Onglet';
 import VisitList from '../../component/VisitList';
 import { MainStore } from '../../context/store/main';
@@ -36,6 +37,7 @@ export default function Home({ navigation }) {
           <VisitList visits={visits} navigation={navigation} y={y} />
         )}
       </View>
+      <MyModal />
     </View>
   );
 }

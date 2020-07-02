@@ -120,23 +120,7 @@ export default function Details({ navigation, route, isEmergency }) {
               </Bold>
             )}
           </View>
-          <CancelVisitButton
-            func={() =>
-              Alert.alert(
-                'Annuler la visite',
-                'Voulez-vous vraiment annuler la visite ?',
-                [
-                  { text: 'Oui', onPress: () => console.log('Visite annulée') },
-                  {
-                    text: 'Non',
-                    onPress: () => console.log('Retour'),
-                    style: 'cancel'
-                  }
-                ],
-                { cancelable: false }
-              )
-            }
-          />
+          <CancelVisitButton hotelName={hotel.name} />
         </>
       )}
 

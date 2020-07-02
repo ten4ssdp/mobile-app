@@ -1,4 +1,11 @@
-import { SWICTH_SCREEN, GET_VISITS, GET_TEAM, GET_CURRENT_DAY_VISITS } from '../constant/main';
+import {
+  SWICTH_SCREEN,
+  GET_VISITS,
+  GET_TEAM,
+  GET_CURRENT_DAY_VISITS,
+  IS_MODAL_OPEN,
+  SET_HOTEL_NAME
+} from '../constant/main';
 
 /**
  *
@@ -30,6 +37,20 @@ export const getTeams = (dispatch, payload) => {
 export const getCurrentDayVisits = (dispatch, payload) => {
   return dispatch({
     type: GET_CURRENT_DAY_VISITS,
+    payload
+  });
+};
+
+export const onOpenModal = (dispatch, payload) => {
+  return dispatch({
+    type: IS_MODAL_OPEN,
+    payload
+  });
+};
+
+export const setHotelName = (dispatch, payload) => {
+  return dispatch({
+    type: SET_HOTEL_NAME,
     payload
   });
 };

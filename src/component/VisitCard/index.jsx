@@ -29,23 +29,7 @@ export default function VisitCard({ visit, navigation }) {
       <BackgroundImage name={hotel.name} />
       <HotelAddress location={location} />
       <VisitCardBtnGoTo latLong={latLong} name={hotel.name} />
-      <CancelVisitButton
-        func={() =>
-          Alert.alert(
-            'Annuler la visite',
-            'Voulez-vous vraiment annuler la visite ?',
-            [
-              { text: 'Oui', onPress: () => console.log('Visite annulée') },
-              {
-                text: 'Non',
-                onPress: () => console.log('Retour'),
-                style: 'cancel'
-              }
-            ],
-            { cancelable: false }
-          )
-        }
-      />
+      <CancelVisitButton hotelName={hotel.name} />
       <VisitCardButtonGroup
         latLong={latLong}
         hotel={hotel}
