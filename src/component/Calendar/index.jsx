@@ -45,7 +45,6 @@ export default function Calendar({ navigation }) {
         return <View />;
       }}
       selected={Date.now()}
-      maxDate={Date.now()}
       pastScrollRange={100}
       futureScrollRange={100}
       renderItem={(item, firstItemInDay) => {
