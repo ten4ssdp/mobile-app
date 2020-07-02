@@ -59,7 +59,7 @@ export default function AppStack() {
                 color: colors['active-white']
               }}
             >
-              {userState.user.lastname} {userState.user.name}
+              {userState.user.lastname}
             </Bold>
             <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
               <OverflowMenu OverflowIcon={<Ionicons name="md-contact" size={23} color="white" />}>
