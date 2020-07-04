@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Button, Alert } from 'react-native';
 
 import useValidateOrCancelVisit from '../../hooks/useValidateOrCancelVisit';
 import colors from '../../utils/colors';
@@ -12,7 +12,19 @@ export default function VisitCardButtonGroup({
   start,
   visitId
 }) {
-  const { handleSubmit } = useValidateOrCancelVisit({ isValidation: true });
+  const { handleSubmit, res } = useValidateOrCancelVisit({ isValidation: true });
+
+  useEffect(() => {
+    if (res === null) {
+      return undefined;
+    }
+
+    if (res.status === 1) {
+      Alert.alert('Visite finalisée');
+    }
+  }, [res]);
+
+  console.log('[RESPONSE]', res);
   return (
     <View style={styles.buttonContainer}>
       <View
@@ -23,7 +35,7 @@ export default function VisitCardButtonGroup({
       >
         <Button
           title="Visite Finalisée"
-          onPress={() => handleSubmit({ id: visitId })}
+          onPress={() => handleSubmit({ id: visitId, body: { description: '' } })}
           color={colors['active-white']}
         />
       </View>

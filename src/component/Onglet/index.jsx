@@ -5,12 +5,12 @@ import Animated from 'react-native-reanimated';
 import DetailOngletVisit from '../DetailOngletVisit';
 import SwitchScreen from '../SwitchScreen';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
-export default function Onglet({ title, y, isVisitPage }) {
+export default function Onglet({ title, y, isVisitPage, coworker }) {
   const ongletHeight = y.interpolate({
-    inputRange: [0, 140],
-    outputRange: [230, 140],
+    inputRange: [0, height / 6],
+    outputRange: [height / 4, height / 6],
     extrapolate: 'clamp'
   });
 
@@ -19,17 +19,28 @@ export default function Onglet({ title, y, isVisitPage }) {
     outputRange: [0, -50],
     extrapolate: 'clamp'
   });
+
   const translateSwitchY = y.interpolate({
     inputRange: [0, 20],
     outputRange: [0, -20],
     extrapolate: 'clamp'
   });
 
+  const opacity = new Animated.Value(1);
+
   // TODO: refecto onglet height
 
   return (
-    <Animated.View style={{ ...styles.ongletContainer, height: isVisitPage ? ongletHeight : 160 }}>
-      <Animated.Text style={{ ...styles.title, transform: [{ translateY: translateTextY }] }}>
+    <Animated.View
+      style={{ ...styles.ongletContainer, height: isVisitPage ? ongletHeight : height / 6 }}
+    >
+      <Animated.Text
+        style={{
+          ...styles.title,
+          transform: [{ translateY: translateTextY }],
+          opacity: 1
+        }}
+      >
         {title}
       </Animated.Text>
       <Animated.View
@@ -40,7 +51,7 @@ export default function Onglet({ title, y, isVisitPage }) {
       >
         <SwitchScreen />
       </Animated.View>
-      {isVisitPage && <DetailOngletVisit y={y} />}
+      {isVisitPage && <DetailOngletVisit y={y} coworker={coworker} />}
     </Animated.View>
   );
 }

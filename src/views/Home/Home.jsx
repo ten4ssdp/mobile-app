@@ -14,7 +14,7 @@ export default function Home({ navigation }) {
   const { state } = useContext(MainStore);
   const y = new Value(0);
 
-  const { visits, loading } = useFetchDataApp();
+  const { visits, loading, coworker } = useFetchDataApp();
 
   if (loading) {
     return (
@@ -24,12 +24,15 @@ export default function Home({ navigation }) {
     );
   }
 
+  console.log(coworker);
+
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
       <Onglet
         y={y}
         isVisitPage={!state.hasToRenderCalendar}
         title={state.hasToRenderCalendar ? 'Mon calendrier' : 'Mes visites'}
+        coworker={coworker}
       />
       <View style={{ flex: 1, backgroundColor: '#E5E5E5' }}>
         {state.hasToRenderCalendar ? (

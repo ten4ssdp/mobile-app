@@ -17,6 +17,9 @@ export default function Calendar({ navigation }) {
         setItems([]);
         return undefined;
       }
+
+      console.log(state.visits);
+
       const dates = [
         ...new Map(state.visits.map((item) => [new Date(item.start).getDate(), item])).values()
       ].map((visit) => visit.start);
@@ -29,11 +32,10 @@ export default function Calendar({ navigation }) {
       }, {});
 
       setItems(items);
+      console.log(items);
     };
     getVisitsCalendar();
   }, [state.visits]);
-
-  console.log(items);
 
   return (
     <Agenda

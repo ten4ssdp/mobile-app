@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useContext, useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import { MainStore } from '../../context/store/main';
@@ -8,7 +8,9 @@ import colors from '../../utils/colors';
 import Bold from '../Font/Bold';
 import Light from '../Font/Light';
 
-export default function DetailOngletVisit({ y }) {
+const { height } = Dimensions.get('screen');
+
+export default function DetailOngletVisit({ y, coworker }) {
   const [visitLength, setVisitLength] = useState(0);
   const { state } = useContext(MainStore);
 
@@ -24,30 +26,24 @@ export default function DetailOngletVisit({ y }) {
     extrapolate: 'clamp'
   });
 
+  console.log('detail', coworker);
   return (
     <View style={styles.container}>
       <Animated.View style={{ height: containerHeight }}>
-        <View style={styles.textContainer}>
-          <Ionicons
-            size={25}
-            name="md-people"
-            color={colors['stroke-default-planning']}
-            style={{ marginRight: 10, marginLeft: 20 }}
-          />
-          <Light style={styles.text}>Super Mario</Light>
-        </View>
-
-        <View style={styles.textContainer}>
-          <Ionicons
-            size={25}
-            name="md-car"
-            color={colors['green-validate-finish']}
-            style={{ marginRight: 10, marginLeft: 20 }}
-          />
-          <Light style={styles.text}>
-            AM-255-GG <Light>(3jours)</Light>
-          </Light>
-        </View>
+        {coworker &&
+          coworker.map((co) => (
+            <View key={co.id} style={styles.textContainer}>
+              <Ionicons
+                size={25}
+                name="md-people"
+                color={colors['stroke-default-planning']}
+                style={{ marginRight: 10, marginLeft: 20 }}
+              />
+              <Light style={styles.text}>
+                {co.lastname} {co.name}
+              </Light>
+            </View>
+          ))}
       </Animated.View>
       {!!state.currentDayVisits && (
         <View style={styles.visitProgress}>
@@ -63,7 +59,7 @@ export default function DetailOngletVisit({ y }) {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 70
+    height: height / 12
   },
   textContainer: {
     flexDirection: 'row',

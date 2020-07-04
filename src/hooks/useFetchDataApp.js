@@ -11,10 +11,13 @@ function useFetchDataApp() {
   const [visits, setVisits] = useState([]);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState('');
-  const [teamId, setTeamId] = useState(null);
+  const [coworker, setCoworker] = useState(null);
   const { userState } = useContext(UserStore);
   const { state, dispatch: mainDispatch } = useContext(MainStore);
-
+  const firstWeekDay = formatDateForMickey(getFirstDay(new Date()));
+  const headers = {
+    authorization: `bearer ${token}`
+  };
   useEffect(() => {
     setLoading(true);
     async function getToken() {
@@ -27,20 +30,13 @@ function useFetchDataApp() {
   useEffect(() => {
     const getVisits = async () => {
       try {
-        const res = await http.get(
-          `visits/user/${userState.user.id}/${formatDateForMickey(getFirstDay(new Date()))}`,
-          {
-            authorization: `bearer ${token}`
-          }
-        );
+        const res = await http.get(`visits/user/${userState.user.id}/${firstWeekDay}`, headers);
 
         if (res === undefined || res === null) {
           throw new Error('Visits return undefined or null');
         }
 
         await getVisitsAction(mainDispatch, res.visits);
-
-        // setTeamId(await res.visits[0].teamId);
       } catch (error) {
         console.error(error.message);
         setLoading(false);
@@ -52,11 +48,20 @@ function useFetchDataApp() {
     }
   }, [token, state.refresh]);
 
-  //   useEffect(() => {
-  //     async function fetchTeam() {
-  //       const res = await http.get(`mickey/teams/${}`);
-  //     }
-  //   });
+  useEffect(() => {
+    async function fetchTeam() {
+      const res = await http.get(`teams/${userState.user.id}/${firstWeekDay}`, headers);
+
+      const coworker =
+        res !== null &&
+        res[0].users.filter(
+          (user) => user.name !== userState.user.name && user.lastname !== userState.user.lastname
+        );
+
+      setCoworker(coworker);
+    }
+    fetchTeam();
+  }, [token]);
 
   useEffect(() => {
     function currentDayVisits() {
@@ -75,7 +80,8 @@ function useFetchDataApp() {
 
   return {
     visits,
-    loading
+    loading,
+    coworker
   };
 }
 
