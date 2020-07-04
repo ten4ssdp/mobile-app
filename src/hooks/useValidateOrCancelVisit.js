@@ -34,8 +34,6 @@ function useValidateOrCancelVisit({ isValidation }) {
       onRefresh(dispatch, true);
     }
 
-    console.log({ status, res });
-
     return res;
   };
 
