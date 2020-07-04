@@ -25,7 +25,7 @@ function Routes() {
           setUser(dispatch, {});
         }
       } catch (error) {
-        console.log(error);
+        console.log(error.message);
       }
     }
     getToken();

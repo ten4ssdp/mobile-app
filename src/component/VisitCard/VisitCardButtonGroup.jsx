@@ -1,9 +1,30 @@
-import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Button, Alert } from 'react-native';
 
+import useValidateOrCancelVisit from '../../hooks/useValidateOrCancelVisit';
 import colors from '../../utils/colors';
 
-export default function VisitCardButtonGroup({ navigation, hotel, latLong, status, start }) {
+export default function VisitCardButtonGroup({
+  navigation,
+  hotel,
+  latLong,
+  status,
+  start,
+  visitId
+}) {
+  const { handleSubmit, res } = useValidateOrCancelVisit({ isValidation: true });
+
+  useEffect(() => {
+    if (res === null) {
+      return undefined;
+    }
+
+    if (res.status === 1) {
+      Alert.alert('Visite finalisée');
+    }
+  }, [res]);
+
+  console.log('[RESPONSE]', res);
   return (
     <View style={styles.buttonContainer}>
       <View
@@ -12,14 +33,18 @@ export default function VisitCardButtonGroup({ navigation, hotel, latLong, statu
           backgroundColor: colors['stroke-default-planning']
         }}
       >
-        <Button title="Visite Finalisée" color={colors['active-white']} />
+        <Button
+          title="Visite Finalisée"
+          onPress={() => handleSubmit({ id: visitId, body: { description: '' } })}
+          color={colors['active-white']}
+        />
       </View>
       <View style={{ ...styles.button, backgroundColor: colors['midnight-light-blue'] }}>
         <Button
           title="Détails"
           color={colors['active-white']}
           onPress={() => {
-            navigation.navigate('Details', { hotel, latLong, status, start });
+            navigation.navigate('Details', { hotel, latLong, status, start, visitId });
           }}
         />
       </View>

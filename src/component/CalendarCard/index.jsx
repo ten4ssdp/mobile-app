@@ -29,7 +29,12 @@ export default function CalendarCard({ type, hotelName, hour, isUrgence, navigat
         backgroundColor: setBgColor(type)
       }}
       onPress={() => {
-        navigation.navigate('Details', { hotel: hotel.hotel, status: type, start: hotel.start });
+        navigation.navigate('Details', {
+          hotel: hotel.hotel,
+          status: type,
+          start: hotel.start,
+          visitId: hotel.id
+        });
       }}
     >
       <View
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
 });
 
 CalendarCard.defaultProps = {
-  type: 'todo'
+  type: 0
 };
 
 CalendarCard.propTypes = {

@@ -1,6 +1,6 @@
 import * as Linking from 'expo-linking';
 import React from 'react';
-import { View, Dimensions, StyleSheet, Alert } from 'react-native';
+import { View, Dimensions, StyleSheet } from 'react-native';
 
 import BackgroundImage from '../../component/BackgroundImage';
 import Button from '../../component/Button';
@@ -16,7 +16,7 @@ import goToFunction from '../../utils/goToFunction';
 const { height } = Dimensions.get('screen');
 
 export default function Details({ navigation, route, isEmergency }) {
-  const { hotel, status, start } = route.params;
+  const { hotel, status, start, visitId } = route.params;
 
   const location = {
     address: hotel.address,
@@ -120,23 +120,7 @@ export default function Details({ navigation, route, isEmergency }) {
               </Bold>
             )}
           </View>
-          <CancelVisitButton
-            func={() =>
-              Alert.alert(
-                'Annuler la visite',
-                'Voulez-vous vraiment annuler la visite ?',
-                [
-                  { text: 'Oui', onPress: () => console.log('Visite annulée') },
-                  {
-                    text: 'Non',
-                    onPress: () => console.log('Retour'),
-                    style: 'cancel'
-                  }
-                ],
-                { cancelable: false }
-              )
-            }
-          />
+          <CancelVisitButton hotelInfo={{ hotelName: hotel.name, visitId }} />
         </>
       )}
 

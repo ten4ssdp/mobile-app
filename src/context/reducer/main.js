@@ -1,4 +1,12 @@
-import { SWICTH_SCREEN, GET_VISITS, GET_TEAM, GET_CURRENT_DAY_VISITS } from '../constant/main';
+import {
+  SWICTH_SCREEN,
+  GET_VISITS,
+  GET_TEAM,
+  GET_CURRENT_DAY_VISITS,
+  IS_MODAL_OPEN,
+  SET_HOTEL_INFO,
+  REFRESH
+} from '../constant/main';
 
 function mainReducer(state, action) {
   switch (action.type) {
@@ -16,6 +24,24 @@ function mainReducer(state, action) {
       return {
         ...state,
         currentDayVisits: action.payload
+      };
+    }
+    case IS_MODAL_OPEN: {
+      return {
+        ...state,
+        isModalOpen: action.payload
+      };
+    }
+    case SET_HOTEL_INFO: {
+      return {
+        ...state,
+        hotelInfo: action.payload
+      };
+    }
+    case REFRESH: {
+      return {
+        ...state,
+        refresh: action.payload
       };
     }
     case GET_TEAM:

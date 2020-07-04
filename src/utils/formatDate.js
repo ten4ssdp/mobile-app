@@ -1,4 +1,5 @@
 export function formatDateForkeyObj(d) {
+  console.log('[new Date(d)]', new Date(d));
   return new Date(d)
     .toLocaleDateString('fr-FR', {
       year: 'numeric',

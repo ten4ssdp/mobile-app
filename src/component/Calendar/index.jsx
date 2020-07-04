@@ -5,6 +5,7 @@ import { Agenda } from 'react-native-calendars';
 import { MainStore } from '../../context/store/main';
 import { formatDateForkeyObj, returnHours } from '../../utils/formatDate';
 import CalendarCard from '../CalendarCard';
+import Bold from '../Font/Bold';
 
 export default function Calendar({ navigation }) {
   const [items, setItems] = useState({});
@@ -16,6 +17,9 @@ export default function Calendar({ navigation }) {
         setItems([]);
         return undefined;
       }
+
+      console.log(state.visits);
+
       const dates = [
         ...new Map(state.visits.map((item) => [new Date(item.start).getDate(), item])).values()
       ].map((visit) => visit.start);
@@ -28,6 +32,7 @@ export default function Calendar({ navigation }) {
       }, {});
 
       setItems(items);
+      console.log(items);
     };
     getVisitsCalendar();
   }, [state.visits]);
@@ -73,7 +78,12 @@ export default function Calendar({ navigation }) {
         return r1.text !== r2.text;
       }}
       renderEmptyData={() => {
-        return <View />;
+        return (
+          <View>
+            <Bold>Pas de visites programmées.</Bold>
+            <Bold>Appelez le bureau si besoin</Bold>
+          </View>
+        );
       }}
       onRefresh={() => console.log('refreshing...')}
     />

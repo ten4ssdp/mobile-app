@@ -3,6 +3,7 @@ import { View, ActivityIndicator } from 'react-native';
 import { Value } from 'react-native-reanimated';
 
 import Calendar from '../../component/Calendar';
+import MyModal from '../../component/Modal';
 import Onglet from '../../component/Onglet';
 import VisitList from '../../component/VisitList';
 import { MainStore } from '../../context/store/main';
@@ -12,7 +13,8 @@ import colors from '../../utils/colors';
 export default function Home({ navigation }) {
   const { state } = useContext(MainStore);
   const y = new Value(0);
-  const { visits, loading } = useFetchDataApp();
+
+  const { visits, loading, coworker } = useFetchDataApp();
 
   if (loading) {
     return (
@@ -22,12 +24,15 @@ export default function Home({ navigation }) {
     );
   }
 
+  console.log(coworker);
+
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
       <Onglet
         y={y}
         isVisitPage={!state.hasToRenderCalendar}
         title={state.hasToRenderCalendar ? 'Mon calendrier' : 'Mes visites'}
+        coworker={coworker}
       />
       <View style={{ flex: 1, backgroundColor: '#E5E5E5' }}>
         {state.hasToRenderCalendar ? (
@@ -36,6 +41,7 @@ export default function Home({ navigation }) {
           <VisitList visits={visits} navigation={navigation} y={y} />
         )}
       </View>
+      <MyModal />
     </View>
   );
 }

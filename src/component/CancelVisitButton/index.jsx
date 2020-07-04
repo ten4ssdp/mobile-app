@@ -1,16 +1,25 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
+import { onOpenModal, setHotelName } from '../../context/action/main';
+import { MainStore } from '../../context/store/main';
 import Bold from '../Font/Bold';
 
 const { width } = Dimensions.get('screen');
 
-// TODO: center button content
-export default function CancelVisitButton({ func, style }) {
+export default function CancelVisitButton({ hotelInfo, style }) {
+  const { dispatch } = useContext(MainStore);
+
   return (
-    <TouchableWithoutFeedback style={{ ...styles.container, ...style }} onPress={() => func()}>
+    <TouchableWithoutFeedback
+      style={{ ...styles.container, ...style }}
+      onPress={() => {
+        onOpenModal(dispatch, true);
+        setHotelName(dispatch, { hotelName: hotelInfo.hotelName, visitId: hotelInfo.visitId });
+      }}
+    >
       <Bold style={styles.text}>Annuler la visite</Bold>
     </TouchableWithoutFeedback>
   );
@@ -41,6 +50,6 @@ const styles = StyleSheet.create({
 });
 
 CancelVisitButton.propTypes = {
-  func: PropTypes.func.isRequired,
+  hotelName: PropTypes.string,
   style: PropTypes.object
 };

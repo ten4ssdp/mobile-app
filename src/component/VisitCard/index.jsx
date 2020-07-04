@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View, StyleSheet, Dimensions, Alert } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 
 import useLatLong from '../../hooks/useLatLong';
 import colors from '../../utils/colors';
@@ -29,29 +29,14 @@ export default function VisitCard({ visit, navigation }) {
       <BackgroundImage name={hotel.name} />
       <HotelAddress location={location} />
       <VisitCardBtnGoTo latLong={latLong} name={hotel.name} />
-      <CancelVisitButton
-        func={() =>
-          Alert.alert(
-            'Annuler la visite',
-            'Voulez-vous vraiment annuler la visite ?',
-            [
-              { text: 'Oui', onPress: () => console.log('Visite annulée') },
-              {
-                text: 'Non',
-                onPress: () => console.log('Retour'),
-                style: 'cancel'
-              }
-            ],
-            { cancelable: false }
-          )
-        }
-      />
+      <CancelVisitButton hotelInfo={{ hotelName: hotel.name, visitId: visit.id }} />
       <VisitCardButtonGroup
         latLong={latLong}
         hotel={hotel}
         status={visit.status}
         start={visit.start}
         navigation={navigation}
+        visitId={visit.id}
       />
     </View>
   );
