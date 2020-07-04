@@ -20,7 +20,7 @@ export default function VisitCardButtonGroup({
     }
 
     if (res.status === 1) {
-      Alert.alert('Visite finalisée');
+      Alert.alert('CONFIRMATION', 'Visite finalisée');
     }
   }, [res]);
 
@@ -34,7 +34,15 @@ export default function VisitCardButtonGroup({
       >
         <Button
           title="Visite Finalisée"
-          onPress={() => handleSubmit({ id: visitId, body: { description: '' } })}
+          onPress={() =>
+            Alert.alert('CONFIRMATION', 'Avez-vous terminé la visite ?', [
+              { text: 'NON', onPress: () => console.log('OK Pressed'), style: 'cancel' },
+              {
+                text: 'OUI',
+                onPress: () => handleSubmit({ id: visitId, body: { description: '' } })
+              }
+            ])
+          }
           color={colors['active-white']}
         />
       </View>
