@@ -24,8 +24,6 @@ export default function Home({ navigation }) {
     );
   }
 
-  console.log(coworker);
-
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
       <Onglet

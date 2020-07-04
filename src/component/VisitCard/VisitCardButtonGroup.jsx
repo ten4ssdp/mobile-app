@@ -24,7 +24,6 @@ export default function VisitCardButtonGroup({
     }
   }, [res]);
 
-  console.log('[RESPONSE]', res);
   return (
     <View style={styles.buttonContainer}>
       <View

@@ -26,7 +26,6 @@ export default function DetailOngletVisit({ y, coworker }) {
     extrapolate: 'clamp'
   });
 
-  console.log('detail', coworker);
   return (
     <View style={styles.container}>
       <Animated.View style={{ height: containerHeight }}>
