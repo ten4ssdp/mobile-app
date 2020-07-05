@@ -44,8 +44,9 @@ function useFetchDataApp() {
           throw new Error('Visits return undefined or null');
         }
         if (res.emergencies) {
-          getUrgences(mainDispatch, res.emergencies);
-          setUrgences(res.emergencies);
+          const emergencies = res.emergencies.filter((em) => em.status === 0);
+          getUrgences(mainDispatch, emergencies);
+          setUrgences(emergencies);
         }
 
         await getVisitsAction(mainDispatch, res.visits);
@@ -96,10 +97,9 @@ function useFetchDataApp() {
       socket.emit('join', token);
       socket.on('emergency', async function (data) {
         onRefresh(mainDispatch, true);
-        return data;
       });
     });
-  });
+  }, []);
 
   return {
     visits,

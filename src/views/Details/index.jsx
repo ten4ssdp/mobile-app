@@ -116,7 +116,9 @@ export default function Details({ route }) {
               </Bold>
             )}
           </View>
-          <CancelVisitButton hotelInfo={{ hotelName: hotel.name, visitId }} />
+          {(status || start || isEmergency) && (
+            <CancelVisitButton hotelInfo={{ hotelName: hotel.name, visitId }} />
+          )}
         </>
       )}
 

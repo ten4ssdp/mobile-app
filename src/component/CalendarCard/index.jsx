@@ -10,8 +10,9 @@ import Light from '../Font/Light';
 const { height } = Dimensions.get('screen');
 
 export default function CalendarCard({ type, hotelName, hour, isUrgence, navigation, hotel }) {
+  const urgence = isUrgence ? 'urgence' : null;
   function setBgColor(type) {
-    switch (type) {
+    switch (type || urgence) {
       case 1:
         return colors['green-validate-finish'];
       case 'urgence':
@@ -73,5 +74,8 @@ CalendarCard.defaultProps = {
 CalendarCard.propTypes = {
   type: PropTypes.oneOf([1, 0, -1]),
   hotelName: PropTypes.string.isRequired,
-  hour: PropTypes.string.isRequired
+  hour: PropTypes.string.isRequired,
+  isUrgence: PropTypes.bool,
+  navigation: PropTypes.object,
+  hotel: PropTypes.object
 };

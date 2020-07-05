@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Button, Alert } from 'react-native';
 
@@ -86,3 +87,14 @@ const styles = StyleSheet.create({
     width: '50%'
   }
 });
+
+VisitCardButtonGroup.propTypes = {
+  navigation: PropTypes.object,
+  hotel: PropTypes.object,
+  latLong: PropTypes.object,
+  status: PropTypes.number,
+  start: PropTypes.string,
+  visitId: PropTypes.number,
+  isEmergency: PropTypes.bool,
+  emergencyText: PropTypes.string
+};

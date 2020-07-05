@@ -21,6 +21,7 @@ function useNotifications() {
       try {
         const token = await Notifications.getExpoPushTokenAsync();
         setNotifToken(token);
+        console.log(token);
       } catch (error) {
         console.error(error);
       }

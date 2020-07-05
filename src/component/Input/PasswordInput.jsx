@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
 import Input from '.';
@@ -18,3 +19,7 @@ export default function PasswordInput(props) {
     />
   );
 }
+
+PasswordInput.propTypes = {
+  props: PropTypes.object
+};

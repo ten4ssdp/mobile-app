@@ -29,7 +29,9 @@ export default function VisitCard({ visit, navigation, isEmergency, emergencyTex
       <BackgroundImage name={hotel.name} isEmergency={isEmergency} />
       <HotelAddress location={location} />
       <VisitCardBtnGoTo latLong={latLong} name={hotel.name} />
-      <CancelVisitButton hotelInfo={{ hotelName: hotel.name, visitId: visit.id }} />
+      {(visit.status || visit.start || isEmergency) && (
+        <CancelVisitButton hotelInfo={{ hotelName: hotel.name, visitId: visit.id }} />
+      )}
       <VisitCardButtonGroup
         latLong={latLong}
         hotel={hotel}

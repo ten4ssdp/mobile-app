@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import Animated from 'react-native-reanimated';
@@ -6,7 +7,7 @@ import Bold from '../Font/Bold';
 import VisitCard from '../VisitCard';
 
 export default function VisitList({ y, navigation, visits, urgences }) {
-  if ((visits?.length <= 0 || !visits) && urgences === null) {
+  if ((visits?.length <= 0 || !visits) && (!urgences || visits?.length <= 0)) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Bold>Pas de visite aujourd'hui</Bold>
@@ -16,9 +17,13 @@ export default function VisitList({ y, navigation, visits, urgences }) {
 
   return (
     <Animated.ScrollView
-      scrollEventThrottle={16}
+      scrollEventThrottle={1}
       style={{ flex: 1, paddingTop: 10 }}
-      onScroll={Animated.event([{ nativeEvent: { contentOffset: { y } } }])}
+      onScroll={Animated.event([{ nativeEvent: { contentOffset: { y } } }], {
+        useNativeDriver: true
+      })}
+      scrollToOverflowEnabled
+      scrollEnabled
       contentContainerStyle={{
         alignItems: 'center'
       }}
@@ -41,3 +46,10 @@ export default function VisitList({ y, navigation, visits, urgences }) {
     </Animated.ScrollView>
   );
 }
+
+VisitList.propTypes = {
+  y: PropTypes.object,
+  navigation: PropTypes.object,
+  visits: PropTypes.array,
+  urgences: PropTypes.array
+};

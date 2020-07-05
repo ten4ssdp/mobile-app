@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { Value } from 'react-native-reanimated';
 
@@ -18,8 +18,9 @@ export default function Home({ navigation }) {
   const { visits, loading, coworker, urgences } = useFetchDataApp();
   const { notifToken } = useNotifications();
 
-  console.log('[notifToken]', notifToken);
-
+  useEffect(() => {
+    console.log('[notifToken]', notifToken);
+  }, [notifToken]);
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

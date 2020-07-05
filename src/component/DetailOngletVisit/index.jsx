@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React, { useContext, useState, useEffect } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Animated from 'react-native-reanimated';
@@ -21,8 +22,8 @@ export default function DetailOngletVisit({ y, coworker }) {
   }, [state.currentDayVisits]);
 
   const containerHeight = y.interpolate({
-    inputRange: [0, 70],
-    outputRange: [50, 0],
+    inputRange: [0, 50],
+    outputRange: [35, 0],
     extrapolate: 'clamp'
   });
 
@@ -44,13 +45,20 @@ export default function DetailOngletVisit({ y, coworker }) {
             </View>
           ))}
       </Animated.View>
-      {!!state.currentDayVisits && (
-        <View style={styles.visitProgress}>
-          <Bold
-            style={styles.visitProgressText}
-          >{`${state.currentDayVisits.length}/${visitLength}`}</Bold>
-        </View>
-      )}
+      <View style={styles.visitProgress}>
+        {!!state.urgences && (
+          <View>
+            <Bold style={styles.visitProgressText}>Urgences : {state.urgences.length} - </Bold>
+          </View>
+        )}
+        {!!state.currentDayVisits && (
+          <View>
+            <Bold style={styles.visitProgressText}>
+              Visite restantes: {`${state.currentDayVisits.length}`}
+            </Bold>
+          </View>
+        )}
+      </View>
     </View>
   );
 }
@@ -70,11 +78,17 @@ const styles = StyleSheet.create({
   },
   visitProgress: {
     width: '100%',
-    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
     paddingRight: 18,
-    height: 25
+    height: 20,
+    flexDirection: 'row'
   },
   visitProgressText: {
     fontSize: 20
   }
 });
+
+DetailOngletVisit.propTypes = {
+  y: PropTypes.object,
+  coworker: PropTypes.array
+};

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
@@ -14,7 +15,7 @@ export default function Calendar({ navigation }) {
   useEffect(() => {
     const getVisitsCalendar = () => {
       if (!state.visits) {
-        setItems([]);
+        setItems({});
         return undefined;
       }
 
@@ -86,3 +87,7 @@ export default function Calendar({ navigation }) {
     />
   );
 }
+
+Calendar.propTypes = {
+  navigation: PropTypes.object
+};

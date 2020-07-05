@@ -5,6 +5,15 @@ import { View, StyleSheet, ImageBackground } from 'react-native';
 import colors from '../../utils/colors';
 import Bold from '../Font/Bold';
 
+/**
+ * Renders a <BackgroundImage /> component
+ * @typedef {Object} Props
+ * @prop {Boolean}  isEmergency
+ * @prop {String}  name - hotel name
+ * @prop {Object}  style - additionnal style
+ * @prop {String} resizeMode - render mode for background image
+ */
+
 export default function BackgroundImage({ isEmergency, name, style, resizeMode }) {
   return (
     <ImageBackground

@@ -50,6 +50,6 @@ const styles = StyleSheet.create({
 });
 
 CancelVisitButton.propTypes = {
-  hotelName: PropTypes.string,
+  hotelInfo: PropTypes.object,
   style: PropTypes.object
 };
