@@ -3,7 +3,7 @@ import React, { createContext } from 'react';
 import userReducer from '../reducer/user';
 
 /**
- * @type {Object}
+ * @type {String} token
  * @property {Boolean} isLogin
  * @property {Object} user
  *
