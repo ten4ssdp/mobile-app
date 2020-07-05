@@ -1,3 +1,5 @@
+import { BASE_API_URL } from './constant';
+
 class Http {
   constructor(BASE_URL) {
     this.BASE_URL = BASE_URL;
@@ -33,4 +35,4 @@ class Http {
   }
 }
 
-export default new Http('http://3.10.224.110:5000/api');
+export default new Http(`${BASE_API_URL}/api`);

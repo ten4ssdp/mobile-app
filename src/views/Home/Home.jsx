@@ -8,13 +8,17 @@ import Onglet from '../../component/Onglet';
 import VisitList from '../../component/VisitList';
 import { MainStore } from '../../context/store/main';
 import useFetchDataApp from '../../hooks/useFetchDataApp';
+import useNotifications from '../../hooks/useNotifications';
 import colors from '../../utils/colors';
 
 export default function Home({ navigation }) {
   const { state } = useContext(MainStore);
   const y = new Value(0);
 
-  const { visits, loading, coworker } = useFetchDataApp();
+  const { visits, loading, coworker, urgences } = useFetchDataApp();
+  const { notifToken } = useNotifications();
+
+  console.log('[notifToken]', notifToken);
 
   if (loading) {
     return (
@@ -36,7 +40,7 @@ export default function Home({ navigation }) {
         {state.hasToRenderCalendar ? (
           <Calendar y={y} navigation={navigation} />
         ) : (
-          <VisitList visits={visits} navigation={navigation} y={y} />
+          <VisitList urgences={urgences} visits={visits} navigation={navigation} y={y} />
         )}
       </View>
       <MyModal />

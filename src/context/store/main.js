@@ -9,6 +9,7 @@ import mainReducer from '../reducer/main';
  * @property {Object} team
  * @property {Boolean} isModalOpen
  * @property {Boolean} refresh
+ * @property {Array} urgences
  */
 const initialState = {
   hasToRenderCalendar: false,
@@ -17,7 +18,8 @@ const initialState = {
   currentDayVisits: null,
   isModalOpen: false,
   hotelInfo: { hotelName: '', visitId: null },
-  refresh: false
+  refresh: false,
+  urgences: null
 };
 
 export const MainStore = createContext();
