@@ -44,9 +44,7 @@ function useFetchDataApp() {
           throw new Error('Visits return undefined or null');
         }
         if (res.emergencies) {
-          const emergencies = res.emergencies.filter((em) => em.status === 0);
-          getUrgences(mainDispatch, emergencies);
-          setUrgences(emergencies);
+          await getUrgences(mainDispatch, res.emergencies);
         }
 
         await getVisitsAction(mainDispatch, res.visits);
@@ -82,8 +80,11 @@ function useFetchDataApp() {
       const filteredVisits = state.visits?.filter((visit) => {
         return visit.status === 0 && new Date(visit.start).getDate() === today.getDate();
       });
+      const emergencies = state.urgences?.filter((em) => em.status === 0);
+      setUrgences(emergencies);
       setVisits(filteredVisits);
       getCurrentDayVisits(mainDispatch, filteredVisits);
+      getUrgences(mainDispatch, emergencies);
       setLoading(false);
       onRefresh(mainDispatch, false);
     }
