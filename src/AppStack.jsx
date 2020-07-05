@@ -28,8 +28,8 @@ export default function AppStack() {
 
   const disconnect = async () => {
     try {
-      await AsyncStorage.removeItem('token');
       setIsUserLogin(dispatch, false);
+      await AsyncStorage.removeItem('token');
     } catch (err) {
       console.log(err.message);
     }

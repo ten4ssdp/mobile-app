@@ -18,6 +18,7 @@ export default function Input(props) {
         style={{ ...styles.input, width: ionicons ? '80%' : '100%', ...style }}
         textContentType={type}
         autoCapitalize="none"
+        scrollEnabled
       />
       {ionicons && (
         <View style={styles.icon}>
