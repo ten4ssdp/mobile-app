@@ -1,14 +1,22 @@
 import { useEffect, useState, useContext } from 'react';
 import { AsyncStorage } from 'react-native';
+import socketIOClient from 'socket.io-client';
 
-import { getVisitsAction, getCurrentDayVisits, onRefresh } from '../context/action/main';
+import {
+  getVisitsAction,
+  getCurrentDayVisits,
+  onRefresh,
+  getUrgences
+} from '../context/action/main';
 import { MainStore } from '../context/store/main';
 import { UserStore } from '../context/store/user';
+import { BASE_API_URL } from '../utils/constant';
 import { formatDateForMickey, getFirstDay } from '../utils/formatDate';
 import http from '../utils/http';
 
 function useFetchDataApp() {
   const [visits, setVisits] = useState([]);
+  const [urgences, setUrgences] = useState(null);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState('');
   const [coworker, setCoworker] = useState(null);
@@ -35,6 +43,10 @@ function useFetchDataApp() {
         if (res === undefined || res === null) {
           throw new Error('Visits return undefined or null');
         }
+        if (res.emergencies) {
+          getUrgences(mainDispatch, res.emergencies);
+          setUrgences(res.emergencies);
+        }
 
         await getVisitsAction(mainDispatch, res.visits);
       } catch (error) {
@@ -54,7 +66,7 @@ function useFetchDataApp() {
 
       const coworker =
         res !== null &&
-        res[0].users.filter(
+        res[0]?.users.filter(
           (user) => user.name !== userState.user.name && user.lastname !== userState.user.lastname
         );
 
@@ -78,10 +90,22 @@ function useFetchDataApp() {
     currentDayVisits();
   }, [state.visits, state.refresh]);
 
+  useEffect(() => {
+    const socket = socketIOClient(BASE_API_URL);
+    socket.on('connect', () => {
+      socket.emit('join', token);
+      socket.on('emergency', async function (data) {
+        onRefresh(mainDispatch, true);
+        return data;
+      });
+    });
+  });
+
   return {
     visits,
     loading,
-    coworker
+    coworker,
+    urgences
   };
 }
 

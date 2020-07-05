@@ -13,7 +13,7 @@ import VisitCardButtonGroup from './VisitCardButtonGroup';
 
 const { width } = Dimensions.get('window');
 
-export default function VisitCard({ visit, navigation }) {
+export default function VisitCard({ visit, navigation, isEmergency, emergencyText }) {
   const { hotel } = visit;
   const location = {
     address: hotel.address,
@@ -26,7 +26,7 @@ export default function VisitCard({ visit, navigation }) {
 
   return (
     <View style={styles.card}>
-      <BackgroundImage name={hotel.name} />
+      <BackgroundImage name={hotel.name} isEmergency={isEmergency} />
       <HotelAddress location={location} />
       <VisitCardBtnGoTo latLong={latLong} name={hotel.name} />
       <CancelVisitButton hotelInfo={{ hotelName: hotel.name, visitId: visit.id }} />
@@ -37,6 +37,8 @@ export default function VisitCard({ visit, navigation }) {
         start={visit.start}
         navigation={navigation}
         visitId={visit.id}
+        isEmergency={isEmergency}
+        emergencyText={emergencyText}
       />
     </View>
   );
@@ -56,5 +58,6 @@ const styles = StyleSheet.create({
 VisitCard.propTypes = {
   visit: PropTypes.object.isRequired,
   isEmergency: PropTypes.bool,
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
+  emergencyText: PropTypes.string
 };

@@ -15,8 +15,8 @@ import formatDate from '../../utils/formatDate';
 import goToFunction from '../../utils/goToFunction';
 const { height } = Dimensions.get('screen');
 
-export default function Details({ navigation, route, isEmergency }) {
-  const { hotel, status, start, visitId } = route.params;
+export default function Details({ route }) {
+  const { hotel, status, start, visitId, isEmergency, emergencyText } = route.params;
 
   const location = {
     address: hotel.address,
@@ -70,13 +70,9 @@ export default function Details({ navigation, route, isEmergency }) {
       </View>
       {isEmergency ? (
         <View style={{ paddingHorizontal: 16 }}>
-          <Bold style={styles.text}>Description :</Bold>
-          <Light style={{ color: colors['midnight-blue'] }}>
-            Vous avez été contacté par une urgence. Celle-ci concerne l’hôtel Mercure de Bobigny. Il
-            semblerait qu’un incendie ce soit déclaré entre 8h et 9h du matin. Il faut donc, qu’un
-            binome aillent directement sur les lieux afin de constater les dégats. Merci d’informer
-            vos supérieurs quand vous avez terminé l’inspection.
-          </Light>
+          <Bold style={styles.text}>
+            Description : <Light style={{ color: colors['midnight-blue'] }}>{emergencyText}</Light>
+          </Bold>
         </View>
       ) : (
         <>

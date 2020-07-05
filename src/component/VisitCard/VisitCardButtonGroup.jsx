@@ -10,7 +10,9 @@ export default function VisitCardButtonGroup({
   latLong,
   status,
   start,
-  visitId
+  visitId,
+  isEmergency,
+  emergencyText
 }) {
   const { handleSubmit, res } = useValidateOrCancelVisit({ isValidation: true });
 
@@ -36,7 +38,11 @@ export default function VisitCardButtonGroup({
           title="Visite Finalisée"
           onPress={() =>
             Alert.alert('CONFIRMATION', 'Avez-vous terminé la visite ?', [
-              { text: 'NON', onPress: () => console.log('OK Pressed'), style: 'cancel' },
+              {
+                text: 'NON',
+                onPress: () => console.log('OK Pressed'),
+                style: 'cancel'
+              },
               {
                 text: 'OUI',
                 onPress: () => handleSubmit({ id: visitId, body: { description: '' } })
@@ -51,7 +57,15 @@ export default function VisitCardButtonGroup({
           title="Détails"
           color={colors['active-white']}
           onPress={() => {
-            navigation.navigate('Details', { hotel, latLong, status, start, visitId });
+            navigation.navigate('Details', {
+              hotel,
+              latLong,
+              status,
+              start,
+              visitId,
+              isEmergency,
+              emergencyText
+            });
           }}
         />
       </View>
