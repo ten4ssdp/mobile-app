@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
+import MapView from 'react-native-maps';
 import Animated from 'react-native-reanimated';
 
 import Bold from '../Font/Bold';
@@ -28,6 +29,14 @@ export default function VisitList({ y, navigation, visits, urgences }) {
         alignItems: 'center'
       }}
     >
+      <MapView
+        region={{
+          latitude: 48.866667,
+          longitude: 2.333333
+        }}
+        style={{ width: '100%', height: 400 }}
+      />
+
       {urgences &&
         urgences.map((urgence) => {
           return (
