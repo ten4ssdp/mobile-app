@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { Value } from 'react-native-reanimated';
 
@@ -16,8 +16,7 @@ export default function Home({ navigation }) {
   const y = new Value(0);
 
   const { visits, loading, coworker, urgences } = useFetchDataApp();
-  const { notifToken } = useNotifications();
-
+  useNotifications();
 
   if (loading) {
     return (

@@ -33,7 +33,6 @@ function useNotifications() {
         setNotifToken(token);
         console.log(token);
 
-
         if (!userState.user.id) {
           return;
         }
