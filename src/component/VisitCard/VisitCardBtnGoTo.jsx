@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
@@ -31,3 +32,8 @@ const styles = StyleSheet.create({
     paddingVertical: 5
   }
 });
+
+VisitCardBtnGoTo.propTypes = {
+  latlong: PropTypes.object,
+  name: PropTypes.string
+};

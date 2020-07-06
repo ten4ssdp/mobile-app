@@ -30,6 +30,9 @@ function useNotifications() {
           authorization: `bearer ${userToken}`
         };
         const token = await Notifications.getExpoPushTokenAsync();
+        setNotifToken(token);
+        console.log(token);
+
 
         if (!userState.user.id) {
           return;

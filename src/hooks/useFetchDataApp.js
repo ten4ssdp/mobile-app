@@ -44,8 +44,7 @@ function useFetchDataApp() {
           throw new Error('Visits return undefined or null');
         }
         if (res.emergencies) {
-          getUrgences(mainDispatch, res.emergencies);
-          setUrgences(res.emergencies);
+          await getUrgences(mainDispatch, res.emergencies);
         }
 
         await getVisitsAction(mainDispatch, res.visits);
@@ -81,8 +80,11 @@ function useFetchDataApp() {
       const filteredVisits = state.visits?.filter((visit) => {
         return visit.status === 0 && new Date(visit.start).getDate() === today.getDate();
       });
+      const emergencies = state.urgences?.filter((em) => em.status === 0);
+      setUrgences(emergencies);
       setVisits(filteredVisits);
       getCurrentDayVisits(mainDispatch, filteredVisits);
+      getUrgences(mainDispatch, emergencies);
       setLoading(false);
       onRefresh(mainDispatch, false);
     }
@@ -96,10 +98,9 @@ function useFetchDataApp() {
       socket.emit('join', token);
       socket.on('emergency', async function (data) {
         onRefresh(mainDispatch, true);
-        return data;
       });
     });
-  });
+  }, []);
 
   return {
     visits,

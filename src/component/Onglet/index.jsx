@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import Animated from 'react-native-reanimated';
@@ -9,8 +10,8 @@ const { width, height } = Dimensions.get('window');
 
 export default function Onglet({ title, y, isVisitPage, coworker }) {
   const ongletHeight = y.interpolate({
-    inputRange: [0, height / 6],
-    outputRange: [height / 4, height / 6],
+    inputRange: [0, height / 5.5],
+    outputRange: [height / 4, height / 5.5],
     extrapolate: 'clamp'
   });
 
@@ -32,7 +33,7 @@ export default function Onglet({ title, y, isVisitPage, coworker }) {
 
   return (
     <Animated.View
-      style={{ ...styles.ongletContainer, height: isVisitPage ? ongletHeight : height / 6 }}
+      style={{ ...styles.ongletContainer, height: isVisitPage ? ongletHeight : height / 5.5 }}
     >
       <Animated.Text
         style={{
@@ -74,3 +75,10 @@ const styles = StyleSheet.create({
     fontFamily: 'nexaBold'
   }
 });
+
+Onglet.propTypes = {
+  title: PropTypes.string,
+  y: PropTypes.object,
+  isVisitPage: PropTypes.bool,
+  coworker: PropTypes.array
+};
