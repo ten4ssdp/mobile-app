@@ -18,9 +18,7 @@ export default function Home({ navigation }) {
   const { visits, loading, coworker, urgences } = useFetchDataApp();
   const { notifToken } = useNotifications();
 
-  useEffect(() => {
-    console.log('[notifToken]', notifToken);
-  }, [notifToken]);
+
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
