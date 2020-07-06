@@ -4,6 +4,7 @@ import { Value } from 'react-native-reanimated';
 
 import Calendar from '../../component/Calendar';
 import MyModal from '../../component/Modal';
+import ModalConfirmation from '../../component/ModalConfirmation';
 import Onglet from '../../component/Onglet';
 import VisitList from '../../component/VisitList';
 import { MainStore } from '../../context/store/main';
@@ -42,6 +43,7 @@ export default function Home({ navigation }) {
         )}
       </View>
       <MyModal />
+      <ModalConfirmation />
     </View>
   );
 }

@@ -6,3 +6,4 @@ export const IS_MODAL_OPEN = 'IS_MODAL_OPEN';
 export const SET_HOTEL_INFO = 'SET_HOTEL_INFO';
 export const REFRESH = 'REFRESH';
 export const URGENCES = 'URGENCES';
+export const CONFIRMATION_MODAL = 'CONFIRMATION_MODAL';
