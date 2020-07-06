@@ -1,7 +1,7 @@
 # Mobile application for SSDP
 
 ### Developers
-- TRAVAILLEUR Lorick
+- [TRAVAILLEUR Lorick](https://github.com/Loriick)
 
 ### Description
 
