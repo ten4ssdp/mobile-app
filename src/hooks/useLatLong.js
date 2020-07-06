@@ -19,4 +19,14 @@ function useLatLong(address) {
   return { latLong };
 }
 
+export const RE = async (address) => {
+  const res = await fetch(
+    `https://api-adresse.data.gouv.fr/search/?q=${deburr(address)}&type=street`
+  );
+  const decoded = await res.json();
+  const [long, lat] = await decoded.features[0].geometry.coordinates;
+
+  return { lat, long };
+};
+
 export default useLatLong;
