@@ -11,6 +11,7 @@ import {
 import { MainStore } from '../context/store/main';
 import { UserStore } from '../context/store/user';
 import { BASE_API_URL } from '../utils/constant';
+import createAddressFromObj from '../utils/createAddressFromObj';
 import { formatDateForMickey, getFirstDay } from '../utils/formatDate';
 import http from '../utils/http';
 
@@ -75,10 +76,27 @@ function useFetchDataApp() {
   }, [token]);
 
   useEffect(() => {
-    function currentDayVisits() {
+    async function currentDayVisits() {
       const today = new Date();
       const filteredVisits = state.visits
         ?.filter((visit) => {
+          return visit.status === 0 && new Date(visit.start).getDate() === today.getDate();
+        })
+        .map(async (visit) => {
+          const location = {
+            address: visit.hotel.address,
+            city: visit.hotel.city,
+            zipCode: visit.hotel.zipCode
+          };
+
+          const address = createAddressFromObj(location).trim();
+          const { lat, long } = await http.getLatLong(address);
+
+          console.log({ lat, long });
+
+          return { ...visit, lat, long, address };
+        });
+      const newVisits = await Promise.all(filteredVisits);
           return new Date(visit.start).getDate() === today.getDate();
         })
         .sort((a, b) => {
@@ -87,8 +105,8 @@ function useFetchDataApp() {
         });
       const emergencies = state.urgences?.filter((em) => em.status === 0);
       setUrgences(emergencies);
-      setVisits(filteredVisits);
-      getCurrentDayVisits(mainDispatch, filteredVisits);
+      setVisits(newVisits);
+      getCurrentDayVisits(mainDispatch, newVisits);
       getUrgences(mainDispatch, emergencies);
       setLoading(false);
       onRefresh(mainDispatch, false);
