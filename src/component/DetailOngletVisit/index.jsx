@@ -13,11 +13,15 @@ const { height } = Dimensions.get('screen');
 
 export default function DetailOngletVisit({ y, coworker }) {
   const [visitLength, setVisitLength] = useState(0);
+  const [visitToDo, setVisitToDo] = useState(0);
   const { state } = useContext(MainStore);
 
   useEffect(() => {
     if (state.currentDayVisits && state.currentDayVisits.length > visitLength) {
       setVisitLength(state.currentDayVisits.length);
+      const visitsRest = state.currentDayVisits.filter((visit) => visit.status === 0);
+      console.log('visitsRest', visitsRest);
+      setVisitToDo(visitsRest.length);
     }
   }, [state.currentDayVisits]);
 
@@ -46,15 +50,10 @@ export default function DetailOngletVisit({ y, coworker }) {
           ))}
       </Animated.View>
       <View style={styles.visitProgress}>
-        {!!state.urgences && (
-          <View>
-            <Bold style={styles.visitProgressText}>Urgences : {state.urgences.length} - </Bold>
-          </View>
-        )}
         {!!state.currentDayVisits && (
           <View>
             <Bold style={styles.visitProgressText}>
-              Visite restantes: {`${state.currentDayVisits.length}`}
+              {visitToDo}/{visitLength}
             </Bold>
           </View>
         )}
