@@ -17,13 +17,10 @@ export default function DetailOngletVisit({ y, coworker }) {
   const { state } = useContext(MainStore);
 
   useEffect(() => {
-    if (state.currentDayVisits && state.currentDayVisits.length > visitLength) {
-      setVisitLength(state.currentDayVisits.length);
-      const visitsRest = state.currentDayVisits.filter((visit) => visit.status === 0);
-      console.log('visitsRest', visitsRest);
-      setVisitToDo(visitsRest.length);
-    }
-  }, [state.currentDayVisits]);
+    setVisitLength(state?.currentDayVisits?.length);
+    const visitsRest = state?.currentDayVisits?.filter((visit) => visit.status === 0);
+    setVisitToDo(visitsRest?.length);
+  }, [state.refresh, state.currentDayVisits]);
 
   const containerHeight = y.interpolate({
     inputRange: [0, 50],

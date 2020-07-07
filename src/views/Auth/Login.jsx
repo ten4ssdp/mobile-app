@@ -19,7 +19,7 @@ import colors from '../../utils/colors';
 
 const { width, height } = Dimensions.get('window');
 
-export default function Login() {
+export default function Login({ navigation }) {
   const [values, setValues] = useState({ email: '', password: '' });
 
   const showMessage = (message) => Alert.alert('Erreur', message);

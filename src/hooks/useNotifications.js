@@ -51,8 +51,6 @@ function useNotifications() {
       } catch (error) {
         console.error(error);
       }
-
-      console.log(finalStatus);
     };
     registerForPushNotificationsAsync();
   }, [userState.user.id]);

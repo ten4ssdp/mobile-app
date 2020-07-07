@@ -16,14 +16,14 @@ function Routes() {
     async function getToken() {
       try {
         const tokenFound = await AsyncStorage.getItem('token');
-        if (tokenFound) {
-          setToken(tokenFound);
-          const decoded = jwtDecode(tokenFound);
-          setUser(dispatch, decoded);
-        } else {
+        if (!tokenFound) {
           setToken('');
           setUser(dispatch, {});
+          return undefined;
         }
+        setToken(tokenFound);
+        const decoded = jwtDecode(tokenFound);
+        setUser(dispatch, decoded);
       } catch (error) {
         console.log(error.message);
       }

@@ -80,33 +80,23 @@ function useFetchDataApp() {
       const today = new Date();
       const filteredVisits = state.visits
         ?.filter((visit) => {
-          return visit.status === 0 && new Date(visit.start).getDate() === today.getDate();
-        })
-        .map(async (visit) => {
-          const location = {
-            address: visit.hotel.address,
-            city: visit.hotel.city,
-            zipCode: visit.hotel.zipCode
-          };
-
-          const address = createAddressFromObj(location).trim();
-          const { lat, long } = await http.getLatLong(address);
-
-          console.log({ lat, long });
-
-          return { ...visit, lat, long, address };
-        });
-      const newVisits = await Promise.all(filteredVisits);
           return new Date(visit.start).getDate() === today.getDate();
         })
         .sort((a, b) => {
           if (a.status === 0) return -1;
           if (a.status !== 0) return 1;
         });
-      const emergencies = state.urgences?.filter((em) => em.status === 0);
+
+      if (!filteredVisits) return undefined;
+
+      const emergencies = state.urgences?.filter((em) => {
+        console.log(em);
+        return em.status === 0;
+      });
+
       setUrgences(emergencies);
-      setVisits(newVisits);
-      getCurrentDayVisits(mainDispatch, newVisits);
+      setVisits(filteredVisits);
+      getCurrentDayVisits(mainDispatch, filteredVisits);
       getUrgences(mainDispatch, emergencies);
       setLoading(false);
       onRefresh(mainDispatch, false);

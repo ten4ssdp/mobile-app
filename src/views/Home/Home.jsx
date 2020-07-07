@@ -9,7 +9,6 @@ import Onglet from '../../component/Onglet';
 import VisitList from '../../component/VisitList';
 import { MainStore } from '../../context/store/main';
 import useFetchDataApp from '../../hooks/useFetchDataApp';
-import useNotifications from '../../hooks/useNotifications';
 import colors from '../../utils/colors';
 
 export default function Home({ navigation }) {
@@ -17,7 +16,6 @@ export default function Home({ navigation }) {
   const y = new Value(0);
 
   const { visits, loading, coworker, urgences } = useFetchDataApp();
-  useNotifications();
 
   if (loading) {
     return (
