@@ -16,5 +16,6 @@ export default {
   'midnight-blue': '#0D2C55',
   'opacity-midnigth-blue': 'rgba(13, 44, 85, 0.7)',
   'midnight-light-blue': '#728D9F',
-  'red-overlay': 'rgba(255, 119, 119, 0.6);'
+  'red-overlay': 'rgba(255, 119, 119, 0.6);',
+  'transparent-white': 'rgba(255,255,255, 0.8)'
 };

@@ -22,6 +22,7 @@ function useLogin(errorFn) {
       return res.token;
     } catch (error) {
       errorFn(error.message);
+      console.log(error);
     }
   };
 

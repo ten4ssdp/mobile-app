@@ -36,7 +36,7 @@ class Http {
       }
       return await res.json();
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
     }
   }
 

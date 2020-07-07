@@ -24,9 +24,11 @@ function useFetchDataApp() {
   const { userState } = useContext(UserStore);
   const { state, dispatch: mainDispatch } = useContext(MainStore);
   const firstWeekDay = formatDateForMickey(getFirstDay(new Date()));
+
   const headers = {
     authorization: `bearer ${token}`
   };
+
   useEffect(() => {
     setLoading(true);
     async function getToken() {
@@ -40,14 +42,12 @@ function useFetchDataApp() {
     const getVisits = async () => {
       try {
         const res = await http.get(`visits/user/${userState.user.id}/${firstWeekDay}`, headers);
-
         if (res === undefined || res === null) {
           throw new Error('Visits return undefined or null');
         }
         if (res.emergencies) {
           await getUrgences(mainDispatch, res.emergencies);
         }
-
         await getVisitsAction(mainDispatch, res.visits);
       } catch (error) {
         console.error(error.message);
@@ -97,7 +97,12 @@ function useFetchDataApp() {
           return { ...visit, lat, long, address };
         });
       const newVisits = await Promise.all(filteredVisits);
-      console.log(newVisits);
+          return new Date(visit.start).getDate() === today.getDate();
+        })
+        .sort((a, b) => {
+          if (a.status === 0) return -1;
+          if (a.status !== 0) return 1;
+        });
       const emergencies = state.urgences?.filter((em) => em.status === 0);
       setUrgences(emergencies);
       setVisits(newVisits);
