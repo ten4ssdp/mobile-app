@@ -16,7 +16,6 @@ import { UserStore } from './context/store/user';
 import colors from './utils/colors';
 import Details from './views/Details';
 import Home from './views/Home/Home';
-import Maps from './views/Map';
 
 const IoniconsHeaderButton = (props) => (
   <HeaderButton {...props} IconComponent={Ionicons} iconSize={23} color="blue" />
@@ -72,13 +71,6 @@ export default function AppStack() {
       }}
     >
       <Stack.Screen name="Home" component={Home} />
-      {/* <Stack.Screen
-        name="Map"
-        component={Maps}
-        options={{
-          headerShown: false
-        }}
-      /> */}
       <Stack.Screen
         name="Details"
         component={Details}

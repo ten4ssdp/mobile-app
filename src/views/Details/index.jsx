@@ -10,10 +10,10 @@ import Light from '../../component/Font/Light';
 import HotelAddress from '../../component/HotelAddress';
 import useLatLong from '../../hooks/useLatLong';
 import colors from '../../utils/colors';
+import { cancelled, done, toDo } from '../../utils/constant';
 import createAddressFromObj from '../../utils/createAddressFromObj';
 import formatDate from '../../utils/formatDate';
 import goToFunction from '../../utils/goToFunction';
-import Maps from '../Map';
 const { height } = Dimensions.get('screen');
 
 export default function Details({ route }) {
@@ -32,13 +32,13 @@ export default function Details({ route }) {
     let newStatus;
     switch (status) {
       case -1:
-        newStatus = 'Annulée';
+        newStatus = cancelled;
         break;
       case 1:
-        newStatus = 'Effectuée';
+        newStatus = done;
         break;
       default:
-        newStatus = 'Non effectuée';
+        newStatus = toDo;
     }
     return newStatus;
   }
@@ -118,7 +118,6 @@ export default function Details({ route }) {
             )}
           </View>
 
-          {<Maps latLong={latLong} hotel={hotel} />}
           {(status || start || isEmergency) && (
             <CancelVisitButton hotelInfo={{ hotelName: hotel.name, visitId }} />
           )}
