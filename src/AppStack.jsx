@@ -72,13 +72,13 @@ export default function AppStack() {
       }}
     >
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Map"
         component={Maps}
         options={{
           headerShown: false
         }}
-      />
+      /> */}
       <Stack.Screen
         name="Details"
         component={Details}

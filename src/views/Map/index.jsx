@@ -1,35 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Button } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
-import useLatLong, { RE } from '../../hooks/useLatLong';
-import createAddressFromObj from '../../utils/createAddressFromObj';
+export default function Map({ hotel, latLong }) {
+  // const { visits } = route.params;
 
-export default function Map({ navigation, route }) {
-  const [newVisits, setNewVisits] = useState([]);
-  const { visits } = route.params;
-
-  useEffect(() => {
-    async function getNewVisit() {
-      const newVisits = visits.map((visit) => {
-        const location = {
-          address: visit.hotel.address,
-          city: visit.hotel.city,
-          zipCode: visit.hotel.zipCode
-        };
-        const address = createAddressFromObj(location).trim();
-        const { lat, long } = RE(address);
-
-        return { ...visit, latlong: { lat, long }, address };
-      });
-      setNewVisits(newVisits);
-    }
-    getNewVisit();
-  });
-
-  console.log('newVisits', newVisits);
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ height: 150, width: '100%' }}>
       <MapView
         region={{
           latitude: 48.866667,
@@ -40,29 +17,13 @@ export default function Map({ navigation, route }) {
         style={{ flex: 1 }}
       >
         <Marker
-          coordinate={{ latitude: 48.8807811, longitude: 2.3586992 }}
-          title="hotel magenta"
-          description="a paris"
-        />
-        <Marker
-          coordinate={{ latitude: 48.8724691, longitude: 2.3555604 }}
-          title="Sogesto"
-          description="a paris"
-        />
-        <Marker
-          coordinate={{ latitude: 48.8505225, longitude: 2.3820972 }}
-          title="Grand Hotel du progres"
-          description="a paris"
+          coordinate={{ latitude: latLong.lat, longitude: latLong.long }}
+          title={hotel.name}
+          description="visit.address"
+          onPress={() => console.log('go')}
         />
       </MapView>
-      {/* 
-      {newVisits.map((visit) => (
-        <Marker
-          coordinate={{ latitude: visit.latLong.lat, longitude: visit.latLong.long }}
-          title={visit.hotel.name}
-          description={visit.address}
-        />
-      ))} */}
+
       <View
         style={{
           width: 50,
@@ -73,15 +34,7 @@ export default function Map({ navigation, route }) {
           right: 100,
           backgroundColor: 'red'
         }}
-      >
-        <Button
-          style={{ flex: 1 }}
-          onPress={() => {
-            navigation.goBack();
-          }}
-          title="X"
-        />
-      </View>
+      />
     </View>
   );
 }

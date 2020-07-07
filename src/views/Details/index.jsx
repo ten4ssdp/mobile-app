@@ -13,6 +13,7 @@ import colors from '../../utils/colors';
 import createAddressFromObj from '../../utils/createAddressFromObj';
 import formatDate from '../../utils/formatDate';
 import goToFunction from '../../utils/goToFunction';
+import Maps from '../Map';
 const { height } = Dimensions.get('screen');
 
 export default function Details({ route }) {
@@ -116,6 +117,8 @@ export default function Details({ route }) {
               </Bold>
             )}
           </View>
+
+          {<Maps latLong={latLong} hotel={hotel} />}
           {(status || start || isEmergency) && (
             <CancelVisitButton hotelInfo={{ hotelName: hotel.name, visitId }} />
           )}
