@@ -6,7 +6,8 @@ import {
   IS_MODAL_OPEN,
   SET_HOTEL_INFO,
   REFRESH,
-  URGENCES
+  URGENCES,
+  CONFIRMATION_MODAL
 } from '../constant/main';
 
 /**
@@ -67,6 +68,13 @@ export const onRefresh = (dispatch, payload) => {
 export const getUrgences = (dispatch, payload) => {
   return dispatch({
     type: URGENCES,
+    payload
+  });
+};
+
+export const onOpenConfirmationModal = (dispatch, payload) => {
+  return dispatch({
+    type: CONFIRMATION_MODAL,
     payload
   });
 };

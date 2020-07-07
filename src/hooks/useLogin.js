@@ -14,11 +14,17 @@ function useLogin(errorFn) {
         throw new Error("L'adresse mail et le mot de passe est obligatoire.");
       }
       const res = await http.post('login', { email, password }, { isUpdate: false });
+      if (res === undefined || res === null || !res) {
+        throw new Error(
+          'Un problème est survenu lors de la connexion, veuillez réessayer plus tard'
+        );
+      }
       await AsyncStorage.setItem('token', res.token);
       await setIsUserLogin(dispatch, true);
       return res.token;
     } catch (error) {
       errorFn(error.message);
+      console.log(error);
     }
   };
 

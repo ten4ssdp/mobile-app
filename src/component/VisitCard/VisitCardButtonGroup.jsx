@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
-import { View, StyleSheet, Button, Alert } from 'react-native';
+import React, { useContext } from 'react';
+import { View, StyleSheet, Button } from 'react-native';
 
-import useValidateOrCancelVisit from '../../hooks/useValidateOrCancelVisit';
+import { onOpenConfirmationModal, setHotelName } from '../../context/action/main';
+import { MainStore } from '../../context/store/main';
 import colors from '../../utils/colors';
 
 export default function VisitCardButtonGroup({
@@ -15,17 +16,7 @@ export default function VisitCardButtonGroup({
   isEmergency,
   emergencyText
 }) {
-  const { handleSubmit, res } = useValidateOrCancelVisit({ isValidation: true });
-
-  useEffect(() => {
-    if (res === null) {
-      return undefined;
-    }
-
-    if (res.status === 1) {
-      Alert.alert('CONFIRMATION', 'Visite finalisée');
-    }
-  }, [res]);
+  const { dispatch } = useContext(MainStore);
 
   return (
     <View style={styles.buttonContainer}>
@@ -37,19 +28,13 @@ export default function VisitCardButtonGroup({
       >
         <Button
           title="Visite Finalisée"
-          onPress={() =>
-            Alert.alert('CONFIRMATION', 'Avez-vous terminé la visite ?', [
-              {
-                text: 'NON',
-                onPress: () => console.log('OK Pressed'),
-                style: 'cancel'
-              },
-              {
-                text: 'OUI',
-                onPress: () => handleSubmit({ id: visitId, body: { description: '' } })
-              }
-            ])
-          }
+          onPress={() => {
+            onOpenConfirmationModal(dispatch, true);
+            setHotelName(dispatch, {
+              hotelName: hotel.name,
+              visitId
+            });
+          }}
           color={colors['active-white']}
         />
       </View>
