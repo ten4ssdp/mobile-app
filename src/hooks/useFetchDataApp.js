@@ -77,9 +77,14 @@ function useFetchDataApp() {
   useEffect(() => {
     function currentDayVisits() {
       const today = new Date();
-      const filteredVisits = state.visits?.filter((visit) => {
-        return visit.status === 0 && new Date(visit.start).getDate() === today.getDate();
-      });
+      const filteredVisits = state.visits
+        ?.filter((visit) => {
+          return new Date(visit.start).getDate() === today.getDate();
+        })
+        .sort((a, b) => {
+          if (a.status === 0) return -1;
+          if (a.status !== 0) return 1;
+        });
       const emergencies = state.urgences?.filter((em) => em.status === 0);
       setUrgences(emergencies);
       setVisits(filteredVisits);
