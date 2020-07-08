@@ -11,7 +11,6 @@ import {
 import { MainStore } from '../context/store/main';
 import { UserStore } from '../context/store/user';
 import { BASE_API_URL } from '../utils/constant';
-import createAddressFromObj from '../utils/createAddressFromObj';
 import { formatDateForMickey, getFirstDay } from '../utils/formatDate';
 import http from '../utils/http';
 
@@ -42,8 +41,14 @@ function useFetchDataApp() {
     const getVisits = async () => {
       try {
         const res = await http.get(`visits/user/${userState.user.id}/${firstWeekDay}`, headers);
+        console.log(res);
+
         if (res === undefined || res === null) {
           throw new Error('Visits return undefined or null');
+        }
+        if (res.error) {
+          setLoading(false);
+          return res;
         }
         if (res.emergencies) {
           await getUrgences(mainDispatch, res.emergencies);
@@ -90,7 +95,6 @@ function useFetchDataApp() {
       if (!filteredVisits) return undefined;
 
       const emergencies = state.urgences?.filter((em) => {
-        console.log(em);
         return em.status === 0;
       });
 

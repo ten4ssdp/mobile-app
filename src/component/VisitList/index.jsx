@@ -3,6 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
+import CallButton from '../Button/CallButton';
 import Bold from '../Font/Bold';
 import VisitCard from '../VisitCard';
 
@@ -10,7 +11,8 @@ export default function VisitList({ y, navigation, visits, urgences }) {
   if ((visits?.length <= 0 || !visits) && (!urgences || visits?.length <= 0)) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Bold>Pas de visite aujourd'hui</Bold>
+        <Bold style={{ marginBottom: 20, fontSize: 20 }}>Pas de visite aujourd'hui</Bold>
+        <CallButton variant="default" />
       </View>
     );
   }

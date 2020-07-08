@@ -1,9 +1,11 @@
-import * as Linking from 'expo-linking';
 import React from 'react';
 import { View, Dimensions, StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import MapView, { Marker } from 'react-native-maps';
 
 import BackgroundImage from '../../component/BackgroundImage';
 import Button from '../../component/Button';
+import CallButton from '../../component/Button/CallButton';
 import CancelVisitButton from '../../component/CancelVisitButton';
 import Bold from '../../component/Font/Bold';
 import Light from '../../component/Font/Light';
@@ -14,7 +16,9 @@ import { cancelled, done, toDo } from '../../utils/constant';
 import createAddressFromObj from '../../utils/createAddressFromObj';
 import formatDate from '../../utils/formatDate';
 import goToFunction from '../../utils/goToFunction';
-const { height } = Dimensions.get('screen');
+import { phoneCall } from '../../utils/phoneCall';
+
+const { height, width } = Dimensions.get('screen');
 
 export default function Details({ route }) {
   const { hotel, status, start, visitId, isEmergency, emergencyText } = route.params;
@@ -43,16 +47,33 @@ export default function Details({ route }) {
     return newStatus;
   }
 
-  const phoneCall = (phoneNumber) => Linking.openURL(`tel:${phoneNumber}`);
-
   return (
     <View style={{ flex: 1 }}>
-      <BackgroundImage
-        name={hotel.name}
-        style={{ height: height / 3, backgroundColor: 'rgba(0, 0, 0, 0.3)', marginBottom: 20 }}
-        resizeMode="cover"
-        isEmergency={isEmergency}
-      />
+      <View style={{ height: height / 3, width }}>
+        <ScrollView horizontal snapToInterval={width} decelerationRate="fast">
+          <BackgroundImage
+            name={hotel.name}
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)', height: '100%', width }}
+            resizeMode="cover"
+            isEmergency={isEmergency}
+          />
+          {latLong.lat && latLong.long && (
+            <MapView
+              style={{ height: '100%', width }}
+              region={{
+                latitude: latLong.lat,
+                longitude: latLong.long,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.02
+              }}
+              scrollEnabled={false}
+            >
+              <Marker coordinate={{ latitude: latLong.lat, longitude: latLong.long }} />
+            </MapView>
+          )}
+        </ScrollView>
+      </View>
+
       <HotelAddress location={location} style={{ fontSize: 22, color: colors['midnight-blue'] }} />
       <View style={{ paddingHorizontal: 16 }}>
         <Bold style={styles.text}>
@@ -140,11 +161,7 @@ export default function Details({ route }) {
         >
           S'y rendre
         </Button>
-        {isEmergency && (
-          <Button variant={null} func={() => phoneCall(+33122334455)}>
-            Appeler l'opérateur
-          </Button>
-        )}
+        {isEmergency && <CallButton variant={null} />}
       </View>
     </View>
   );

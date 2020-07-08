@@ -33,7 +33,7 @@ export default function Onglet({ title, y, isVisitPage, coworker }) {
 
   return (
     <Animated.View
-      style={{ ...styles.ongletContainer, height: isVisitPage ? ongletHeight : height / 5.5 }}
+      style={{ ...styles.ongletContainer, height: isVisitPage ? ongletHeight : height / 5.9 }}
     >
       <Animated.Text
         style={{

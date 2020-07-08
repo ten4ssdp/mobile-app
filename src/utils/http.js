@@ -54,4 +54,4 @@ class Http {
   }
 }
 
-export default new Http(`${BASE_API_URL}/api`);
+export default new Http(BASE_API_URL);

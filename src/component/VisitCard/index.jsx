@@ -26,8 +26,8 @@ export default function VisitCard({ visit, navigation, isEmergency, emergencyTex
 
   const { latLong } = useLatLong(address);
 
-  const isValidated = visit.status == 1;
-  const isCanceled = visit.status == -1;
+  const isValidated = visit.status === 1;
+  const isCanceled = visit.status === -1;
 
   // n'afficher les boutons que si c'est pas validé ou annulé
   const displayButtonGroup = isValidated === false && isCanceled === false;
