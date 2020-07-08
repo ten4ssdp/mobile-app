@@ -63,12 +63,7 @@ export default function AppStack() {
             </Bold>
             <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
               <OverflowMenu OverflowIcon={<Ionicons name="md-contact" size={23} color="white" />}>
-                <HiddenItem
-                  title="Deconnexion"
-                  onPress={async () => {
-                    await disconnect();
-                  }}
-                />
+                <HiddenItem title="Deconnexion" onPress={() => disconnect()} />
               </OverflowMenu>
             </HeaderButtons>
           </View>
