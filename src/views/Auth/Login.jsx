@@ -8,6 +8,7 @@ import {
   Keyboard,
   Alert
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 
 import Button from '../../component/Button';
 import Bold from '../../component/Font/Bold';
@@ -19,68 +20,70 @@ import colors from '../../utils/colors';
 
 const { width, height } = Dimensions.get('window');
 
-export default function Login({ navigation }) {
+export default function Login() {
   const [values, setValues] = useState({ email: '', password: '' });
 
   const showMessage = (message) => Alert.alert('Erreur', message);
   const handleLoginSubmit = useLogin(showMessage);
 
   return (
-    <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => Keyboard.dismiss()}>
-      <View>
-        <View style={styles.cover}>
-          <Image
-            style={{ width, resizeMode: 'cover', height: '100%', padding: 10 }}
-            source={require('../../../assets/images/login-image.png')}
-          />
-        </View>
-
-        <View
-          style={{
-            paddingHorizontal: width / 15
-          }}
-        >
-          <View style={styles.infos}>
-            <Bold
-              style={{ color: colors['stroke-default-planning'], fontSize: 25, marginBottom: 10 }}
-            >
-              Bienvenue
-            </Bold>
-            <Light style={{ fontSize: 16 }}>
-              Connectez-vous avec votre adresse mail du Samu social.
-            </Light>
+    <KeyboardAwareScrollView>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss()}>
+        <View>
+          <View style={styles.cover}>
+            <Image
+              style={{ width, resizeMode: 'cover', height: '100%', padding: 10 }}
+              source={require('../../../assets/images/login-image.png')}
+            />
           </View>
 
-          <View style={styles.inputs}>
-            <View>
+          <View
+            style={{
+              paddingHorizontal: width / 15
+            }}
+          >
+            <View style={styles.infos}>
+              <Bold
+                style={{ color: colors['stroke-default-planning'], fontSize: 25, marginBottom: 10 }}
+              >
+                Bienvenue
+              </Bold>
+              <Light style={{ fontSize: 16 }}>
+                Connectez-vous avec votre adresse mail du Samu social.
+              </Light>
+            </View>
+
+            <View style={styles.inputs}>
               <View>
-                <Input
-                  placeholder="Ex: xavier.r@ssdp.fr"
-                  value={values.email}
-                  onChangeText={(text) => setValues({ ...values, email: text })}
-                  type="emailAddress"
-                />
-              </View>
-              <View style={{ marginTop: 10 }}>
-                <PasswordInput
-                  value={values.password}
-                  onChangeText={(text) => setValues({ ...values, password: text })}
-                />
+                <View>
+                  <Input
+                    placeholder="Ex: xavier.r@ssdp.fr"
+                    value={values.email}
+                    onChangeText={(text) => setValues({ ...values, email: text })}
+                    type="emailAddress"
+                  />
+                </View>
+                <View style={{ marginTop: 10 }}>
+                  <PasswordInput
+                    value={values.password}
+                    onChangeText={(text) => setValues({ ...values, password: text })}
+                  />
+                </View>
               </View>
             </View>
-          </View>
 
-          <View style={styles.submit}>
-            <Button
-              func={() => handleLoginSubmit({ email: values.email, password: values.password })}
-              variant="default"
-            >
-              Se connecter
-            </Button>
+            <View style={styles.submit}>
+              <Button
+                func={() => handleLoginSubmit({ email: values.email, password: values.password })}
+                variant="default"
+              >
+                Se connecter
+              </Button>
+            </View>
           </View>
         </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </KeyboardAwareScrollView>
   );
 }
 
