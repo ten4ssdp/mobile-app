@@ -8,7 +8,8 @@ import {
   REFRESH,
   URGENCES,
   CONFIRMATION_MODAL,
-  GET_USER_LOCATION
+  GET_USER_LOCATION,
+  SHOW_BANNER
 } from '../constant/main';
 
 /**
@@ -83,6 +84,13 @@ export const onOpenConfirmationModal = (dispatch, payload) => {
 export const getUserLocationAction = (dispatch, payload) => {
   return dispatch({
     type: GET_USER_LOCATION,
+    payload
+  });
+};
+
+export const onShowBanner = (dispatch, payload) => {
+  return dispatch({
+    type: SHOW_BANNER,
     payload
   });
 };

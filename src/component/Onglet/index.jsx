@@ -44,6 +44,7 @@ export default function Onglet({ title, y, isVisitPage, coworker }) {
       >
         {title}
       </Animated.Text>
+
       <Animated.View
         style={{
           ...styles.switchContainer,
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 100
   },
+  banner: {},
   switchContainer: {
     flex: 1,
     justifyContent: 'center',
