@@ -72,6 +72,11 @@ export default function Details({ route }) {
     return newStatus;
   }
 
+  const checkDate = (visitStart) => {
+    const visitD = new Date(visitStart).getDate();
+    return visitD !== new Date().getDate();
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <View style={{ height: height / 3, width }}>
@@ -171,7 +176,7 @@ export default function Details({ route }) {
             )}
           </View>
 
-          {(haveVisit || isEmergency) && displayButtonGroup && (
+          {(haveVisit || isEmergency) && displayButtonGroup && !checkDate(start) && (
             <CancelVisitButton hotelInfo={{ hotelName: hotel.name, visitId }} />
           )}
         </>
