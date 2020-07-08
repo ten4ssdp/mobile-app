@@ -6,14 +6,12 @@ import {
   getVisitsAction,
   getCurrentDayVisits,
   onRefresh,
-  getUrgences,
-  getUserLocationAction
+  getUrgences
 } from '../context/action/main';
 import { MainStore } from '../context/store/main';
 import { UserStore } from '../context/store/user';
 import { BASE_API_URL } from '../utils/constant';
 import { formatDateForMickey, getFirstDay } from '../utils/formatDate';
-import { getUserLocation } from '../utils/getUserLocation';
 import http from '../utils/http';
 
 function useFetchDataApp() {

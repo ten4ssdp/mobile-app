@@ -16,6 +16,7 @@ function Routes() {
     async function getToken() {
       try {
         const tokenFound = await AsyncStorage.getItem('token');
+
         if (!tokenFound) {
           setToken('');
           setUser(dispatch, {});
