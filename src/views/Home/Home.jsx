@@ -22,7 +22,6 @@ export default function Home({ navigation }) {
   useEffect(() => {
     const permissions = async () => {
       const userLocation = await getUserLocation();
-      console.log(userLocation);
       getUserLocationAction(dispatch, userLocation);
     };
     permissions();
