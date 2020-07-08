@@ -49,8 +49,6 @@ export default function Details({ route }) {
     setD((distance / 1000).toFixed(1));
   }, []);
 
-  console.log(d);
-
   function returnStatus(status) {
     let newStatus;
     switch (status) {

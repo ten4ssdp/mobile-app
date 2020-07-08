@@ -36,7 +36,7 @@ export default function VisitCard({ visit, navigation, isEmergency, emergencyTex
   const haveVisit = visit.status || visit.start;
 
   return (
-    <View style={styles.card}>
+    <View style={{ ...styles.card, height: displayButtonGroup ? 330 : 210 }}>
       {displayButtonGroup === false && (
         <VisitCardStatusOverlay
           status={isCanceled ? 'canceled' : isValidated ? 'validated' : null}
@@ -71,7 +71,6 @@ export default function VisitCard({ visit, navigation, isEmergency, emergencyTex
 
 const styles = StyleSheet.create({
   card: {
-    height: 330,
     width: width / 1.1,
     backgroundColor: colors['active-white'],
     borderRadius: 20,
