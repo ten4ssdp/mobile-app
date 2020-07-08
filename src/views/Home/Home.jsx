@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { Value } from 'react-native-reanimated';
 
+import Banner from '../../component/Banner';
 import Calendar from '../../component/Calendar';
 import MyModal from '../../component/Modal';
 import ModalConfirmation from '../../component/ModalConfirmation';
@@ -37,6 +38,7 @@ export default function Home({ navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
+      {state.showBanner && <Banner />}
       <Onglet
         y={y}
         isVisitPage={!state.hasToRenderCalendar}

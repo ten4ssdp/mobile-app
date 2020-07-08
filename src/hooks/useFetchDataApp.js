@@ -6,7 +6,8 @@ import {
   getVisitsAction,
   getCurrentDayVisits,
   onRefresh,
-  getUrgences
+  getUrgences,
+  onShowBanner
 } from '../context/action/main';
 import { MainStore } from '../context/store/main';
 import { UserStore } from '../context/store/user';
@@ -113,10 +114,12 @@ function useFetchDataApp() {
     socket.on('connect', () => {
       socket.emit('join', token);
       socket.on('emergency', async function (data) {
+        console.log(data);
         onRefresh(mainDispatch, true);
+        onShowBanner(mainDispatch, true);
       });
     });
-  }, []);
+  });
 
   return {
     visits,

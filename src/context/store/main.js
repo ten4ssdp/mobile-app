@@ -23,7 +23,8 @@ const initialState = {
   refresh: false,
   urgences: null,
   isConfirmationModalOpen: false,
-  userLocation: null
+  userLocation: null,
+  showBanner: false
 };
 
 export const MainStore = createContext();

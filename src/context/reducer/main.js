@@ -8,7 +8,8 @@ import {
   REFRESH,
   URGENCES,
   CONFIRMATION_MODAL,
-  GET_USER_LOCATION
+  GET_USER_LOCATION,
+  SHOW_BANNER
 } from '../constant/main';
 
 function mainReducer(state, action) {
@@ -67,6 +68,11 @@ function mainReducer(state, action) {
       return {
         ...state,
         userLocation: action.payload
+      };
+    case SHOW_BANNER:
+      return {
+        ...state,
+        showBanner: action.payload
       };
     default:
       return state;
