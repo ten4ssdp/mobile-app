@@ -49,6 +49,14 @@ export default function Details({ route }) {
     setD((distance / 1000).toFixed(1));
   }, []);
 
+  const isValidated = status === 1;
+  const isCanceled = status === -1;
+
+  // n'afficher les boutons que si c'est pas validé ou annulé
+  const displayButtonGroup = isValidated === false && isCanceled === false;
+
+  const haveVisit = status || start;
+
   function returnStatus(status) {
     let newStatus;
     switch (status) {
@@ -163,7 +171,7 @@ export default function Details({ route }) {
             )}
           </View>
 
-          {(status || start || isEmergency) && (
+          {(haveVisit || isEmergency) && displayButtonGroup && (
             <CancelVisitButton hotelInfo={{ hotelName: hotel.name, visitId }} />
           )}
         </>
