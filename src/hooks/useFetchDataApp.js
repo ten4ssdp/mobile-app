@@ -6,12 +6,14 @@ import {
   getVisitsAction,
   getCurrentDayVisits,
   onRefresh,
-  getUrgences
+  getUrgences,
+  getUserLocationAction
 } from '../context/action/main';
 import { MainStore } from '../context/store/main';
 import { UserStore } from '../context/store/user';
 import { BASE_API_URL } from '../utils/constant';
 import { formatDateForMickey, getFirstDay } from '../utils/formatDate';
+import { getUserLocation } from '../utils/getUserLocation';
 import http from '../utils/http';
 
 function useFetchDataApp() {
@@ -41,14 +43,13 @@ function useFetchDataApp() {
     const getVisits = async () => {
       try {
         const res = await http.get(`visits/user/${userState.user.id}/${firstWeekDay}`, headers);
-        console.log(res);
 
         if (res === undefined || res === null) {
           throw new Error('Visits return undefined or null');
         }
+
         if (res.error) {
-          setLoading(false);
-          return res;
+          console.log(res.error);
         }
         if (res.emergencies) {
           await getUrgences(mainDispatch, res.emergencies);

@@ -7,7 +7,8 @@ import {
   SET_HOTEL_INFO,
   REFRESH,
   URGENCES,
-  CONFIRMATION_MODAL
+  CONFIRMATION_MODAL,
+  GET_USER_LOCATION
 } from '../constant/main';
 
 function mainReducer(state, action) {
@@ -61,6 +62,11 @@ function mainReducer(state, action) {
       return {
         ...state,
         isConfirmationModalOpen: action.payload
+      };
+    case GET_USER_LOCATION:
+      return {
+        ...state,
+        userLocation: action.payload
       };
     default:
       return state;

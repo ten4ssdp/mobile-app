@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Dimensions, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import MapView, { Marker } from 'react-native-maps';
@@ -10,10 +10,12 @@ import CancelVisitButton from '../../component/CancelVisitButton';
 import Bold from '../../component/Font/Bold';
 import Light from '../../component/Font/Light';
 import HotelAddress from '../../component/HotelAddress';
+import { MainStore } from '../../context/store/main';
 import useLatLong from '../../hooks/useLatLong';
 import colors from '../../utils/colors';
 import { cancelled, done, toDo } from '../../utils/constant';
 import createAddressFromObj from '../../utils/createAddressFromObj';
+import { getDistanceFromLatLonInKm } from '../../utils/distance';
 import formatDate from '../../utils/formatDate';
 import goToFunction from '../../utils/goToFunction';
 import { phoneCall } from '../../utils/phoneCall';
@@ -21,6 +23,7 @@ import { phoneCall } from '../../utils/phoneCall';
 const { height, width } = Dimensions.get('screen');
 
 export default function Details({ route }) {
+  const [d, setD] = useState(0);
   const { hotel, status, start, visitId, isEmergency, emergencyText } = route.params;
 
   const location = {
@@ -31,6 +34,22 @@ export default function Details({ route }) {
 
   const address = createAddressFromObj(location);
   const { latLong } = useLatLong(address);
+
+  const { state } = useContext(MainStore);
+
+  useEffect(() => {
+    const distance = getDistanceFromLatLonInKm(
+      {
+        latitude: state?.userLocation?.coords?.latitude,
+        longitude: state?.userLocation?.coords?.longitude
+      },
+      { latitude: latLong?.lat, longitude: latLong?.long }
+    );
+
+    setD((distance / 1000).toFixed(1));
+  }, []);
+
+  console.log(d);
 
   function returnStatus(status) {
     let newStatus;
@@ -58,18 +77,25 @@ export default function Details({ route }) {
             isEmergency={isEmergency}
           />
           {latLong.lat && latLong.long && (
-            <MapView
-              style={{ height: '100%', width }}
-              region={{
-                latitude: latLong.lat,
-                longitude: latLong.long,
-                latitudeDelta: 0.01,
-                longitudeDelta: 0.02
-              }}
-              scrollEnabled={false}
-            >
-              <Marker coordinate={{ latitude: latLong.lat, longitude: latLong.long }} />
-            </MapView>
+            <View style={{ height: '100%', width }}>
+              <MapView
+                style={{ flex: 1 }}
+                region={{
+                  latitude: latLong.lat,
+                  longitude: latLong.long,
+                  latitudeDelta: 0.01,
+                  longitudeDelta: 0.02
+                }}
+                scrollEnabled={false}
+              >
+                <Marker coordinate={{ latitude: latLong.lat, longitude: latLong.long }} />
+              </MapView>
+              {d > 0 && (
+                <View style={styles.hotelNameContainer}>
+                  <Bold style={styles.hotelName}>Cette hotel est à environ {d}KM de vous</Bold>
+                </View>
+              )}
+            </View>
           )}
         </ScrollView>
       </View>
@@ -172,5 +198,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors['midnight-blue'],
     marginBottom: 10
+  },
+  hotelNameContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 30,
+    backgroundColor: colors['opacity-midnigth-blue'],
+    justifyContent: 'center',
+    zIndex: 1
+  },
+  hotelName: {
+    color: colors['active-white'],
+    paddingLeft: 10
   }
 });

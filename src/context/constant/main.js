@@ -7,3 +7,4 @@ export const SET_HOTEL_INFO = 'SET_HOTEL_INFO';
 export const REFRESH = 'REFRESH';
 export const URGENCES = 'URGENCES';
 export const CONFIRMATION_MODAL = 'CONFIRMATION_MODAL';
+export const GET_USER_LOCATION = 'GET_USER_LOCATION';

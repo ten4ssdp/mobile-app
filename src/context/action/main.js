@@ -7,7 +7,8 @@ import {
   SET_HOTEL_INFO,
   REFRESH,
   URGENCES,
-  CONFIRMATION_MODAL
+  CONFIRMATION_MODAL,
+  GET_USER_LOCATION
 } from '../constant/main';
 
 /**
@@ -75,6 +76,13 @@ export const getUrgences = (dispatch, payload) => {
 export const onOpenConfirmationModal = (dispatch, payload) => {
   return dispatch({
     type: CONFIRMATION_MODAL,
+    payload
+  });
+};
+
+export const getUserLocationAction = (dispatch, payload) => {
+  return dispatch({
+    type: GET_USER_LOCATION,
     payload
   });
 };
