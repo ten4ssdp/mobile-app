@@ -39,7 +39,7 @@ export default function AppStack() {
 
   return (
     <Stack.Navigator
-      screenOptions={{
+      screenOptions={({ navigation, props }) => ({
         headerTitle: (props) => <LogoTitle {...props} />,
         headerTitleAlign: 'left',
         headerStyle: {
@@ -63,12 +63,17 @@ export default function AppStack() {
             </Bold>
             <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
               <OverflowMenu OverflowIcon={<Ionicons name="md-contact" size={23} color="white" />}>
-                <HiddenItem title="Deconnexion" onPress={() => disconnect()} />
+                <HiddenItem
+                  title="Deconnexion"
+                  onPress={async () => {
+                    await disconnect();
+                  }}
+                />
               </OverflowMenu>
             </HeaderButtons>
           </View>
         )
-      }}
+      })}
     >
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen
@@ -78,8 +83,9 @@ export default function AppStack() {
           headerBackTitleStyle: {
             color: colors['active-white']
           },
-          headerBackTitle: 'Retour',
-          headerTitle: null
+          headerTintColor: colors['active-white'],
+          headerTitle: null,
+          headerTruncatedBackTitle: 'Retour'
         }}
       />
     </Stack.Navigator>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { Value } from 'react-native-reanimated';
 
@@ -7,15 +7,26 @@ import MyModal from '../../component/Modal';
 import ModalConfirmation from '../../component/ModalConfirmation';
 import Onglet from '../../component/Onglet';
 import VisitList from '../../component/VisitList';
+import { getUserLocationAction } from '../../context/action/main';
 import { MainStore } from '../../context/store/main';
 import useFetchDataApp from '../../hooks/useFetchDataApp';
 import colors from '../../utils/colors';
+import { getUserLocation } from '../../utils/getUserLocation';
 
 export default function Home({ navigation }) {
-  const { state } = useContext(MainStore);
+  const { state, dispatch } = useContext(MainStore);
   const y = new Value(0);
 
   const { visits, loading, coworker, urgences } = useFetchDataApp();
+
+  useEffect(() => {
+    const permissions = async () => {
+      const userLocation = await getUserLocation();
+      console.log(userLocation);
+      getUserLocationAction(dispatch, userLocation);
+    };
+    permissions();
+  }, []);
 
   if (loading) {
     return (

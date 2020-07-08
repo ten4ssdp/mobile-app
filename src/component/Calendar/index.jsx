@@ -5,6 +5,7 @@ import { Agenda } from 'react-native-calendars';
 
 import { MainStore } from '../../context/store/main';
 import { formatDateForkeyObj, returnHours } from '../../utils/formatDate';
+import CallButton from '../Button/CallButton';
 import CalendarCard from '../CalendarCard';
 import Bold from '../Font/Bold';
 
@@ -77,9 +78,10 @@ export default function Calendar({ navigation }) {
       }}
       renderEmptyData={() => {
         return (
-          <View>
-            <Bold>Pas de visites programmées.</Bold>
-            <Bold>Appelez le bureau si besoin</Bold>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Bold style={{ fontSize: 20, marginBottom: 10 }}>Pas de visites programmées.</Bold>
+            <Bold style={{ fontSize: 20, marginBottom: 10 }}>Appelez le bureau si besoin</Bold>
+            <CallButton variant="default" />
           </View>
         );
       }}

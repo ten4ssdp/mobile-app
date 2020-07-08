@@ -1,11 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 import colors from '../../utils/colors';
-
-const { width } = Dimensions.get('window');
 
 const generateStatus = (status) => {
   switch (status) {
