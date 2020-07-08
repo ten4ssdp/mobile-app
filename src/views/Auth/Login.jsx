@@ -28,7 +28,7 @@ export default function Login() {
 
   return (
     <KeyboardAwareScrollView>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss()}>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View>
           <View style={styles.cover}>
             <Image
