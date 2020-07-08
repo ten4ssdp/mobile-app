@@ -11,7 +11,9 @@ import {
 
 import Bold from './component/Font/Bold';
 import LogoTitle from './component/LogoTitle';
+import { resetState } from './context/action/main';
 import { setIsUserLogin } from './context/action/user';
+import { MainStore } from './context/store/main';
 import { UserStore } from './context/store/user';
 import colors from './utils/colors';
 import Details from './views/Details';
@@ -25,11 +27,13 @@ const Stack = createStackNavigator();
 
 export default function AppStack() {
   const { userState, dispatch } = useContext(UserStore);
+  const { dispatch: dispatchMainStore } = useContext(MainStore);
 
   const disconnect = async () => {
     try {
-      setIsUserLogin(dispatch, false);
       await AsyncStorage.removeItem('token');
+      setIsUserLogin(dispatch, false);
+      resetState(dispatchMainStore);
     } catch (err) {
       console.log(err.message);
     }

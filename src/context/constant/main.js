@@ -9,3 +9,4 @@ export const URGENCES = 'URGENCES';
 export const CONFIRMATION_MODAL = 'CONFIRMATION_MODAL';
 export const GET_USER_LOCATION = 'GET_USER_LOCATION';
 export const SHOW_BANNER = 'SHOW_BANNER';
+export const RESET_STATE = 'RESET_STATE';

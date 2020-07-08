@@ -9,9 +9,10 @@ import {
   getUrgences,
   onShowBanner
 } from '../context/action/main';
+import { setIsUserLogin } from '../context/action/user';
 import { MainStore } from '../context/store/main';
 import { UserStore } from '../context/store/user';
-import { BASE_API_URL } from '../utils/constant';
+import { BASE_URL } from '../utils/constant';
 import { formatDateForMickey, getFirstDay } from '../utils/formatDate';
 import http from '../utils/http';
 
@@ -21,7 +22,7 @@ function useFetchDataApp() {
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState('');
   const [coworker, setCoworker] = useState(null);
-  const { userState } = useContext(UserStore);
+  const { userState, dispatch } = useContext(UserStore);
   const { state, dispatch: mainDispatch } = useContext(MainStore);
   const firstWeekDay = formatDateForMickey(getFirstDay(new Date()));
 
@@ -34,6 +35,7 @@ function useFetchDataApp() {
     async function getToken() {
       const token = await AsyncStorage.getItem('token');
       setToken(token);
+      setIsUserLogin(dispatch, true);
     }
     getToken();
   }, []);
@@ -41,6 +43,8 @@ function useFetchDataApp() {
   useEffect(() => {
     const getVisits = async () => {
       try {
+        if (!userState.user.id) return;
+
         const res = await http.get(`visits/user/${userState.user.id}/${firstWeekDay}`, headers);
 
         if (res === undefined || res === null) {
@@ -110,7 +114,7 @@ function useFetchDataApp() {
   }, [state.visits, state.refresh]);
 
   useEffect(() => {
-    const socket = socketIOClient(BASE_API_URL);
+    const socket = socketIOClient(BASE_URL);
     socket.on('connect', () => {
       socket.emit('join', token);
       socket.on('emergency', async function (data) {
@@ -119,7 +123,7 @@ function useFetchDataApp() {
         onShowBanner(mainDispatch, true);
       });
     });
-  });
+  }, []);
 
   return {
     visits,

@@ -9,8 +9,10 @@ import {
   URGENCES,
   CONFIRMATION_MODAL,
   GET_USER_LOCATION,
-  SHOW_BANNER
+  SHOW_BANNER,
+  RESET_STATE
 } from '../constant/main';
+import { initialState } from '../store/main';
 
 /**
  *
@@ -92,5 +94,12 @@ export const onShowBanner = (dispatch, payload) => {
   return dispatch({
     type: SHOW_BANNER,
     payload
+  });
+};
+
+export const resetState = (dispatch) => {
+  return dispatch({
+    type: RESET_STATE,
+    payload: initialState
   });
 };

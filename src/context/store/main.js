@@ -13,7 +13,7 @@ import mainReducer from '../reducer/main';
  * @property {Boolean} isConfirmationModalOpen
  * @property {Object} userLocation
  */
-const initialState = {
+export const initialState = {
   hasToRenderCalendar: false,
   visits: null,
   team: null,

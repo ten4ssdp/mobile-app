@@ -52,7 +52,7 @@ export default function MyModal() {
             }}
           >
             <Bold style={styles.title}>
-              Pour quelle raison voulez-vous annuler la visite pour {state.hotelInfo.hotelName} ?
+              Pour quelle raison voulez-vous annuler la visite pour {state?.hotelInfo?.hotelName} ?
             </Bold>
             <View style={styles.textAreaContainer}>
               <TextInput
