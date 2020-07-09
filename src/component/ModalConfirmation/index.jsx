@@ -51,7 +51,7 @@ export default function ModalConfirmation() {
             CONFIRMATION
           </Bold>
 
-          <Bold>Avez-vous terminez la visite ?</Bold>
+          <Bold>Avez-vous terminé la visite ?</Bold>
           <View style={styles.btnContainer}>
             <Button
               variant="default"

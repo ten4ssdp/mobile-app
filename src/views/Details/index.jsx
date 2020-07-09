@@ -136,28 +136,24 @@ export default function Details({ route }) {
       ) : (
         <>
           <View style={{ paddingHorizontal: 16, marginBottom: 50 }}>
-            {hotel?.visits?.length > 0 && (
-              <>
-                <Bold style={styles.text}>
-                  Dernière visite réalisée le :{' '}
-                  <Bold style={{ color: colors['stroke-default-planning'] }}>
-                    {formatDate(hotel.visits[0].date)}
-                  </Bold>
+            <>
+              <Bold style={styles.text}>
+                Dernière visite réalisée le :{' '}
+                <Bold style={{ color: colors['stroke-default-planning'] }}>
+                  {hotel?.visits?.length > 0 ? formatDate(hotel.visits[0].date) : 'N/A'}
                 </Bold>
-                <Bold style={styles.text}>
-                  Dernière note de l'hotel :{' '}
-                  <Bold style={{ color: colors['stroke-default-planning'] }}>
-                    {hotel.visits[0].rate}/60
-                  </Bold>
+              </Bold>
+              <Bold style={styles.text}>
+                Dernière note de l'hotel :{' '}
+                <Bold style={{ color: colors['stroke-default-planning'] }}>
+                  {hotel?.visits?.length > 0 ? `${hotel.visits[0].rate}/60` : 'N/A'}
                 </Bold>
-              </>
-            )}
-
+              </Bold>
+            </>
             <Bold style={styles.text}>
               Nombre de chambre à visiter :{' '}
               <Bold style={{ color: colors['stroke-default-planning'] }}>{hotel.roomCount}</Bold>
             </Bold>
-
             {start && (
               <Bold style={styles.text}>
                 Date de Visite :{' '}
