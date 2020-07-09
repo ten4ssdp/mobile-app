@@ -26,6 +26,10 @@ function useFetchDataApp() {
   const { state, dispatch: mainDispatch } = useContext(MainStore);
   const firstWeekDay = formatDateForMickey(getFirstDay(new Date()));
 
+  const socket = socketIOClient(envConfig.production.BASE_URL, {
+    forceNew: true
+  });
+
   const headers = {
     authorization: `bearer ${token}`
   };
@@ -112,9 +116,6 @@ function useFetchDataApp() {
   }, [state.visits, state.refresh]);
 
   useEffect(() => {
-    const socket = socketIOClient(envConfig.production.BASE_URL, {
-      forceNew: true
-    });
     socket.on('connect', () => {
       socket.emit('join', token);
       socket.on('emergency', function (data) {
@@ -123,7 +124,7 @@ function useFetchDataApp() {
         onShowBanner(mainDispatch, true);
       });
     });
-  }, []);
+  });
 
   return {
     visits,

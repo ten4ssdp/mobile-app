@@ -7,6 +7,7 @@
       "android",
       "web"
     ],
+    "description": "Help 'visiteurs' with their visits and get their planning. From the app they can get, validate, cancel, daily visits. They can see emergencies visits in real time from back office",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,7 +26,6 @@
       "supportsTablet": true
     },
     "sdkVersion": "37.0.0",
-    "description": "",
     "githubUrl": "https://github.com/ten4ssdp/mobile-app"
   }
 }
