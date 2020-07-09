@@ -49,7 +49,7 @@ export default function VisitCard({ visit, navigation, isEmergency, emergencyTex
 
       {displayButtonGroup && <VisitCardBtnGoTo latLong={latLong} name={hotel.name} />}
 
-      {(haveVisit || isEmergency) && displayButtonGroup && (
+      {(haveVisit || !isEmergency) && displayButtonGroup && (
         <CancelVisitButton hotelInfo={{ hotelName: hotel.name, visitId: visit.id }} />
       )}
 
