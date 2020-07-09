@@ -1,4 +1,4 @@
-import { BASE_API_URL } from './constant';
+import config from '../../config/env.config';
 
 class Http {
   constructor(BASE_URL) {
@@ -39,4 +39,4 @@ class Http {
   }
 }
 
-export default new Http(BASE_API_URL);
+export default new Http(`${config.production.BASE_URL}/api`);
