@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { AsyncStorage } from 'react-native';
 import socketIOClient from 'socket.io-client';
 
+import envConfig from '../../config/env.config';
 import {
   getVisitsAction,
   getCurrentDayVisits,
@@ -12,7 +13,6 @@ import {
 import { setIsUserLogin } from '../context/action/user';
 import { MainStore } from '../context/store/main';
 import { UserStore } from '../context/store/user';
-import { BASE_URL } from '../utils/constant';
 import { formatDateForMickey, getFirstDay } from '../utils/formatDate';
 import http from '../utils/http';
 
@@ -112,10 +112,12 @@ function useFetchDataApp() {
   }, [state.visits, state.refresh]);
 
   useEffect(() => {
-    const socket = socketIOClient(BASE_URL);
+    const socket = socketIOClient(envConfig.production.BASE_URL, {
+      forceNew: true
+    });
     socket.on('connect', () => {
       socket.emit('join', token);
-      socket.on('emergency', async function (data) {
+      socket.on('emergency', function (data) {
         console.log(data);
         onRefresh(mainDispatch, true);
         onShowBanner(mainDispatch, true);

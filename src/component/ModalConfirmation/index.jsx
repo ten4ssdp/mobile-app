@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { Modal, View, StyleSheet, Dimensions, Alert } from 'react-native';
+import React, { useContext } from 'react';
+import { Modal, View, StyleSheet, Dimensions } from 'react-native';
 
 import { onOpenConfirmationModal } from '../../context/action/main';
 import { MainStore } from '../../context/store/main';
@@ -12,17 +12,7 @@ const { width, height } = Dimensions.get('screen');
 
 export default function ModalConfirmation() {
   const { state, dispatch } = useContext(MainStore);
-  const { handleSubmit, res } = useValidateOrCancelVisit({ isValidation: true });
-
-  useEffect(() => {
-    if (res === null) {
-      return undefined;
-    }
-
-    if (res.status === 1) {
-      Alert.alert('CONFIRMATION', 'Visite finalisée');
-    }
-  }, [res]);
+  const { handleSubmit } = useValidateOrCancelVisit({ isValidation: true });
 
   return (
     <Modal
