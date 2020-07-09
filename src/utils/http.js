@@ -1,5 +1,3 @@
-import deburr from 'lodash.deburr';
-
 import { BASE_API_URL } from './constant';
 
 class Http {
@@ -35,19 +33,6 @@ class Http {
         return await res.json();
       }
       return await res.json();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async getLatLong(address) {
-    try {
-      const res = await fetch(
-        `https://api-adresse.data.gouv.fr/search/?q=${deburr(address)}&type=street`
-      );
-      const decoded = await res.json();
-      const [long, lat] = await decoded.features[0].geometry.coordinates;
-      return { lat, long };
     } catch (error) {
       console.error(error);
     }

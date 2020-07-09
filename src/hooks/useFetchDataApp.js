@@ -43,8 +43,6 @@ function useFetchDataApp() {
   useEffect(() => {
     const getVisits = async () => {
       try {
-        if (!userState.user.id) return;
-
         const res = await http.get(`visits/user/${userState.user.id}/${firstWeekDay}`, headers);
 
         if (res === undefined || res === null) {
@@ -64,7 +62,7 @@ function useFetchDataApp() {
       }
     };
 
-    if (state.visits === null || state.refresh) {
+    if ((state.visits === null || state.refresh) && token) {
       getVisits();
     }
   }, [token, state.refresh]);
