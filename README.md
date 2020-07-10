@@ -34,10 +34,13 @@ And here are some credentials to connect to the front office :
 
 - ```git clone <REPOSITORY URL>```
 - cd to the folder and then `yarn` or `npm i` , it will install all the packages you need.
+- modify the devconfig with your ```API_URL``` and remove the word ```example```
 - `yarn start` or `npm start` to start the project.
 - `yarn lint:fix` to run the linter
 
-#### Thanks from contributing
+
+
+#### Thanks for contributing
 
 - [Kevin Manssat](https://github.com/Rayzors)
 - [Maxime Oger](https://github.com/maximeoger)
