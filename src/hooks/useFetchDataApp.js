@@ -93,6 +93,7 @@ function useFetchDataApp() {
         ?.filter((visit) => {
           return new Date(visit.start).getDate() === today.getDate();
         })
+        .sort((a, b) => new Date(b.start) - new Date(a.start))
         .sort((a, b) => {
           if (a.status === 0) return -1;
           if (a.status !== 0) return 1;
