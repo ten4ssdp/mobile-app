@@ -38,6 +38,10 @@ And here are some credentials to connect to the front office :
 - `yarn start` or `npm start` to start the project.
 - `yarn lint:fix` to run the linter
 
+### How to publish to store
+
+- [documentation expo](https://docs.expo.io/workflow/publishing/)
+
 
 
 #### Thanks for contributing
